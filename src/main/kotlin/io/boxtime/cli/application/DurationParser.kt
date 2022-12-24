@@ -7,7 +7,7 @@ import java.util.regex.Pattern
 class DurationParser {
 
     companion object {
-        val DURATION_PATTERN =
+        val DURATION_PATTERN: Pattern =
             Pattern.compile("^((?<hours>[0-9]+) ?h)? ?((?<minutes>[0-9]+) ?m)? ?((?<seconds>[0-9]+) ?s)?$")
     }
 

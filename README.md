@@ -12,7 +12,7 @@ A CLI tool only goes so far in terms of productivity, however. You still need to
 ./gradlew nativeCompile
 ```
 
-This creates a native executable `boxtime` in `build/native/nativeCompile`. See more info in [HELP.md](HELP.md).
+This creates a native executable `boxtime` in `build/native/nativeCompile`. Requires GraalVM to compile. See more info in [HELP.md](HELP.md).
 
 ## Usage
 

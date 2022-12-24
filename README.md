@@ -18,6 +18,15 @@ This creates a native executable `boxtime` in `build/native/nativeCompile`. Requ
 
 The current set of commands. More to come.
 
+### Status
+
+```shell
+# print out information about the task you're currently tracking 
+# and how much time you've tracked today
+./boxtime status
+```
+
+
 ### Manage tasks
 ```shell
 # add a new task

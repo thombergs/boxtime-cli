@@ -30,7 +30,7 @@ class Application(
 
     fun startTask(taskId: String) {
         try {
-            stopTask()
+            stopTask(silent = true)
             val task = taskDatabase.findTaskById(taskId)
             if (task == null) {
                 output.taskNotFound(taskId)
@@ -43,16 +43,16 @@ class Application(
         }
     }
 
-    fun stopTask() {
+    fun stopTask(silent: Boolean = false) {
         try {
             val taskId = taskLogger.stop()
             if (taskId == null) {
-                output.notCurrentlyTracking()
+                if (!silent) output.notCurrentlyTracking()
                 return
             }
             val task = taskDatabase.findTaskById(taskId)
             if (task == null) {
-                output.taskNotFound(taskId)
+                if(!silent) output.taskNotFound(taskId)
                 return
             }
             output.taskStopped(task)

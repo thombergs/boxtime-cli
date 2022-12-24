@@ -1,0 +1,4 @@
+spring:
+  datasource:
+    # In tests, we only want to have an in-memory database so tests are isolated
+    url: jdbc:h2:mem:boxtime

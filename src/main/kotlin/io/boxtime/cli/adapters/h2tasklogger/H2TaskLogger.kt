@@ -1,0 +1,50 @@
+package io.boxtime.cli.adapters.h2tasklogger
+
+import io.boxtime.cli.ports.tasklogger.LogEntry
+import io.boxtime.cli.ports.tasklogger.TaskLogger
+import org.springframework.stereotype.Component
+import java.time.Duration
+import java.time.LocalDateTime
+
+@Component
+class H2TaskLogger(
+    private val logRepository: LogRepository
+) : TaskLogger {
+
+    override fun start(taskId: String) {
+        val log = LogEntity(taskId)
+        logRepository.save(log)
+    }
+
+    override fun stop(): String? {
+        val openLog = logRepository.findOpenLog().orElse(null)
+            ?: return null
+
+        openLog.stop()
+        logRepository.save(openLog)
+        return openLog.taskId
+    }
+
+    override fun logDuration(taskId: String, duration: Duration) {
+        val log = LogEntity(
+            null,
+            taskId,
+            LocalDateTime.now(),
+            LocalDateTime.now(),
+            duration.toSeconds().toInt()
+        )
+        logRepository.save(log)
+    }
+
+    override fun getLogEntries(): List<LogEntry> {
+        return logRepository.findAll()
+            .map { it.toDomainObject() }
+
+    }
+
+    override fun reset() {
+        logRepository.deleteAll()
+    }
+
+
+}

@@ -12,7 +12,7 @@ class ResetLogsCommand(
 ) : Callable<Int> {
 
     override fun call(): Int {
-        application.resetTasks()
+        application.resetLog()
         return 0
     }
 

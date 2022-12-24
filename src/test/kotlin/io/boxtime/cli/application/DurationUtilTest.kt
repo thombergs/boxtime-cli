@@ -18,6 +18,15 @@ class DurationUtilTest {
         assertThat(Duration.ofHours(1).plus(Duration.ofMinutes(2).plus(Duration.ofSeconds(3)))
             .toReadableString()).isEqualTo("1h 2m 3s")
 
+        assertThat(Duration.ofHours(1)
+            .toReadableString()).isEqualTo("1h")
+
+        assertThat(Duration.ofMinutes(1)
+            .toReadableString()).isEqualTo("1m")
+
+        assertThat(Duration.ofSeconds(1)
+            .toReadableString()).isEqualTo("1s")
+
     }
 
     @ParameterizedTest(name = "{arguments}")

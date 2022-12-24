@@ -27,11 +27,9 @@ fun parseDuration(string: String): Duration {
 
 }
 
-internal const val MS = 1L
-internal const val SEC = 1000 * MS
-internal const val MIN = 60 * SEC
-internal const val HOUR = 60 * MIN
-internal const val DAY = 24 * HOUR
+internal const val MILLIS_PER_SECOND = 1000
+internal const val MILLIS_PER_MINUTE = 60 * MILLIS_PER_SECOND
+internal const val MILLIS_PER_HOUR = 60 * MILLIS_PER_MINUTE
 
 fun Duration.toReadableString(): String {
     val millis = this.toMillis()
@@ -39,21 +37,17 @@ fun Duration.toReadableString(): String {
         return "0s"
     }
 
-    val days = millis / DAY
-    val remainderDays = millis - days * DAY
+    val hours = millis / MILLIS_PER_HOUR
+    val remainderHours = millis - hours * MILLIS_PER_HOUR
 
-    val hours = remainderDays / HOUR
-    val remainderHours = remainderDays - hours * HOUR
+    val minutes = remainderHours / MILLIS_PER_MINUTE
+    val remainderMinutes = remainderHours - minutes * MILLIS_PER_MINUTE
 
-    val minutes = remainderHours / MIN
-    val remainderMinutes = remainderHours - minutes * MIN
+    val seconds = remainderMinutes / MILLIS_PER_SECOND
 
-    val seconds = remainderMinutes / SEC
-
-    val elements = listOf("${days}d", "${hours}h", "${minutes}m", "${seconds}s")
-    val start = elements.indexOfFirst { it[0] != '0' }
-    val end = elements.indexOfLast { it[0] != '0' }
-    return elements.subList(start, end + 1).joinToString(" ")
+    return ((if (hours > 0) "${hours}h " else "") +
+            (if (minutes > 0) "${minutes}m " else "") +
+            (if (seconds > 0) "${seconds}s " else "")).trim()
 }
 
 class InvalidDurationStringException(durationString: String?, e: Exception?) :

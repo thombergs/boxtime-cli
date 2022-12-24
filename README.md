@@ -1,3 +1,5 @@
+![Boxtime logo](boxtime-logo.png)
+
 # boxtime - A CLI to get control of your time
 
 boxtime is a command line tool to track your time. It focuses on doing everything with as few keystrokes as possible, because every bit of friction decreases the chance of building a time tracking habit. And only when you habitually track your time can you learn about your time spending patterns and take control of your time!

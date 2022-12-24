@@ -1,8 +1,8 @@
-package io.boxtime.cli.ports.userlog
+package io.boxtime.cli.ports.output
 
 import io.boxtime.cli.ports.taskdatabase.Task
 
-interface UserLog {
+interface Output {
 
     fun error(e: Exception)
 

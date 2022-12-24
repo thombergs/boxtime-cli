@@ -1,13 +1,13 @@
-package io.boxtime.cli.adapters.slf4juserlog
+package io.boxtime.cli.adapters.plaintextoutput
 
 import io.boxtime.cli.ports.taskdatabase.Task
-import io.boxtime.cli.ports.userlog.UserLog
+import io.boxtime.cli.ports.output.Output
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 
 @Component
-class Slf4JUserLog : UserLog {
+class PlainTextOutput : Output {
 
     companion object {
         val LOGGER: Logger = LoggerFactory.getLogger("UserLog")

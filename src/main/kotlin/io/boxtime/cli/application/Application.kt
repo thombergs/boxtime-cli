@@ -3,7 +3,7 @@ package io.boxtime.cli.application
 import io.boxtime.cli.ports.taskdatabase.Task
 import io.boxtime.cli.ports.taskdatabase.TaskDatabase
 import io.boxtime.cli.ports.tasklogger.TaskLogger
-import io.boxtime.cli.ports.userlog.UserLog
+import io.boxtime.cli.ports.output.Output
 import org.springframework.stereotype.Component
 
 /**
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component
 class Application(
     private val taskDatabase: TaskDatabase,
     private val taskLogger: TaskLogger,
-    private val userLog: UserLog,
+    private val output: Output,
 ) {
 
     private val durationParser: DurationParser = DurationParser()
@@ -22,9 +22,9 @@ class Application(
         try {
             val task = Task(title);
             taskDatabase.addTask(task)
-            userLog.taskAdded(task)
+            output.taskAdded(task)
         } catch (e: Exception) {
-            userLog.error(e)
+            output.error(e)
         }
     }
 
@@ -33,13 +33,13 @@ class Application(
             stopTask()
             val task = taskDatabase.findTaskById(taskId)
             if (task == null) {
-                userLog.taskNotFound(taskId)
+                output.taskNotFound(taskId)
                 return
             }
             taskLogger.start(taskId)
-            userLog.taskStarted(task)
+            output.taskStarted(task)
         } catch (e: Exception) {
-            userLog.error(e)
+            output.error(e)
         }
     }
 
@@ -47,43 +47,43 @@ class Application(
         try {
             val taskId = taskLogger.stop()
             if (taskId == null) {
-                userLog.notCurrentlyTracking()
+                output.notCurrentlyTracking()
                 return
             }
             val task = taskDatabase.findTaskById(taskId)
             if (task == null) {
-                userLog.taskNotFound(taskId)
+                output.taskNotFound(taskId)
                 return
             }
-            userLog.taskStopped(task)
+            output.taskStopped(task)
         } catch (e: Exception) {
-            userLog.error(e)
+            output.error(e)
         }
     }
 
     fun listTasks() {
         try {
-            userLog.listTasks(taskDatabase.listTasks())
+            output.listTasks(taskDatabase.listTasks())
         } catch (e: Exception) {
-            userLog.error(e)
+            output.error(e)
         }
     }
 
     fun resetTasks() {
         try {
             taskDatabase.reset()
-            userLog.tasksReset()
+            output.tasksReset()
         } catch (e: Exception) {
-            userLog.error(e)
+            output.error(e)
         }
     }
 
     fun resetLog() {
         try {
             taskLogger.reset()
-            userLog.logsReset()
+            output.logsReset()
         } catch (e: Exception) {
-            userLog.error(e)
+            output.error(e)
         }
     }
 
@@ -91,14 +91,14 @@ class Application(
         try {
             val task = taskDatabase.findTaskById(taskId)
             if (task == null) {
-                userLog.taskNotFound(taskId)
+                output.taskNotFound(taskId)
                 return
             }
             val duration = durationParser.parse(durationString)
             taskLogger.logDuration(taskId, duration)
-            userLog.taskLogged(task, durationString)
+            output.taskLogged(task, durationString)
         } catch (e: Exception) {
-            userLog.error(e)
+            output.error(e)
         }
 
     }

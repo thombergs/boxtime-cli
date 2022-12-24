@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.domain.Persistable
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
+import java.time.Duration
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 
@@ -16,7 +17,7 @@ data class LogEntity(
     @Column("TASK_ID")
     var taskId: String,
     @Column("START_TIME")
-    var start: LocalDateTime?,
+    var start: LocalDateTime,
     @Column("END_TIME")
     var end: LocalDateTime?,
     @Column("DURATION_IN_SECONDS")
@@ -31,7 +32,13 @@ data class LogEntity(
         ChronoUnit.SECONDS.between(start, end).toInt()
     )
 
-    constructor(taskId: String) : this(null, taskId, null, null, null)
+    constructor(taskId: String) : this(
+        null,
+        taskId,
+        LocalDateTime.now(),
+        null,
+        null
+    )
 
     constructor(taskId: String, durationInSeconds: Int) : this(
         null,
@@ -55,7 +62,10 @@ data class LogEntity(
     }
 
     fun toDomainObject(): LogEntry {
-        return LogEntry(this.taskId)
+        return LogEntry(
+            this.taskId,
+            this.start,
+            this.durationInSeconds?.let { Duration.ofSeconds(it.toLong()) })
     }
 
 }

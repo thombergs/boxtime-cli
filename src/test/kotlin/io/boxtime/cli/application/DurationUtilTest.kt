@@ -2,6 +2,7 @@ package io.boxtime.cli.application
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
@@ -10,15 +11,20 @@ import java.time.temporal.ChronoUnit
 import java.util.stream.Stream
 import kotlin.reflect.KClass
 
-class DurationParserTest {
+class DurationUtilTest {
 
-    private val parser = DurationParser()
+    @Test
+    fun readableString(){
+        assertThat(Duration.ofHours(1).plus(Duration.ofMinutes(2).plus(Duration.ofSeconds(3)))
+            .toReadableString()).isEqualTo("1h 2m 3s")
+
+    }
 
     @ParameterizedTest(name = "{arguments}")
     @MethodSource("matrix")
-    fun testSuite(durationString: String, expectedDuration: Duration, expectedException: KClass<Exception>?) {
+    fun parse(durationString: String, expectedDuration: Duration, expectedException: KClass<Exception>?) {
         try {
-            val duration = parser.parse(durationString)
+            val duration = parseDuration(durationString)
             assertThat(duration).isEqualTo(expectedDuration)
         } catch (e: Exception) {
             assertThat(e.javaClass.kotlin).isEqualTo(expectedException)
@@ -54,6 +60,7 @@ class DurationParserTest {
                 Arguments.of("1h foo 2m", notApplicable, invalidDurationStringException),
             )
         }
+
     }
 
 }

@@ -1,7 +1,9 @@
 package io.boxtime.cli.adapters.plaintextoutput
 
-import io.boxtime.cli.ports.taskdatabase.Task
+import io.boxtime.cli.application.Status
+import io.boxtime.cli.application.toReadableString
 import io.boxtime.cli.ports.output.Output
+import io.boxtime.cli.ports.taskdatabase.Task
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
@@ -55,5 +57,21 @@ class PlainTextOutput : Output {
 
     override fun taskLogged(task: Task, durationString: String) {
         LOGGER.info("Logged '${durationString}' for task '${task.title}'")
+    }
+
+    override fun status(status: Status) {
+        if (status.currentTask != null) {
+            LOGGER.info("Currently tracking '${status.currentTask.title}'.")
+            LOGGER.info("Current session duration: ${status.currentTaskDuration?.toReadableString()}.")
+            LOGGER.info("Total time tracked for this task today: ${status.currentTaskDurationToday?.toReadableString()}.")
+        } else {
+            LOGGER.info("Currently not tracking a task.")
+        }
+
+        if (status.totalDurationToday != null) {
+            LOGGER.info("Total duration tracked today: ${status.totalDurationToday?.toReadableString()}.")
+        } else {
+            LOGGER.info("No time tracked today, yet.")
+        }
     }
 }

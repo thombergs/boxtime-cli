@@ -1,6 +1,7 @@
 package io.boxtime.cli.ports.output
 
 import io.boxtime.cli.ports.taskdatabase.Task
+import io.boxtime.cli.application.Status
 
 interface Output {
 
@@ -23,5 +24,7 @@ interface Output {
     fun logsReset()
 
     fun taskLogged(task: Task, durationString: String)
+
+    fun status(status: Status)
 
 }

@@ -18,6 +18,15 @@ interface TaskLogger {
 
     fun getLogEntries(): List<LogEntry>
 
+    /**
+     * Get today's log entries, optionally filtered by a task.
+     */
+    fun getLogEntriesFromToday(taskId: String? = null): List<LogEntry>
+
+    fun getCurrentLogEntry(): LogEntry?
+
+    fun getCurrentTaskId(): String?
+
     fun reset()
 
 }

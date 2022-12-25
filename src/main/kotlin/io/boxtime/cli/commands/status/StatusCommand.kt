@@ -1,9 +1,9 @@
 package io.boxtime.cli.commands.status
 
-import io.boxtime.cli.application.Application
+import io.boxtime.cli.commands.mixins.BaseCommand
+import io.boxtime.cli.config.ApplicationFactory
 import org.springframework.stereotype.Component
 import picocli.CommandLine.Command
-import java.util.concurrent.Callable
 
 @Component
 @Command(
@@ -11,11 +11,11 @@ import java.util.concurrent.Callable
     description = ["Output current status."]
 )
 class StatusCommand(
-    private val application: Application
-) : Callable<Int> {
+    applicationFactory: ApplicationFactory
+) : BaseCommand(applicationFactory) {
 
     override fun call(): Int {
-        application.status()
+        getApplication().status()
         return 0
     }
 

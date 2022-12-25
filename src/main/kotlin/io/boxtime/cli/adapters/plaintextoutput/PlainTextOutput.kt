@@ -4,6 +4,7 @@ import io.boxtime.cli.application.Status
 import io.boxtime.cli.application.toReadableString
 import io.boxtime.cli.ports.output.Output
 import io.boxtime.cli.ports.taskdatabase.Task
+import io.boxtime.cli.ports.tasklogger.LogEntry
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
@@ -31,8 +32,8 @@ class PlainTextOutput : Output {
         LOGGER.info("Started tracking task '${task.title}'.")
     }
 
-    override fun taskStopped(task: Task) {
-        LOGGER.info("Stopped tracking task '${task.title}'.")
+    override fun taskStopped(task: Task, logEntry: LogEntry) {
+        LOGGER.info("Stopped tracking task '${task.title}' after ${logEntry.duration?.toReadableString()}.")
     }
 
     override fun notCurrentlyTracking() {
@@ -69,7 +70,7 @@ class PlainTextOutput : Output {
         }
 
         if (status.totalDurationToday != null) {
-            LOGGER.info("Total duration tracked today: ${status.totalDurationToday?.toReadableString()}.")
+            LOGGER.info("Total duration tracked today: ${status.totalDurationToday.toReadableString()}.")
         } else {
             LOGGER.info("No time tracked today, yet.")
         }

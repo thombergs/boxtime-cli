@@ -1,18 +1,21 @@
 package io.boxtime.cli.commands.track
 
-import io.boxtime.cli.application.Application
+import io.boxtime.cli.commands.mixins.BaseCommand
+import io.boxtime.cli.config.ApplicationFactory
 import org.springframework.stereotype.Component
 import picocli.CommandLine.Command
-import java.util.concurrent.Callable
 
 @Component
-@Command(name = "stop", description = ["Stop tracking."])
+@Command(
+    name = "stop",
+    description = ["Stop tracking."]
+)
 class StopTaskCommand(
-    private val application: Application
-) : Callable<Int> {
+    applicationFactory: ApplicationFactory
+) : BaseCommand(applicationFactory) {
 
     override fun call(): Int {
-        application.stopTask()
+        getApplication().stopTask()
         return 0
     }
 

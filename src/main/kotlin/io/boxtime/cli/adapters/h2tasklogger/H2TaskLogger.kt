@@ -17,13 +17,13 @@ class H2TaskLogger(
         logRepository.save(log)
     }
 
-    override fun stop(): String? {
+    override fun stop(): LogEntry? {
         val openLog = logRepository.findOpenLog().orElse(null)
             ?: return null
 
         openLog.stop()
         logRepository.save(openLog)
-        return openLog.taskId
+        return openLog.toDomainObject()
     }
 
     override fun logDuration(taskId: String, duration: Duration) {

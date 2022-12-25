@@ -1,19 +1,21 @@
 package io.boxtime.cli.commands.task
 
-import io.boxtime.cli.application.Application
+import io.boxtime.cli.commands.mixins.BaseCommand
+import io.boxtime.cli.config.ApplicationFactory
 import org.springframework.stereotype.Component
 import picocli.CommandLine.Command
-import picocli.CommandLine.Parameters
-import java.util.concurrent.Callable
 
 @Component
-@Command(name = "list", description = ["List the tasks in the database."])
+@Command(
+    name = "list",
+    description = ["List the tasks in the database."]
+)
 class ListTasksCommand(
-    private val application: Application
-) : Callable<Int> {
+    applicationFactory: ApplicationFactory
+) : BaseCommand(applicationFactory) {
 
     override fun call(): Int {
-        application.listTasks()
+        getApplication().listTasks()
         return 0
     }
 

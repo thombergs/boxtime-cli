@@ -11,6 +11,7 @@ import picocli.CommandLine.Command
         ListTasksCommand::class,
         ResetTasksCommand::class,
     ],
+    mixinStandardHelpOptions = true,
     description = ["Commands to manage your tasks."]
 )
 class TaskCommand(

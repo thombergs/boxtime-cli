@@ -11,6 +11,7 @@ import picocli.CommandLine.Command
         StopTaskCommand::class,
         LogTaskCommand::class
     ],
+    mixinStandardHelpOptions = true,
     description = ["Commands to track your time."]
 )
 class TrackCommand(

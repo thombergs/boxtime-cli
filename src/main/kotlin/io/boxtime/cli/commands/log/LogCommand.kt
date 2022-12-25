@@ -9,6 +9,7 @@ import picocli.CommandLine.Command
     subcommands = [
         ResetLogsCommand::class,
     ],
+    mixinStandardHelpOptions = true,
     description = ["Commands to manage your time log."]
 )
 class LogCommand(

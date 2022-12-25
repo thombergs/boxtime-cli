@@ -1,18 +1,21 @@
 package io.boxtime.cli.commands.log
 
-import io.boxtime.cli.application.Application
+import io.boxtime.cli.commands.mixins.BaseCommand
+import io.boxtime.cli.config.ApplicationFactory
 import org.springframework.stereotype.Component
 import picocli.CommandLine.Command
-import java.util.concurrent.Callable
 
 @Component
-@Command(name = "reset", description = ["Delete all time logs."])
+@Command(
+    name = "reset",
+    description = ["Delete all time logs."]
+)
 class ResetLogsCommand(
-    private val application: Application
-) : Callable<Int> {
+    applicationFactory: ApplicationFactory
+) : BaseCommand(applicationFactory) {
 
     override fun call(): Int {
-        application.resetLog()
+        getApplication().resetLog()
         return 0
     }
 

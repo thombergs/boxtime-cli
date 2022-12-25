@@ -9,7 +9,7 @@ interface TaskLogger {
     /**
      * Stops recording the currently tracked task and returns the task's ID.
      */
-    fun stop(): String?
+    fun stop(): LogEntry?
 
     /**
      * Records a task with a duration but without a start and end time.

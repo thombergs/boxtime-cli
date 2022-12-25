@@ -11,7 +11,6 @@ import java.time.LocalDateTime
 /**
  * Central facade for all use cases.
  */
-@Component
 class Application(
     private val taskDatabase: TaskDatabase,
     private val taskLogger: TaskLogger,
@@ -45,17 +44,17 @@ class Application(
 
     fun stopTask(silent: Boolean = false) {
         try {
-            val taskId = taskLogger.stop()
-            if (taskId == null) {
+            val logEntry = taskLogger.stop()
+            if (logEntry == null) {
                 if (!silent) output.notCurrentlyTracking()
                 return
             }
-            val task = taskDatabase.findTaskById(taskId)
+            val task = taskDatabase.findTaskById(logEntry.taskId)
             if (task == null) {
-                if(!silent) output.taskNotFound(taskId)
+                if(!silent) output.taskNotFound(logEntry.taskId)
                 return
             }
-            output.taskStopped(task)
+            output.taskStopped(task, logEntry)
         } catch (e: Exception) {
             output.error(e)
         }
@@ -114,8 +113,8 @@ class Application(
                 ?.map { it.duration ?: Duration.between(it.startTime, LocalDateTime.now()) }
                 ?.fold(Duration.ZERO) { e1, e2 -> if (e2 == null) e1 else e1.plus(e2) }
             val totalDurationToday = taskLogger.getLogEntriesFromToday()
-                ?.map { it.duration ?: Duration.between(it.startTime, LocalDateTime.now()) }
-                ?.fold(Duration.ZERO) { e1, e2 -> if (e2 == null) e1 else e1.plus(e2) }
+                .map { it.duration ?: Duration.between(it.startTime, LocalDateTime.now()) }
+                .fold(Duration.ZERO) { e1, e2 -> if (e2 == null) e1 else e1.plus(e2) }
 
             val status = Status(
                 currentTask,

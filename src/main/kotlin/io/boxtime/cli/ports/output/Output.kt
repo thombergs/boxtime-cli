@@ -2,6 +2,7 @@ package io.boxtime.cli.ports.output
 
 import io.boxtime.cli.ports.taskdatabase.Task
 import io.boxtime.cli.application.Status
+import io.boxtime.cli.ports.tasklogger.LogEntry
 
 interface Output {
 
@@ -13,7 +14,7 @@ interface Output {
 
     fun taskStarted(task: Task)
 
-    fun taskStopped(task: Task)
+    fun taskStopped(task: Task, logEntry: LogEntry)
 
     fun notCurrentlyTracking()
 

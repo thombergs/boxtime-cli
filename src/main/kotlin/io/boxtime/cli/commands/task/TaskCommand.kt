@@ -6,7 +6,6 @@ import picocli.CommandLine.Command
 @Component
 @Command(
     name = "task",
-    mixinStandardHelpOptions = true,
     subcommands = [
         AddTaskCommand::class,
         ListTasksCommand::class,

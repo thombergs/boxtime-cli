@@ -7,7 +7,7 @@ import picocli.CommandLine.Parameters
 import java.util.concurrent.Callable
 
 @Component
-@Command(name = "list", mixinStandardHelpOptions = true, description = ["List the tasks in the database."])
+@Command(name = "list", description = ["List the tasks in the database."])
 class ListTasksCommand(
     private val application: Application
 ) : Callable<Int> {

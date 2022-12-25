@@ -7,7 +7,7 @@ import picocli.CommandLine.Parameters
 import java.util.concurrent.Callable
 
 @Component
-@Command(name = "log", mixinStandardHelpOptions = true, description = ["Log time for a task."])
+@Command(name = "log", description = ["Log time for a task."])
 class LogTaskCommand(
     private val application: Application
 ) : Callable<Int> {

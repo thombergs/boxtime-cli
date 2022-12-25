@@ -6,7 +6,7 @@ import picocli.CommandLine.Command
 import java.util.concurrent.Callable
 
 @Component
-@Command(name = "reset", mixinStandardHelpOptions = true, description = ["Delete all tasks."])
+@Command(name = "reset", description = ["Delete all tasks."])
 class ResetTasksCommand(
     private val application: Application
 ) : Callable<Int> {

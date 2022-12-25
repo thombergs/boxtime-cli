@@ -6,7 +6,6 @@ import picocli.CommandLine.Command
 @Component
 @Command(
     name = "track",
-    mixinStandardHelpOptions = true,
     subcommands = [
         StartTaskCommand::class,
         StopTaskCommand::class,

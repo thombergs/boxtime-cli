@@ -6,7 +6,6 @@ import picocli.CommandLine.Command
 @Component
 @Command(
     name = "log",
-    mixinStandardHelpOptions = true,
     subcommands = [
         ResetLogsCommand::class,
     ],

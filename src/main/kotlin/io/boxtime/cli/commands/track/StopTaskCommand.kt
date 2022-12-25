@@ -6,7 +6,7 @@ import picocli.CommandLine.Command
 import java.util.concurrent.Callable
 
 @Component
-@Command(name = "stop", mixinStandardHelpOptions = true, description = ["Stop tracking."])
+@Command(name = "stop", description = ["Stop tracking."])
 class StopTaskCommand(
     private val application: Application
 ) : Callable<Int> {

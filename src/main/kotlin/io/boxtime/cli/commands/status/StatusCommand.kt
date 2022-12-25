@@ -8,7 +8,6 @@ import java.util.concurrent.Callable
 @Component
 @Command(
     name = "status",
-    mixinStandardHelpOptions = true,
     description = ["Output current status."]
 )
 class StatusCommand(

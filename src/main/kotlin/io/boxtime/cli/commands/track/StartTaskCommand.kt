@@ -7,7 +7,7 @@ import picocli.CommandLine.Parameters
 import java.util.concurrent.Callable
 
 @Component
-@Command(name = "start", mixinStandardHelpOptions = true, description = ["Start tracking a task."])
+@Command(name = "start", description = ["Start tracking a task."])
 class StartTaskCommand(
     private val application: Application
 ) : Callable<Int> {

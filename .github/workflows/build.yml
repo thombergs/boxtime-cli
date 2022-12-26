@@ -14,9 +14,7 @@ permissions:
 
 jobs:
   build:
-
     runs-on: macos-latest
-
     steps:
 
       - name: ⚙️ Checkout
@@ -29,7 +27,6 @@ jobs:
 
       - name: ⚙️ Setup GraalVM
         uses: graalvm/setup-graalvm@v1
-        runs-on: macos-latest
         with:
           version: 'latest'
           java-version: '17'
@@ -37,24 +34,36 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🔎 Run tests
-        runs-on: macos-latest
         run: ./gradlew nativeTest
 
       - name: 🔨 Build native executable
-        runs-on: macos-latest
         run: |
           ./gradlew nativeCompile
-          mkdir -p build/macos-64
+          mkdir -p build/macos-x64
           mv build/native/nativeCompile/boxtime build/macos-x64
-        
 
       - name: 🔨 Build Alfred workflow
-        runs-on: macos-latest
         run: |
           ./gradlew alfred
-          mkdir -p build/macos-64
+          mkdir -p build/macos-x64
           mv build/alfred/Boxtime.alfredworkflow build/macos-x64
-        
+
+      - name: ⬆️ Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: macos-x64
+          path: build/macos-x64
+
+  release:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: ⬇️Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: macos-x64
+          path: build/macos-x64
+
       - name: ⚙️ Extract release name
         id: extract_release_name
         if: startsWith(github.ref, 'refs/heads/release')

@@ -1,0 +1,36 @@
+name: Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'latest'
+          java-version: '17'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      # cache build output between steps
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ./build
+
+      - name: Build native executable
+        run: ./gradlew build
+
+      - name: Build Alfred workflow
+        run: ./gradlew alfred

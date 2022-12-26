@@ -29,6 +29,7 @@ jobs:
 
       - name: ⚙️ Setup GraalVM
         uses: graalvm/setup-graalvm@v1
+        runs-on: macos-latest
         with:
           version: 'latest'
           java-version: '17'
@@ -36,13 +37,23 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🔎 Run tests
+        runs-on: macos-latest
         run: ./gradlew nativeTest
 
       - name: 🔨 Build native executable
-        run: ./gradlew nativeCompile
+        runs-on: macos-latest
+        run: |
+          ./gradlew nativeCompile
+          mkdir -p build/macos-64
+          mv build/native/nativeCompile/boxtime build/macos-x64
+        
 
       - name: 🔨 Build Alfred workflow
-        run: ./gradlew alfred
+        runs-on: macos-latest
+        run: |
+          ./gradlew alfred
+          mkdir -p build/macos-64
+          mv build/alfred/Boxtime.alfredworkflow build/macos-x64
         
       - name: ⚙️ Extract release name
         id: extract_release_name
@@ -66,7 +77,6 @@ jobs:
             Please refer to the [release notes](https://github.com/thombergs/boxtime-cli/CHANGELOG.md) for 
             the changes in this release.
           files: |
-            build/native/nativeCompile/boxtime
-            build/alfred/Boxtime.alfredworkflow
+            build/macos-x64/**
 
       

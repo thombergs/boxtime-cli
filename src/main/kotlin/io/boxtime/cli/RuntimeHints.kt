@@ -18,6 +18,13 @@ class RuntimeHints : RuntimeHintsRegistrar {
         hints.reflection()
             .registerType(LogEntity::class.java, MemberCategory.INVOKE_DECLARED_METHODS)
 
+        registerKotlinSerializables(hints)
+    }
+
+    private fun registerKotlinSerializables(hints: RuntimeHints) {
+        // For each Kotlin class annotated with @Serializable, we need to register
+        // the companion object and its serializer() method for reflection, otherwise
+        // Json.encodeToString(content) doesn't work.
         hints.reflection()
             .registerField(ScriptFilterItems::class.java.getField("Companion"))
         hints.reflection()

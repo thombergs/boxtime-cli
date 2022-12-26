@@ -13,7 +13,41 @@ permissions:
   contents: read
 
 jobs:
+
   build:
+    runs-on: macos-latest
+    steps:
+
+      - name: ⚙️ Checkout
+        uses: actions/checkout@v3
+
+      - name: ⚙️ Setup Gradle cache
+        uses: burrunan/gradle-cache-action@v1
+        with:
+          gradle-version: wrapper
+
+      - name: ⚙️ Setup GraalVM
+        uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'latest'
+          java-version: '17'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🔨 Build Alfred workflow
+        run: |
+          ./gradlew alfred
+          mkdir -p build/macos-x64
+          mv build/native/nativeCompile/boxtime build/macos-x64
+          mv build/alfred/Boxtime.alfredworkflow build/macos-x64
+
+      - name: ⬆️ Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: macos-x64
+          path: build/macos-x64
+
+  test:
     runs-on: macos-latest
     steps:
 
@@ -36,27 +70,13 @@ jobs:
       - name: 🔎 Run tests
         run: ./gradlew nativeTest
 
-      - name: 🔨 Build native executable
-        run: |
-          ./gradlew nativeCompile
-          mkdir -p build/macos-x64
-          mv build/native/nativeCompile/boxtime build/macos-x64
-
-      - name: 🔨 Build Alfred workflow
-        run: |
-          ./gradlew alfred
-          mkdir -p build/macos-x64
-          mv build/alfred/Boxtime.alfredworkflow build/macos-x64
-
-      - name: ⬆️ Upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: macos-x64
-          path: build/macos-x64
-
   release:
-    needs: build
+    needs:
+      - build
+      - test
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
 
       - name: ⬇️Download artifacts
@@ -76,18 +96,8 @@ jobs:
         with:
           tag: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
-          body: ${{ steps.tag_version.outputs.changelog }}
-
-
-      - name: 📦 Release
-        if: startsWith(github.ref, 'refs/heads/release')
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: ${{ steps.extract_release_name.outputs.releaseName }}
           body: |
             Please refer to the [release notes](https://github.com/thombergs/boxtime-cli/CHANGELOG.md) for 
             the changes in this release.
-          files: |
+          artifacts: |
             build/macos-x64/**
-
-      

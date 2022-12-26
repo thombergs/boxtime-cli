@@ -159,7 +159,7 @@ class AlfredOutput : Output {
                 ScriptFilterItem(
                     "void",
                     "Total time tracked today:",
-                    "${status.totalDurationToday?.toReadableString()}"
+                    "${status.totalDurationToday.toReadableString()}"
                 )
             )
         } else {

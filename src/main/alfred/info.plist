@@ -190,6 +190,8 @@
 				<false/>
 			</dict>
 		</array>
+		<key>BDA6C600-FCAE-41E9-9240-CD7DC5520F72</key>
+		<array/>
 		<key>E979C85B-6870-4FE8-B040-14C33456E59A</key>
 		<array>
 			<dict>
@@ -948,7 +950,7 @@
 			<key>note</key>
 			<string>List status</string>
 			<key>xpos</key>
-			<real>270</real>
+			<real>275</real>
 			<key>ypos</key>
 			<real>15</real>
 		</dict>
@@ -974,9 +976,29 @@
 		</dict>
 	</dict>
 	<key>userconfigurationconfig</key>
-	<array/>
-	<key>variablesdontexport</key>
-	<array/>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>~/.boxtime/boxtime-db</string>
+				<key>filtermode</key>
+				<integer>2</integer>
+				<key>placeholder</key>
+				<string>~/.boxtime/boxtime-db</string>
+				<key>required</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>This file contains the local database with all tasks and time log data. Don't delete it!</string>
+			<key>label</key>
+			<string>Database file</string>
+			<key>type</key>
+			<string>filepicker</string>
+			<key>variable</key>
+			<string>BOXTIME_DATABASE_FILE</string>
+		</dict>
+	</array>
 	<key>version</key>
 	<string>0.0.1</string>
 	<key>webaddress</key>

@@ -2,7 +2,7 @@ spring:
   main:
     banner-mode: off
   datasource:
-    url: jdbc:h2:file:./boxtime-db
+    url: jdbc:h2:file:${BOXTIME_DATABASE_FILE:~/.boxtime/boxtime-db}
     driver-class-name: org.h2.Driver
     username: sa
     password: password

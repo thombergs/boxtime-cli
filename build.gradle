@@ -68,15 +68,17 @@ tasks.register('alfred', Zip){
 }
 
 tasks.register('alfredPrepare') {
-    copy {
-        from('src/main/alfred')
-        into('build/alfred/resources')
-        include('*')
-    }
-    copy {
-        from('build/native/nativeCompile')
-        into('build/alfred/resources')
-        include('boxtime')
+    doLast {
+        copy {
+            from('src/main/alfred')
+            into('build/alfred/resources')
+            include('*')
+        }
+        copy {
+            from('build/native/nativeCompile')
+            into('build/alfred/resources')
+            include('boxtime')
+        }
     }
     dependsOn nativeCompile
 }

@@ -58,3 +58,9 @@ The current set of commands. More to come.
 # delete all time logs (mostly used for development to clear the database)
 ./boxtime log reset
 ```
+
+## Configuration
+
+### Environment variables
+
+- `BOXTIME_DATABASE_FILE`: Path to the file in which to store the local database. Default: `~/.boxtime/boxtime-db` 

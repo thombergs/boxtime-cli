@@ -82,6 +82,7 @@ jobs:
         run: ./gradlew nativeTest
 
   version:
+    if: github.ref == 'refs/heads/release'
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.extract_version.outputs.projectVersion }}
@@ -103,12 +104,27 @@ jobs:
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 🏷️️Extract version
+      - name: 🏷️️ Extract version
         id: extract_version
         run: echo "projectVersion=$(./gradlew -q printVersion)" >> $GITHUB_OUTPUT
 
-  release:
+  check-release:
+    if: github.ref == 'refs/heads/release'
     needs:
+      - version
+    steps:
+
+      - name: ✅ Check version
+        if: ${{ contains(needs.version.outputs.version, 'SNAPSHOT') }}
+        uses: actions/github-script@v3
+        with:
+          script: |
+            core.setFailed('Cannot release SNAPSHOT version!')
+
+  release:
+    if: github.ref == 'refs/heads/release'
+    needs:
+      - check-release
       - build
       - test
       - version
@@ -117,7 +133,7 @@ jobs:
       contents: write
     steps:
 
-      - name: ⬇️Download artifacts
+      - name: ⬇️ Download artifacts
         uses: actions/download-artifact@v3
         with:
           name: artifacts

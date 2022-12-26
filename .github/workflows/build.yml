@@ -14,7 +14,7 @@ permissions:
 
 jobs:
 
-  build-macos-x86:
+  build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -83,8 +83,7 @@ jobs:
 
   release:
     needs:
-      - build-macos-x86
-      - build-linux
+      - build
       - test
     runs-on: ubuntu-latest
     permissions:

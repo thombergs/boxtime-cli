@@ -59,10 +59,15 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-/**
- * Creates
- */
-tasks.register('alfred', Zip) {
+tasks.register('alfred', Zip){
+    from('build/alfred/resources')
+    include('*')
+    archiveFileName = 'Boxtime.alfredworkflow'
+    destinationDirectory = file('build/alfred')
+    dependsOn alfredPrepare
+}
+
+tasks.register('alfredPrepare') {
     copy {
         from('src/main/alfred')
         into('build/alfred/resources')
@@ -73,11 +78,6 @@ tasks.register('alfred', Zip) {
         into('build/alfred/resources')
         include('boxtime')
     }
-    from('build/alfred/resources')
-    include('*')
-    archiveFileName = 'Boxtime.alfredworkflow'
-    destinationDirectory = file('build/alfred')
-
     dependsOn nativeCompile
 }
 

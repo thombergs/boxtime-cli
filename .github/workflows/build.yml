@@ -14,8 +14,11 @@ permissions:
 
 jobs:
 
-  build:
-    runs-on: macos-latest
+  build-macos-x86:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest ]
     steps:
 
       - name: ⚙️ Checkout
@@ -35,17 +38,25 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🔨 Build Alfred workflow
+        if: matrix.os == 'macos-latest'
         run: |
           ./gradlew alfred
-          mkdir -p build/macos-x64
-          mv build/native/nativeCompile/boxtime build/macos-x64
-          mv build/alfred/Boxtime.alfredworkflow build/macos-x64
+          mkdir -p build/artifacts
+          mv build/native/nativeCompile/boxtime build/artifacts/macos-x64.boxtime
+          mv build/alfred/Boxtime.alfredworkflow build/artifacts/macos-x64.Boxtime.alfredworkflow
+
+      - name: 🔨 Build native executable
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          ./gradlew nativeCompile
+          mkdir -p build/artifacts
+          mv build/native/nativeCompile/boxtime build/artifacts/linux.boxtime
 
       - name: ⬆️ Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: macos-x64
-          path: build/macos-x64
+          name: artifacts
+          path: build/artifacts
 
   test:
     runs-on: macos-latest
@@ -72,7 +83,8 @@ jobs:
 
   release:
     needs:
-      - build
+      - build-macos-x86
+      - build-linux
       - test
     runs-on: ubuntu-latest
     permissions:
@@ -82,8 +94,8 @@ jobs:
       - name: ⬇️Download artifacts
         uses: actions/download-artifact@v3
         with:
-          name: macos-x64
-          path: build/macos-x64
+          name: artifacts
+          path: build/artifacts
 
       - name: 🏷️ Bump version and push tag
         id: tag_version
@@ -97,7 +109,6 @@ jobs:
           tag: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
           body: |
-            Please refer to the [release notes](https://github.com/thombergs/boxtime-cli/CHANGELOG.md) for 
-            the changes in this release.
+            Please refer to the [release notes](https://github.com/thombergs/boxtime-cli/blob/main/CHANGELOG.md) for the changes in this release.
           artifacts: |
-            build/macos-x64/**
+            build/artifacts/**

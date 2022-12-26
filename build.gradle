@@ -58,3 +58,26 @@ tasks.withType(KotlinCompile) {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+/**
+ * Creates
+ */
+tasks.register('alfred', Zip) {
+    copy {
+        from('src/main/alfred')
+        into('build/alfred/resources')
+        include('*')
+    }
+    copy {
+        from('build/native/nativeCompile')
+        into('build/alfred/resources')
+        include('boxtime')
+    }
+    from('build/alfred/resources')
+    include('*')
+    archiveFileName = 'Boxtime.alfredworkflow'
+    destinationDirectory = file('build/alfred')
+
+    dependsOn nativeCompile
+}
+

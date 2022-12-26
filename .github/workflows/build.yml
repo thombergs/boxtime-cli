@@ -30,7 +30,15 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build native executable
-        run: ./gradlew build
+        run: ./gradlew nativeCompile
 
       - name: Build Alfred workflow
         run: ./gradlew alfred
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/heads/release')
+        with:
+          files: |
+            build/native/nativeCompile/boxtime
+            build/alfred/Boxtime.alfredworkflow

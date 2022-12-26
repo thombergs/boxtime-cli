@@ -81,10 +81,37 @@ jobs:
       - name: 🔎 Run tests
         run: ./gradlew nativeTest
 
+  version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.extract_version.outputs.projectVersion }}
+    steps:
+
+      - name: ⚙️ Checkout
+        uses: actions/checkout@v3
+
+      - name: ⚙️ Setup Gradle cache
+        uses: burrunan/gradle-cache-action@v1
+        with:
+          gradle-version: wrapper
+
+      - name: ⚙️ Setup GraalVM
+        uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'latest'
+          java-version: '17'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🏷️️Extract version
+        id: extract_version
+        run: echo "projectVersion=$(./gradlew -q printVersion)" >> $GITHUB_OUTPUT
+
   release:
     needs:
       - build
       - test
+      - version
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -100,6 +127,7 @@ jobs:
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.1
         with:
+          custom_tag: ${{ needs.version.outputs.version }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 📦 Release

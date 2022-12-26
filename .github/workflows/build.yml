@@ -19,7 +19,8 @@ jobs:
 
       - uses: burrunan/gradle-cache-action@v1
         name: Setup Gradle cache
-        gradle-version: wrapper
+        with:
+          gradle-version: wrapper
 
       - uses: graalvm/setup-graalvm@v1
         with:

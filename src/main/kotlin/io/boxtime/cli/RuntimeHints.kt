@@ -5,7 +5,6 @@ import io.boxtime.cli.adapters.alfred.ScriptFilterItem
 import io.boxtime.cli.adapters.alfred.ScriptFilterItems
 import io.boxtime.cli.adapters.h2taskdatabase.TaskEntity
 import io.boxtime.cli.adapters.h2tasklogger.LogEntity
-import io.boxtime.cli.adapters.h2tasklogger.LogRepository
 import org.springframework.aot.hint.ExecutableMode
 import org.springframework.aot.hint.MemberCategory
 import org.springframework.aot.hint.RuntimeHints
@@ -21,10 +20,13 @@ class RuntimeHints : RuntimeHintsRegistrar {
         registerKotlinSerializables(hints)
     }
 
+    /**
+     * For each Kotlin class annotated with @Serializable, we need to register
+     * the companion object and its serializer() method for reflection, otherwise
+     * Json.encodeToString(content) doesn't work without manually specifying
+     * the serializer.
+     */
     private fun registerKotlinSerializables(hints: RuntimeHints) {
-        // For each Kotlin class annotated with @Serializable, we need to register
-        // the companion object and its serializer() method for reflection, otherwise
-        // Json.encodeToString(content) doesn't work.
         hints.reflection()
             .registerField(ScriptFilterItems::class.java.getField("Companion"))
         hints.reflection()

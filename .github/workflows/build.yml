@@ -4,7 +4,7 @@ on:
   push:
     branches:
     - 'main'
-    - 'release/v[0-9]+.[0-9]+.[0-9]+'
+    - 'release'
   pull_request:
     branches:
     - 'main'
@@ -64,18 +64,19 @@ jobs:
           name: macos-x64
           path: build/macos-x64
 
-      - name: ⚙️ Extract release name
-        id: extract_release_name
-        if: startsWith(github.ref, 'refs/heads/release')
-        shell: bash
-        run: echo "releaseName=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
-
-      - name: 🏷️ Create tag
-        id: create_tag
-        if: startsWith(github.ref, 'refs/heads/release')
-        uses: rickstaa/action-create-tag@v1
+      - name: 🏷️ Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.1
         with:
-          tag: ${{ steps.extract_release_name.outputs.releaseName }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📦 Release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
+
 
       - name: 📦 Release
         if: startsWith(github.ref, 'refs/heads/release')

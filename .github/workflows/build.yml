@@ -55,6 +55,7 @@ jobs:
           path: build/macos-x64
 
   release:
+    needs: build
     runs-on: ubuntu-latest
     steps:
 

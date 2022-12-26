@@ -1,4 +1,4 @@
-package io.boxtime.cli.adapters.alfredoutput
+package io.boxtime.cli.adapters.alfred
 
 import kotlinx.serialization.Serializable
 

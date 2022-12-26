@@ -1,19 +1,20 @@
-package io.boxtime.cli.adapters.alfredoutput
+package io.boxtime.cli.adapters.alfred
 
 import io.boxtime.cli.application.Status
 import io.boxtime.cli.application.toReadableString
 import io.boxtime.cli.ports.output.Output
 import io.boxtime.cli.ports.taskdatabase.Task
 import io.boxtime.cli.ports.tasklogger.LogEntry
-import kotlinx.serialization.json.Json
 import org.springframework.stereotype.Component
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.encodeToString
 
 @Component
 class AlfredOutput : Output {
 
     private fun printItems(vararg items: ScriptFilterItem) {
         val content = ScriptFilterItems(items.toList())
-        println(Json.encodeToString(ScriptFilterItems.serializer(), content))
+        println(Json.encodeToString(content))
     }
 
     override fun error(e: Exception) {

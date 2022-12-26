@@ -1,6 +1,6 @@
 package io.boxtime.cli.config
 
-import io.boxtime.cli.adapters.alfredoutput.AlfredOutput
+import io.boxtime.cli.adapters.alfred.AlfredOutput
 import io.boxtime.cli.adapters.h2taskdatabase.H2TaskDatabase
 import io.boxtime.cli.adapters.h2tasklogger.H2TaskLogger
 import io.boxtime.cli.adapters.plaintextoutput.PlainTextOutput

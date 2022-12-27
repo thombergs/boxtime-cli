@@ -15,7 +15,7 @@ class StartTaskCommand(
     applicationFactory: ApplicationFactory
 ) : BaseCommand(applicationFactory) {
 
-    @Parameters(index = "0", description = ["The ID of the task to track."])
+    @Parameters(index = "0", description = ["The first couple characters of the task ID."])
     lateinit var taskId: String
 
     override fun call(): Int {

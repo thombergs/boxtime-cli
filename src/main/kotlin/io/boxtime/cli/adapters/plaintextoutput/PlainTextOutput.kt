@@ -29,6 +29,10 @@ class PlainTextOutput : Output {
         LOGGER.info("No task with id '${taskId}'.")
     }
 
+    override fun nonUniqueTaskId(taskId: String) {
+        LOGGER.info("Multiple task IDs start with $taskId. Try adding some extra characters to make it unique.")
+    }
+
     override fun taskStarted(task: Task) {
         LOGGER.info("Started tracking task '${task.title}'.")
     }
@@ -58,10 +62,6 @@ class PlainTextOutput : Output {
         table.print(out)
 
         LOGGER.info(String(out.toByteArray()))
-    }
-
-    private fun pad(string: String, char: Char = ' '): String {
-        return string.padEnd(30, char)
     }
 
     override fun tasksReset() {

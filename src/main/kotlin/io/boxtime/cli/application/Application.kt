@@ -4,7 +4,6 @@ import io.boxtime.cli.ports.output.Output
 import io.boxtime.cli.ports.taskdatabase.Task
 import io.boxtime.cli.ports.taskdatabase.TaskDatabase
 import io.boxtime.cli.ports.tasklogger.TaskLogger
-import org.springframework.stereotype.Component
 import java.time.Duration
 import java.time.LocalDateTime
 
@@ -30,12 +29,18 @@ class Application(
     fun startTask(taskId: String) {
         try {
             stopTask(silent = true)
-            val task = taskDatabase.findTaskById(taskId)
-            if (task == null) {
+            val tasks = taskDatabase.findTaskByIdStartsWith(taskId)
+            if (tasks.size > 1) {
+                output.nonUniqueTaskId(taskId)
+                return
+            }
+            if (tasks.isEmpty()) {
                 output.taskNotFound(taskId)
                 return
             }
-            taskLogger.start(taskId)
+
+            val task = tasks[0]
+            taskLogger.start(task.id)
             output.taskStarted(task)
         } catch (e: Exception) {
             output.error(e)

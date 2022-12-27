@@ -26,6 +26,7 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
     implementation 'org.flywaydb:flyway-core'
     implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1'
+    implementation 'com.aventrix.jnanoid:jnanoid:2.0.0'
     runtimeOnly 'com.h2database:h2'
     kapt 'info.picocli:picocli-codegen:4.7.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

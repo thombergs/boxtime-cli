@@ -111,13 +111,12 @@ jobs:
   check-release:
     if: github.ref == 'refs/heads/release'
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    permissions: write-all
     needs:
       - version
     steps:
 
-      - name: ✅ Check version
+      - name: ✅ Validate version
         if: ${{ contains(needs.version.outputs.version, 'SNAPSHOT') }}
         uses: actions/github-script@v3
         with:
@@ -130,7 +129,8 @@ jobs:
         with:
           repo: octocat/hello-world
           workflow_id: ${{ github.run_id }}
-          access_token: ${{ secrets.GH_ACTIONS_TOKEN }}
+          # this token needs write permission on actions
+          access_token: ${{ secrets.GITHUB_TOKEN }}
 
   release:
     if: github.ref == 'refs/heads/release'

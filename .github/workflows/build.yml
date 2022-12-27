@@ -38,7 +38,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🔨 Build native executable
-        if: matrix.os == 'ubuntu-latest'
         run: |
           ./gradlew nativeCompile
           mkdir -p build/artifacts

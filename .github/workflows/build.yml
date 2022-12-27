@@ -153,6 +153,8 @@ jobs:
       - check-release
       - alfred
       - version
+      - build
+      - test
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
@@ -192,6 +194,7 @@ jobs:
         uses: actions/checkout@master
         with:
           repository: thombergs/homebrew-boxtime
+          path: homebrew
 
       - name: ⬇️ Download artifacts
         uses: actions/download-artifact@v3
@@ -203,14 +206,14 @@ jobs:
         id: update_formula
         run: |
           export SHA=$(shasum -a 256 build/artifacts/boxtime-macos-latest.tar.gz | grep -o "^[^ ]\+")
-          cat formula-template.rb | sed -e s/@@TAG@@/${{ needs.version.outputs.version }}/g | sed -e s/@@SHA@@/$SHA/g > Formula/boxtime.rb
+          cat homebrew/formula-template.rb | sed -e s/@@TAG@@/${{ needs.version.outputs.version }}/g | sed -e s/@@SHA@@/$SHA/g > homebrew/Formula/boxtime.rb
 
       - name: ⬆️ Push updated formula
         uses: cpina/github-action-push-to-another-repository@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.BOXTIME_HOMEBREW_TOKEN }}
         with:
-          source-directory: '.'
+          source-directory: 'homebrew'
           destination-github-username: 'thombergs'
           destination-repository-name: 'homebrew-boxtime'
           commit-message: ${{ format('Update Homewbrew formula to {0}', needs.version.outputs.version) }}

@@ -124,13 +124,8 @@ jobs:
             core.setFailed('Cannot release SNAPSHOT version!')
 
       - name: ❌ Cancel workflow
-        uses: vishnudxb/cancel-workflow@v1.2
+        uses: andymckay/cancel-action@0.2
         if: failure()
-        with:
-          repo: octocat/hello-world
-          workflow_id: ${{ github.run_id }}
-          # this token needs write permission on actions
-          access_token: ${{ secrets.GITHUB_TOKEN }}
 
   release:
     if: github.ref == 'refs/heads/release'

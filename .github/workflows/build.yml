@@ -147,6 +147,12 @@ jobs:
           mkdir -p build/artifacts
           mv build/alfred/Boxtime.alfredworkflow build/artifacts/Boxtime.alfredworkflow
 
+      - name: ⬆️ Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifacts
+          path: build/artifacts
+
   release:
     if: github.ref == 'refs/heads/release'
     needs:

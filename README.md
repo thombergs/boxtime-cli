@@ -4,44 +4,39 @@
 
 boxtime is a command line tool to track your time. It focuses on doing everything with as few keystrokes as possible, because every bit of friction decreases the chance of building a time tracking habit. And only when you habitually track your time can you learn about your time spending patterns and take control of your time!
 
-A CLI tool only goes so far in terms of productivity, however. You still need to switch to your console and type in the commands. To make it _really_ easy to track time, I plan to build an integration with a productivity tool like [Alfred](https://www.alfredapp.com/) or [Raycast](https://www.raycast.com/), so that tracking your time is only a few keystrokes away from wherever (on your computer) you currently are.
+A CLI tool only goes so far in terms of productivity, however. You still need to switch to your console and type in the commands. To make it _really_ easy to track time, user the Boxtime [Alfred](https://alfredapp.com) workflow, so that tracking your time is only a few keystrokes away from wherever (on your computer) you currently are.
 
-## Build 
+## Installation
+
+Install the `boxtime` command via homebrew:
 
 ```
-./gradlew nativeCompile
+brew tap thombergs/boxtime
+brew install boxtime
 ```
 
-This creates a native executable `boxtime` in `build/native/nativeCompile`. Requires GraalVM to compile. See more info in [HELP.md](HELP.md).
+Repeat these steps after a time to get the newest version.
+
+If you want to use the Alfred workflow, download it from the [latest release](https://github.com/thombergs/boxtime-cli/releases/latest) and run it. Alfred should automatically open it and ask you to install it (or update it if you had installed it before).
 
 ## Usage
 
-The current set of commands. More to come.
-
-### Status
+Add the `-h` flag to a command to show all available options and arguments.
 
 ```shell
 # print out information about the task you're currently tracking 
 # and how much time you've tracked today
 ./boxtime status
-```
 
-
-### Manage tasks
-```shell
 # add a new task
 ./boxtime task add "Reticulate splines"
 
-# list all previously added tasks
+# list all available added tasks
 ./boxtime task list
 
 # delete all tasks (mostly used for development to clear the database)
 ./boxtime task reset
-```
 
-### Track your time
-
-```shell
 # start tracking a task
 ./boxtime track start <taskId>
 
@@ -50,11 +45,7 @@ The current set of commands. More to come.
 
 # log a task without tracking (for example when you forgot to track)
 ./boxtime track log <taskId> <duration>
-```
 
-### Manage your time logs
-
-```shell
 # delete all time logs (mostly used for development to clear the database)
 ./boxtime log reset
 ```
@@ -64,3 +55,7 @@ The current set of commands. More to come.
 ### Environment variables
 
 - `BOXTIME_DATABASE_FILE`: Path to the file in which to store the local database. Default: `~/.boxtime/boxtime-db` 
+
+## Help
+
+Feel free to reach out via GitHub issues!

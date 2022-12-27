@@ -197,5 +197,6 @@ jobs:
           source-directory: '.'
           destination-github-username: 'thombergs'
           destination-repository-name: 'homebrew-boxtime'
+          commit-message: ${{ format('Update Homewbrew formula to {0}', needs.version.outputs.version) }}
           user-email: tom.hombergs@gmail.com
           target-branch: main

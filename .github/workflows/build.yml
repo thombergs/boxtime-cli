@@ -169,6 +169,7 @@ jobs:
     needs:
       - release
       - version
+    runs-on: ubuntu-latest
     steps:
 
       - name: ⚙️ Checkout homebrew formula

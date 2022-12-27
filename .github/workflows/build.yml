@@ -154,6 +154,7 @@ jobs:
       - test
       - check-release
       - alfred
+      - version
     runs-on: ubuntu-latest
     permissions: write-all
     steps:

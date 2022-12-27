@@ -163,3 +163,38 @@ jobs:
             Please refer to the [release notes](https://github.com/thombergs/boxtime-cli/blob/main/CHANGELOG.md) for the changes in this release.
           artifacts: |
             build/artifacts/**
+
+  homebrew:
+    if: github.ref == 'refs/heads/release'
+    needs:
+      - release
+      - version
+    steps:
+
+      - name: ⚙️ Checkout homebrew formula
+        uses: actions/checkout@master
+        with:
+          repository: thombergs/homebrew-boxtime
+
+      - name: ⬇️ Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: artifacts
+          path: build/artifacts
+
+      - name: ⚙️ Update formula
+        id: update_formula
+        run: |
+          export SHA=$(shasum -a 256 build/artifacts/boxtime-macos-latest.tar.gz | grep -o "^[^ ]\+")
+          cat formula-template.rb | sed -e s/@@TAG@@/${{ needs.version.outputs.version }}/g | sed -e s/@@SHA@@/$SHA/g
+
+      - name: ⬆️ Push updated formula
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.BOXTIME_HOMEBREW_TOKEN }}
+        with:
+          source-directory: 'Formula'
+          destination-github-username: 'thombergs'
+          destination-repository-name: 'homebrew-boxtime'
+          user-email: tom.hombergs@gmail.com
+          target-branch: main

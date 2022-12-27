@@ -4,7 +4,7 @@ on:
   push:
     branches:
     - 'main'
-    - 'release/v[0-9]+.[0-9]+.[0-9]+
+    - 'release'
   pull_request:
     branches:
     - 'main'
@@ -13,10 +13,56 @@ permissions:
   contents: read
 
 jobs:
+
   build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest ]
+    steps:
 
-    runs-on: macos-latest
+      - name: ⚙️ Checkout
+        uses: actions/checkout@v3
 
+      - name: ⚙️ Setup Gradle cache
+        uses: burrunan/gradle-cache-action@v1
+        with:
+          gradle-version: wrapper
+
+      - name: ⚙️ Setup GraalVM
+        uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'latest'
+          java-version: '17'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🔨 Build Alfred workflow
+        if: matrix.os == 'macos-latest'
+        run: |
+          ./gradlew alfred
+          mkdir -p build/artifacts
+          mv build/native/nativeCompile/boxtime build/artifacts/macos-x64.boxtime
+          mv build/alfred/Boxtime.alfredworkflow build/artifacts/macos-x64.Boxtime.alfredworkflow
+
+      - name: 🔨 Build native executable
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          ./gradlew nativeCompile
+          mkdir -p build/artifacts
+          mv build/native/nativeCompile/boxtime build/artifacts/linux.boxtime
+
+      - name: ⬆️ Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifacts
+          path: build/artifacts
+
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest ]
     steps:
 
       - name: ⚙️ Checkout
@@ -38,35 +84,82 @@ jobs:
       - name: 🔎 Run tests
         run: ./gradlew nativeTest
 
-      - name: 🔨 Build native executable
-        run: ./gradlew nativeCompile
+  version:
+    if: github.ref == 'refs/heads/release'
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.extract_version.outputs.projectVersion }}
+    steps:
 
-      - name: 🔨 Build Alfred workflow
-        run: ./gradlew alfred
-        
-      - name: ⚙️ Extract release name
-        id: extract_release_name
-        if: startsWith(github.ref, 'refs/heads/release')
-        shell: bash
-        run: echo "releaseName=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+      - name: ⚙️ Checkout
+        uses: actions/checkout@v3
 
-      - name: 🏷️ Create tag
-        id: create_tag
-        if: startsWith(github.ref, 'refs/heads/release')
-        uses: rickstaa/action-create-tag@v1
+      - name: ⚙️ Setup Gradle cache
+        uses: burrunan/gradle-cache-action@v1
         with:
-          tag: ${{ steps.extract_release_name.outputs.releaseName }}
+          gradle-version: wrapper
+
+      - name: ⚙️ Setup GraalVM
+        uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'latest'
+          java-version: '17'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🏷️️ Extract version
+        id: extract_version
+        run: echo "projectVersion=$(./gradlew -q printVersion)" >> $GITHUB_OUTPUT
+
+  check-release:
+    if: github.ref == 'refs/heads/release'
+    runs-on: ubuntu-latest
+    permissions: write-all
+    needs:
+      - version
+    steps:
+
+      - name: ✅ Validate version
+        if: ${{ contains(needs.version.outputs.version, 'SNAPSHOT') }}
+        uses: actions/github-script@v3
+        with:
+          script: |
+            core.setFailed('Cannot release SNAPSHOT version!')
+
+      - name: ❌ Cancel workflow
+        uses: andymckay/cancel-action@0.2
+        if: failure()
+
+  release:
+    if: github.ref == 'refs/heads/release'
+    needs:
+      - check-release
+      - build
+      - test
+      - version
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+
+      - name: ⬇️ Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: artifacts
+          path: build/artifacts
+
+      - name: 🏷️ Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          custom_tag: ${{ needs.version.outputs.version }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 📦 Release
-        if: startsWith(github.ref, 'refs/heads/release')
-        uses: softprops/action-gh-release@v1
+        uses: ncipollo/release-action@v1
         with:
-          tag_name: ${{ steps.extract_release_name.outputs.releaseName }}
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
           body: |
-            Please refer to the [release notes](https://github.com/thombergs/boxtime-cli/CHANGELOG.md) for 
-            the changes in this release.
-          files: |
-            build/native/nativeCompile/boxtime
-            build/alfred/Boxtime.alfredworkflow
-
-      
+            Please refer to the [release notes](https://github.com/thombergs/boxtime-cli/blob/main/CHANGELOG.md) for the changes in this release.
+          artifacts: |
+            build/artifacts/**

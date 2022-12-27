@@ -126,7 +126,6 @@ jobs:
     steps:
 
       - name: 🔨 Build Alfred workflow
-        if: matrix.os == 'macos-latest'
         run: |
           ./gradlew alfred
           mkdir -p build/artifacts

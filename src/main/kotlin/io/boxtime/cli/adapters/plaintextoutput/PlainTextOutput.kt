@@ -8,6 +8,7 @@ import io.boxtime.cli.ports.tasklogger.LogEntry
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
+import java.io.ByteArrayOutputStream
 
 @Component
 class PlainTextOutput : Output {
@@ -41,11 +42,26 @@ class PlainTextOutput : Output {
     }
 
     override fun listTasks(tasks: List<Task>) {
-        LOGGER.info("Task ID".padEnd(36) + "| Task".padEnd(30))
-        LOGGER.info("-".padEnd(36, '-') + "|-".padEnd(30, '-') + "|")
+        val out = ByteArrayOutputStream()
+
+        val table = Table(
+            listOf(
+                Column("Task ID"),
+                Column("Task"),
+            )
+        )
+
         for (task in tasks) {
-            LOGGER.info("${task.id.padEnd(36)}| ${task.title.padEnd(30)}|")
+            table.addRow(task.id, task.title)
         }
+
+        table.print(out)
+
+        LOGGER.info(String(out.toByteArray()))
+    }
+
+    private fun pad(string: String, char: Char = ' '): String {
+        return string.padEnd(30, char)
     }
 
     override fun tasksReset() {

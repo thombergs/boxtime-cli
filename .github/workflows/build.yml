@@ -130,7 +130,7 @@ jobs:
         with:
           repo: octocat/hello-world
           workflow_id: ${{ github.run_id }}
-          access_token: ${{ secrets.GITHUB_ACTIONS_TOKEN }}
+          access_token: ${{ secrets.GH_ACTIONS_TOKEN }}
 
   release:
     if: github.ref == 'refs/heads/release'

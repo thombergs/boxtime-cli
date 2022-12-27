@@ -195,6 +195,7 @@ jobs:
         with:
           repository: thombergs/homebrew-boxtime
           path: homebrew
+          token: ${{ secrets.BOXTIME_HOMEBREW_TOKEN }}
 
       - name: ⬇️ Download artifacts
         uses: actions/download-artifact@v3

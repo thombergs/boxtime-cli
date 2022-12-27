@@ -44,7 +44,7 @@ jobs:
           cd build/native/nativeCompile && tar -czf ../../../build/artifacts/boxtime-${{ matrix.os }}.tar.gz boxtime
 
       - name: ⬆️ Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: artifacts
           path: build/artifacts

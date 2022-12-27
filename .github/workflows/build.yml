@@ -140,8 +140,7 @@ jobs:
       - test
       - version
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    permissions: write-all
     steps:
 
       - name: ⬇️ Download artifacts

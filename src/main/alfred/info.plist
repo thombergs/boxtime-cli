@@ -255,7 +255,7 @@
 				<key>runningsubtext</key>
 				<string>Loading status</string>
 				<key>script</key>
-				<string>./boxtime status -a</string>
+				<string>boxtime status -a</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -342,7 +342,7 @@
 				<key>runningsubtext</key>
 				<string>Loading tasks ...</string>
 				<key>script</key>
-				<string>./boxtime task list -a</string>
+				<string>boxtime task list -a</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -371,7 +371,7 @@
 				<key>escaping</key>
 				<integer>0</integer>
 				<key>script</key>
-				<string>./boxtime track log $1 $2</string>
+				<string>boxtime track log $1 $2</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -536,7 +536,7 @@
 				<key>runningsubtext</key>
 				<string>Loading tasks ...</string>
 				<key>script</key>
-				<string>./boxtime task list -a</string>
+				<string>boxtime task list -a</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -565,7 +565,7 @@
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>script</key>
-				<string>./boxtime track start "$1"</string>
+				<string>boxtime track start "$1"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -651,7 +651,7 @@
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>script</key>
-				<string>./boxtime track stop</string>
+				<string>boxtime track stop</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -714,7 +714,7 @@
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>script</key>
-				<string>./boxtime task add "$1"</string>
+				<string>boxtime task add "$1"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>

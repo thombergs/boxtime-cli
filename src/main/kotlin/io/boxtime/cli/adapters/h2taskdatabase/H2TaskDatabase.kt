@@ -23,6 +23,11 @@ class H2TaskDatabase(
             .orElse(null)
     }
 
+    override fun findTaskByIdStartsWith(id: String): List<Task> {
+        return taskRepository.findByIdStartsWith(id)
+            .map { it.toDomainObject() }
+    }
+
     override fun addTask(task: Task) {
         taskRepository.save(TaskEntity.fromDomainObject(task, new = true))
     }

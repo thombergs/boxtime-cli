@@ -8,6 +8,7 @@ import io.boxtime.cli.ports.tasklogger.LogEntry
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
+import java.io.ByteArrayOutputStream
 
 @Component
 class PlainTextOutput : Output {
@@ -28,6 +29,10 @@ class PlainTextOutput : Output {
         LOGGER.info("No task with id '${taskId}'.")
     }
 
+    override fun nonUniqueTaskId(taskId: String) {
+        LOGGER.info("Multiple task IDs start with $taskId. Try adding some extra characters to make it unique.")
+    }
+
     override fun taskStarted(task: Task) {
         LOGGER.info("Started tracking task '${task.title}'.")
     }
@@ -41,11 +46,22 @@ class PlainTextOutput : Output {
     }
 
     override fun listTasks(tasks: List<Task>) {
-        LOGGER.info("Task ID".padEnd(36) + "| Task".padEnd(30))
-        LOGGER.info("-".padEnd(36, '-') + "|-".padEnd(30, '-') + "|")
+        val out = ByteArrayOutputStream()
+
+        val table = Table(
+            listOf(
+                Column("Task ID"),
+                Column("Task"),
+            )
+        )
+
         for (task in tasks) {
-            LOGGER.info("${task.id.padEnd(36)}| ${task.title.padEnd(30)}|")
+            table.addRow(task.id, task.title)
         }
+
+        table.print(out)
+
+        LOGGER.info(String(out.toByteArray()))
     }
 
     override fun tasksReset() {

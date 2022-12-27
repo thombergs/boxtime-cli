@@ -47,6 +47,16 @@ class AlfredOutput : Output {
         )
     }
 
+    override fun nonUniqueTaskId(taskId: String) {
+        printItems(
+            ScriptFilterItem(
+                taskId,
+                "Task not found.",
+                "Multiple task IDs start with $taskId. Try adding some extra characters to make it unique."
+            )
+        )
+    }
+
     override fun taskStarted(task: Task) {
         printItems(
             ScriptFilterItem(

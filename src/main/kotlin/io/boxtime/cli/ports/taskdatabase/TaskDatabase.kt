@@ -6,6 +6,8 @@ interface TaskDatabase {
 
     fun findTaskById(id: String): Task?
 
+    fun findTaskByIdStartsWith(id: String): List<Task>
+
     fun addTask(task: Task)
 
     fun reset()

@@ -12,6 +12,8 @@ interface Output {
 
     fun taskNotFound(taskId: String)
 
+    fun nonUniqueTaskId(taskId: String)
+
     fun taskStarted(task: Task)
 
     fun taskStopped(task: Task, logEntry: LogEntry)

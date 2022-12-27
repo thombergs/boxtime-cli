@@ -37,20 +37,11 @@ jobs:
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 🔨 Build Alfred workflow
-        if: matrix.os == 'macos-latest'
-        run: |
-          ./gradlew alfred
-          mkdir -p build/artifacts
-          mv build/native/nativeCompile/boxtime build/artifacts/macos-x64.boxtime
-          mv build/alfred/Boxtime.alfredworkflow build/artifacts/macos-x64.Boxtime.alfredworkflow
-
       - name: 🔨 Build native executable
-        if: matrix.os == 'ubuntu-latest'
         run: |
           ./gradlew nativeCompile
           mkdir -p build/artifacts
-          mv build/native/nativeCompile/boxtime build/artifacts/linux.boxtime
+          tar -czf build/artifacts/boxtime-${{ matrix.os }}.tar.gz build/native/nativeCompile/boxtime
 
       - name: ⬆️ Upload artifacts
         uses: actions/upload-artifact@v2
@@ -130,13 +121,22 @@ jobs:
         uses: andymckay/cancel-action@0.2
         if: failure()
 
+  alfred:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: 🔨 Build Alfred workflow
+        if: matrix.os == 'macos-latest'
+        run: |
+          ./gradlew alfred
+          mkdir -p build/artifacts
+          mv build/alfred/Boxtime.alfredworkflow build/artifacts/Boxtime.alfredworkflow
+
   release:
     if: github.ref == 'refs/heads/release'
     needs:
       - check-release
-      - build
-      - test
-      - version
+      - alfred
     runs-on: ubuntu-latest
     permissions: write-all
     steps:

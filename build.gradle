@@ -11,7 +11,7 @@ plugins {
 }
 
 group = 'io.boxtime'
-version = '0.0.1'
+version = '0.0.2'
 sourceCompatibility = '17'
 
 repositories {
@@ -76,13 +76,7 @@ tasks.register('alfredPrepare') {
             include('*')
             filter { line -> line.replaceAll('@@PROJECT.VERSION@@', project.version) }
         }
-        copy {
-            from('build/native/nativeCompile')
-            into('build/alfred/resources')
-            include('boxtime')
-        }
     }
-    dependsOn nativeCompile
 }
 
 tasks.register('printVersion') {

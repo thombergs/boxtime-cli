@@ -126,6 +126,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+      - name: ⚙️ Checkout
+        uses: actions/checkout@v3
+
+      - name: ⚙️ Setup Gradle cache
+        uses: burrunan/gradle-cache-action@v1
+        with:
+          gradle-version: wrapper
+
+      - name: ⚙️ Setup GraalVM
+        uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'latest'
+          java-version: '17'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: 🔨 Build Alfred workflow
         run: |
           ./gradlew alfred

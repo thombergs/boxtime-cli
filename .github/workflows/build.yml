@@ -164,7 +164,7 @@ jobs:
           name: artifacts
           path: build/artifacts
 
-      - name: 🏷️ Bump version and push tag
+      - name: 🏷️ Create tag
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.1
         with:

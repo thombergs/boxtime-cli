@@ -3,6 +3,7 @@ package io.boxtime.cli.commands.task
 import io.boxtime.cli.commands.mixins.BaseCommand
 import io.boxtime.cli.config.ApplicationFactory
 import org.springframework.stereotype.Component
+import picocli.CommandLine
 import picocli.CommandLine.Command
 import picocli.CommandLine.Parameters
 
@@ -18,8 +19,15 @@ class AddTaskCommand(
     @Parameters(index = "0", description = ["The title of the task to add."])
     lateinit var title: String
 
+    @CommandLine.Option(
+        names = ["-t", "--tags"],
+        description = [
+            "Interpret #hashtags in the task title as tags."]
+    )
+    var extractTags: Boolean = false
+
     override fun call(): Int {
-        getApplication().addTask(title)
+        getApplication().addTask(title, extractTags)
         return 0
     }
 

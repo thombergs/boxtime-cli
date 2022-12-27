@@ -8,6 +8,7 @@ class AlfredOutputTest {
     fun error() {
         val output = AlfredOutput()
         output.error(RuntimeException("BWAAAH!"))
+        // TODO: assert output is correct
     }
 
 }

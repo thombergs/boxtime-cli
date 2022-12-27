@@ -3,6 +3,7 @@ package io.boxtime.cli.adapters.plaintextoutput
 import io.boxtime.cli.application.Status
 import io.boxtime.cli.application.toReadableString
 import io.boxtime.cli.ports.output.Output
+import io.boxtime.cli.ports.taskdatabase.Tag
 import io.boxtime.cli.ports.taskdatabase.Task
 import io.boxtime.cli.ports.tasklogger.LogEntry
 import org.slf4j.Logger
@@ -57,6 +58,25 @@ class PlainTextOutput : Output {
 
         for (task in tasks) {
             table.addRow(task.id, task.title)
+        }
+
+        table.print(out)
+
+        LOGGER.info(String(out.toByteArray()))
+    }
+
+    override fun listTags(tags: List<Tag>) {
+        val out = ByteArrayOutputStream()
+
+        val table = Table(
+            listOf(
+                Column("Tag ID"),
+                Column("Tag"),
+            )
+        )
+
+        for (tag in tags) {
+            table.addRow(tag.id, tag.nameWithHashtag())
         }
 
         table.print(out)

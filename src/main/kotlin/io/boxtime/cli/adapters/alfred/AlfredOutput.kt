@@ -3,11 +3,12 @@ package io.boxtime.cli.adapters.alfred
 import io.boxtime.cli.application.Status
 import io.boxtime.cli.application.toReadableString
 import io.boxtime.cli.ports.output.Output
+import io.boxtime.cli.ports.taskdatabase.Tag
 import io.boxtime.cli.ports.taskdatabase.Task
 import io.boxtime.cli.ports.tasklogger.LogEntry
-import org.springframework.stereotype.Component
-import kotlinx.serialization.json.Json
 import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import org.springframework.stereotype.Component
 
 @Component
 class AlfredOutput : Output {
@@ -93,6 +94,19 @@ class AlfredOutput : Output {
                 ScriptFilterItem(
                     it.id,
                     it.title,
+                    it.tagsString()
+                )
+            }
+            .toTypedArray()
+        )
+    }
+
+    override fun listTags(tags: List<Tag>) {
+        printItems(*tags
+            .map {
+                ScriptFilterItem(
+                    it.nameWithHashtag(),
+                    it.name,
                     ""
                 )
             }

@@ -2,6 +2,7 @@ package io.boxtime.cli.ports.output
 
 import io.boxtime.cli.ports.taskdatabase.Task
 import io.boxtime.cli.application.Status
+import io.boxtime.cli.ports.taskdatabase.Tag
 import io.boxtime.cli.ports.tasklogger.LogEntry
 
 interface Output {
@@ -21,6 +22,8 @@ interface Output {
     fun notCurrentlyTracking()
 
     fun listTasks(tasks: List<Task>)
+
+    fun listTags(tags: List<Tag>)
 
     fun tasksReset()
 

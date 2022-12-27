@@ -2,6 +2,7 @@ package io.boxtime.cli
 
 import io.boxtime.cli.ports.taskdatabase.TaskDatabase
 import io.boxtime.cli.commands.task.AddTaskCommand
+import io.boxtime.cli.ports.taskdatabase.Task
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -24,14 +25,31 @@ class AddTaskCommandTest {
 	lateinit var taskDatabase: TaskDatabase
 
 	@Test
-	fun taskAdded() {
+	fun addsTask() {
 
 		CommandLine(command, factory)
-			.execute("Load the dishwasher")
+			.execute("Load the dishwasher #ignored")
 
 		assertThat(taskDatabase.listTasks())
-			.filteredOn { it.title == "Load the dishwasher" }
+			.filteredOn { it.title == "Load the dishwasher #ignored" }
 			.hasSize(1)
+	}
+
+	@Test
+	fun addsTaskWithTags() {
+
+		CommandLine(command, factory)
+			.execute("#tag1 Load the #tag2 dishwasher #tag3", "--tags")
+
+		val task = taskDatabase.listTasks()
+			.firstOrNull { it.title == "Load the dishwasher" }
+
+		assertThat(task).isNotNull
+		assertThat(task!!.tags.map { it.name })
+			.contains("tag1")
+			.contains("tag2")
+			.contains("tag3")
+
 	}
 
 }

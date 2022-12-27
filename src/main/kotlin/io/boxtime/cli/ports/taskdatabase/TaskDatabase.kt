@@ -12,4 +12,6 @@ interface TaskDatabase {
 
     fun reset()
 
+    fun listTags(filter: String? = null): List<Tag>
+
 }

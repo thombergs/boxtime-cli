@@ -16,9 +16,9 @@ class Application(
     private val output: Output,
 ) {
 
-    fun addTask(title: String) {
+    fun addTask(title: String, extractTags: Boolean) {
         try {
-            val task = Task(title);
+            val task = Task(title, extractTags);
             taskDatabase.addTask(task)
             output.taskAdded(task)
         } catch (e: Exception) {
@@ -132,6 +132,11 @@ class Application(
         } catch (e: Exception) {
             output.error(e)
         }
+    }
+
+    fun listTags() {
+        val tags = taskDatabase.listTags()
+        output.listTags(tags)
     }
 
 }

@@ -94,7 +94,7 @@ jobs:
         run: |
           ./gradlew nativeCompile
           mkdir -p build/artifacts
-          cd build/native/nativeCompile && tar -czf build/artifacts/boxtime-${{ matrix.os }}.tar.gz boxtime
+          cd build/native/nativeCompile && tar -czf ../../../build/artifacts/boxtime-${{ matrix.os }}.tar.gz boxtime
 
       - name: ⬆️ Upload artifacts
         uses: actions/upload-artifact@v2

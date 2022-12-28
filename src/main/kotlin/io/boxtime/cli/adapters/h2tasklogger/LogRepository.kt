@@ -19,7 +19,7 @@ interface LogRepository : CrudRepository<LogEntity, String> {
             LOG l 
         where 
             l.TASK_ID = :taskId and 
-            (l.START_TIME >= :start or l.START_TIME <= :end)
+            (l.START_TIME >= :start and l.START_TIME <= :end)
         """
     )
     fun findLogEntriesByTaskStartedInInverval(
@@ -35,7 +35,7 @@ interface LogRepository : CrudRepository<LogEntity, String> {
         from 
             LOG l 
         where 
-            l.START_TIME >= :start or l.START_TIME <= :end
+            l.START_TIME >= :start and l.START_TIME <= :end
         """
     )
     fun findLogEntriesStartedInInverval(

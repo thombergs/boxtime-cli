@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.0.5
+- Add tags when adding a task: `boxtime task add "#project1 Do this #work"`. The tags are stripped from the task name and associated with the task for upcoming filtering functionality.
+
 ## v0.0.2
 
 - Task IDs are now only 8 characters and you can specify just the first couple characters to identify a task (e.g. `boxtime track start v2` if the task ID is `v2fyu2ws`).

@@ -232,6 +232,27 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>t status</string>
+				<key>subtext</key>
+				<string>List some infos about your time tracking</string>
+				<key>text</key>
+				<string>Status</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>22F1CEE3-9341-48C8-B99B-04A683C5AE51</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>alfredfiltersresults</key>
 				<true/>
 				<key>alfredfiltersresultsmatchmode</key>
@@ -280,27 +301,6 @@
 			<key>config</key>
 			<dict>
 				<key>argumenttype</key>
-				<integer>2</integer>
-				<key>keyword</key>
-				<string>t status</string>
-				<key>subtext</key>
-				<string>List some infos about your time tracking</string>
-				<key>text</key>
-				<string>Status</string>
-				<key>withspace</key>
-				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
-			<key>uid</key>
-			<string>22F1CEE3-9341-48C8-B99B-04A683C5AE51</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>subtext</key>
 				<string>Use a string like "1h10m50s"</string>
@@ -315,6 +315,29 @@
 			<string>B271D8C4-EADD-4D90-855A-3C55ABE8601B</string>
 			<key>version</key>
 			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>script</key>
+				<string>boxtime track log $1 $2</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>5</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>7540FA63-5A25-4B4A-96D1-C7F208CD7D68</string>
+			<key>version</key>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -366,25 +389,23 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>concurrently</key>
-				<false/>
-				<key>escaping</key>
-				<integer>0</integer>
-				<key>script</key>
-				<string>boxtime track log $1 $2</string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>t log</string>
+				<key>subtext</key>
 				<string></string>
-				<key>type</key>
-				<integer>5</integer>
+				<key>text</key>
+				<string>Log task</string>
+				<key>withspace</key>
+				<false/>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.action.script</string>
+			<string>alfred.workflow.input.keyword</string>
 			<key>uid</key>
-			<string>7540FA63-5A25-4B4A-96D1-C7F208CD7D68</string>
+			<string>7876FAB3-BB75-4B40-AA5E-4C682C4BB996</string>
 			<key>version</key>
-			<integer>2</integer>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -410,21 +431,20 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>argumenttype</key>
-				<integer>2</integer>
-				<key>keyword</key>
-				<string>t log</string>
-				<key>subtext</key>
-				<string></string>
-				<key>text</key>
-				<string>Log task</string>
-				<key>withspace</key>
+				<key>argument</key>
+				<string>{var:taskId}%%{query}</string>
+				<key>passthroughargument</key>
 				<false/>
+				<key>variables</key>
+				<dict>
+					<key>duration</key>
+					<string>{query}</string>
+				</dict>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
+			<string>alfred.workflow.utility.argument</string>
 			<key>uid</key>
-			<string>7876FAB3-BB75-4B40-AA5E-4C682C4BB996</string>
+			<string>009E0689-E35E-417E-88BB-513CD28337AC</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -472,26 +492,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>argument</key>
-				<string>{var:taskId}%%{query}</string>
-				<key>passthroughargument</key>
-				<false/>
-				<key>variables</key>
-				<dict>
-					<key>duration</key>
-					<string>{query}</string>
-				</dict>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.utility.argument</string>
-			<key>uid</key>
-			<string>009E0689-E35E-417E-88BB-513CD28337AC</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>argumenttype</key>
 				<integer>2</integer>
 				<key>keyword</key>
@@ -509,6 +509,29 @@
 			<string>B9B95BE3-6D53-4506-8FAE-C5D30A8A47F3</string>
 			<key>version</key>
 			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>boxtime track start "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>5</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>92557434-1154-416A-9168-231909D6985B</string>
+			<key>version</key>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -560,29 +583,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>concurrently</key>
-				<false/>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>script</key>
-				<string>boxtime track start "$1"</string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>type</key>
-				<integer>5</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>92557434-1154-416A-9168-231909D6985B</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>lastpathcomponent</key>
 				<false/>
 				<key>onlyshowifquerypopulated</key>
@@ -625,27 +625,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<false/>
-				<key>removeextension</key>
-				<false/>
-				<key>text</key>
-				<string>{query}</string>
-				<key>title</key>
-				<string>Stop task</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
-			<key>uid</key>
-			<string>5C3912A7-B94A-4862-B68F-9C9B0DB342E9</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
@@ -669,10 +648,31 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Stop task</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>5C3912A7-B94A-4862-B68F-9C9B0DB342E9</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>subtext</key>
-				<string></string>
+				<string>May contain #hashtags.</string>
 				<key>text</key>
 				<string>Enter the name of the task</string>
 				<key>withspace</key>
@@ -693,7 +693,7 @@
 				<key>keyword</key>
 				<string>t add</string>
 				<key>subtext</key>
-				<string>Enter a new task to track</string>
+				<string></string>
 				<key>text</key>
 				<string>Add a new task</string>
 				<key>withspace</key>
@@ -714,7 +714,7 @@
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>script</key>
-				<string>boxtime task add "$1"</string>
+				<string>boxtime task add "$1" --tags</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -1000,7 +1000,7 @@
 		</dict>
 	</array>
 	<key>version</key>
-	<string>@@PROJECT.VERSION@@</string>
+	<string>0.0.1</string>
 	<key>webaddress</key>
 	<string>https://boxtime.io</string>
 </dict>

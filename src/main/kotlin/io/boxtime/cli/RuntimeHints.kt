@@ -5,6 +5,7 @@ import io.boxtime.cli.adapters.alfred.ScriptFilterItem
 import io.boxtime.cli.adapters.alfred.ScriptFilterItems
 import io.boxtime.cli.adapters.h2taskdatabase.TagEntity
 import io.boxtime.cli.adapters.h2taskdatabase.TaskEntity
+import io.boxtime.cli.adapters.h2taskdatabase.TaskResultSetExtractor
 import io.boxtime.cli.adapters.h2tasklogger.LogEntity
 import org.springframework.aot.hint.ExecutableMode
 import org.springframework.aot.hint.MemberCategory
@@ -19,6 +20,10 @@ class RuntimeHints : RuntimeHintsRegistrar {
             .registerType(LogEntity::class.java, MemberCategory.INVOKE_DECLARED_METHODS)
         hints.reflection()
             .registerType(TagEntity::class.java, MemberCategory.INVOKE_DECLARED_METHODS)
+        hints.reflection()
+            .registerType(TaskResultSetExtractor::class.java,
+                MemberCategory.INVOKE_DECLARED_CONSTRUCTORS,
+                MemberCategory.INVOKE_DECLARED_METHODS)
 
         registerKotlinSerializables(hints)
     }

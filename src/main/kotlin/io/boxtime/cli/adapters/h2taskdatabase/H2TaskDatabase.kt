@@ -4,8 +4,6 @@ import io.boxtime.cli.ports.taskdatabase.Tag
 import io.boxtime.cli.ports.taskdatabase.Task
 import io.boxtime.cli.ports.taskdatabase.TaskDatabase
 import org.springframework.stereotype.Component
-import java.util.stream.Collectors
-import java.util.stream.StreamSupport
 
 @Component
 class H2TaskDatabase(
@@ -13,10 +11,9 @@ class H2TaskDatabase(
     private val tagRepository: TagRepository
 ) : TaskDatabase {
 
-    override fun listTasks(): List<Task> {
-        return StreamSupport.stream(taskRepository.findAll().spliterator(), false)
+    override fun listTasks(count: Int, filter: String?): List<Task> {
+        return taskRepository.findTasks(count, filter?: "")
             .map { it.toDomainObject(tagRepository) }
-            .collect(Collectors.toList())
     }
 
     override fun findTaskById(id: String): Task? {

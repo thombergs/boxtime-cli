@@ -7,7 +7,7 @@ interface TaskLogger {
     fun start(taskId: String)
 
     /**
-     * Stops recording the currently tracked task and returns the task's ID.
+     * Stops recording the currently tracked task and returns the created log entry.
      */
     fun stop(): LogEntry?
 

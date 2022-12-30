@@ -29,17 +29,7 @@ class Application(
     fun startTask(taskId: String) {
         try {
             stopTask(silent = true)
-            val tasks = taskDatabase.findTaskByIdStartsWith(taskId)
-            if (tasks.size > 1) {
-                output.nonUniqueTaskId(taskId)
-                return
-            }
-            if (tasks.isEmpty()) {
-                output.taskNotFound(taskId)
-                return
-            }
-
-            val task = tasks[0]
+            val task = getTaskStartingWith(taskId) ?: return
             taskLogger.start(task.id)
             output.taskStarted(task)
         } catch (e: Exception) {
@@ -65,9 +55,9 @@ class Application(
         }
     }
 
-    fun listTasks() {
+    fun listTasks(count: Int = 10, filter: String?) {
         try {
-            output.listTasks(taskDatabase.listTasks())
+            output.listTasks(taskDatabase.listTasks(count, filter))
         } catch (e: Exception) {
             output.error(e)
         }
@@ -92,17 +82,26 @@ class Application(
 
     fun logTask(taskId: String, durationString: String) {
         try {
-            val task = taskDatabase.findTaskById(taskId)
-            if (task == null) {
-                output.taskNotFound(taskId)
-                return
-            }
+            val task = getTaskStartingWith(taskId) ?: return
             val duration = parseDuration(durationString)
             taskLogger.logDuration(taskId, duration)
             output.taskLogged(task, durationString)
         } catch (e: Exception) {
             output.error(e)
         }
+    }
+
+    private fun getTaskStartingWith(taskId: String): Task? {
+        val tasks = taskDatabase.findTaskByIdStartsWith(taskId)
+        if (tasks.size > 1) {
+            output.nonUniqueTaskId(taskId)
+            return null
+        }
+        if (tasks.isEmpty()) {
+            output.taskNotFound(taskId)
+            return null
+        }
+        return tasks[0]
     }
 
     fun status() {

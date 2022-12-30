@@ -2,7 +2,7 @@ package io.boxtime.cli.ports.taskdatabase
 
 interface TaskDatabase {
 
-    fun listTasks(): List<Task>
+    fun listTasks(count: Int = 10, filter: String? = null): List<Task>
 
     fun findTaskById(id: String): Task?
 

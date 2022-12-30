@@ -2,13 +2,15 @@ package io.boxtime.cli.ports.taskdatabase
 
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils.DEFAULT_ALPHABET
+import java.time.LocalDateTime
 import java.util.*
 import java.util.regex.Pattern
 
 data class Task(
     val id: String,
     val title: String,
-    val tags: Set<Tag>,
+    val created: LocalDateTime,
+    val tags: Set<Tag>
 ) {
 
     companion object {
@@ -43,6 +45,7 @@ data class Task(
     constructor(title: String, tags: Set<Tag>) : this(
         NanoIdUtils.randomNanoId(RANDOM, DEFAULT_ALPHABET, 8),
         title,
+        LocalDateTime.now(),
         tags
     )
 
@@ -53,7 +56,7 @@ data class Task(
 
 
     fun withTags(tags: Set<Tag>): Task {
-        return Task(this.id, this.title, tags)
+        return Task(this.id, this.title, this.created, tags)
     }
 
     fun tagsString(): String {

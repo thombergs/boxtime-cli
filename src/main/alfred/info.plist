@@ -222,7 +222,7 @@
 	<key>createdby</key>
 	<string>Tom Hombergs</string>
 	<key>description</key>
-	<string></string>
+	<string>Take control of your time</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
@@ -342,7 +342,7 @@
 				<key>runningsubtext</key>
 				<string>Loading tasks ...</string>
 				<key>script</key>
-				<string>boxtime task list --alfred --filter "$1"</string>
+				<string>boxtime task list --alfred --filter "$1" --count 100</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -536,7 +536,7 @@
 				<key>runningsubtext</key>
 				<string>Loading tasks ...</string>
 				<key>script</key>
-				<string>boxtime task list --alfred --filter "$1"</string>
+				<string>boxtime task list --alfred --filter "$1" --count 100</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>

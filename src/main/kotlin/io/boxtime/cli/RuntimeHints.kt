@@ -11,6 +11,7 @@ import org.springframework.aot.hint.ExecutableMode
 import org.springframework.aot.hint.MemberCategory
 import org.springframework.aot.hint.RuntimeHints
 import org.springframework.aot.hint.RuntimeHintsRegistrar
+import org.springframework.core.io.ClassPathResource
 
 class RuntimeHints : RuntimeHintsRegistrar {
     override fun registerHints(hints: RuntimeHints, classLoader: ClassLoader?) {
@@ -24,6 +25,9 @@ class RuntimeHints : RuntimeHintsRegistrar {
             .registerType(TaskResultSetExtractor::class.java,
                 MemberCategory.INVOKE_DECLARED_CONSTRUCTORS,
                 MemberCategory.INVOKE_DECLARED_METHODS)
+
+        hints.resources()
+            .registerResource(ClassPathResource("/version.txt"))
 
         registerKotlinSerializables(hints)
     }

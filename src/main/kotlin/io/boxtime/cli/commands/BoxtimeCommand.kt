@@ -10,7 +10,9 @@ import picocli.CommandLine.Command
 
 @Component
 @Command(
-    name = "boxtime", mixinStandardHelpOptions = true, subcommands = [
+    name = "boxtime", mixinStandardHelpOptions = true,
+    versionProvider = BoxtimeVersionProvider::class,
+    subcommands = [
         TaskCommand::class,
         TrackCommand::class,
         LogCommand::class,

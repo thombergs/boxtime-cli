@@ -1,3 +1,6 @@
+boxtime:
+  version: @@PROJECT.VERSION@@
+
 spring:
   main:
     banner-mode: off

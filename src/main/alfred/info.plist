@@ -998,6 +998,27 @@
 			<key>variable</key>
 			<string>BOXTIME_DATABASE_FILE</string>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>~/.boxtime/boxtime.log</string>
+				<key>filtermode</key>
+				<integer>0</integer>
+				<key>placeholder</key>
+				<string>~/.boxtime/boxtime.log</string>
+				<key>required</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>This file will contain any logs that may help debug an issue with boxtime.</string>
+			<key>label</key>
+			<string>Log file</string>
+			<key>type</key>
+			<string>filepicker</string>
+			<key>variable</key>
+			<string>BOXTIME_LOG_FILE</string>
+		</dict>
 	</array>
 	<key>version</key>
 	<string>@@PROJECT.VERSION@@</string>

@@ -1,5 +1,6 @@
 boxtime:
   version: @@PROJECT.VERSION@@
+  logfile: ${BOXTIME_LOG_FILE:~/.boxtime/boxtime.log}
 
 spring:
   main:

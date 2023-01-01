@@ -84,7 +84,7 @@ tasks.register('printVersion') {
 }
 
 processResources {
-    filesMatching(['**/application.yml', '**/version.txt']) {
+    filesMatching(['**/application.yml', '**/version.txt', '**/info.plist']) {
         filter {
             it.replace('@@PROJECT.VERSION@@', project.version)
         }

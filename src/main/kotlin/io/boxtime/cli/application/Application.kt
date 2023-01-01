@@ -4,6 +4,10 @@ import io.boxtime.cli.ports.output.Output
 import io.boxtime.cli.ports.taskdatabase.Task
 import io.boxtime.cli.ports.taskdatabase.TaskDatabase
 import io.boxtime.cli.ports.tasklogger.TaskLogger
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver
+import java.io.File
+import java.nio.file.Files
+import java.nio.file.Path
 import java.time.Duration
 import java.time.LocalDateTime
 
@@ -89,6 +93,39 @@ class Application(
         } catch (e: Exception) {
             output.error(e)
         }
+    }
+
+    companion object {
+        fun getAlfredWorkflowsFolder(): File {
+            return File("${System.getProperty("user.home")}/Library/Application Support/Alfred/Alfred.alfredpreferences/workflows")
+        }
+
+        fun getBoxtimeWorkflowFolder(): File {
+            return File(getAlfredWorkflowsFolder(), "boxtime")
+        }
+    }
+
+    fun installAlfredWorkflow() {
+        if (isAlfredInstalled()) {
+            createBoxtimeWorkflowFolder()
+            copyResource("/alfred/icon.png", getBoxtimeWorkflowFolder())
+            copyResource("/alfred/info.plist", getBoxtimeWorkflowFolder())
+        }
+    }
+
+    private fun copyResource(resourcePath: String, targetFolder: File){
+        val inputStream = this::class.java.getResourceAsStream(resourcePath)
+        val filename = resourcePath.substring(resourcePath.lastIndexOf('/') + 1)
+        Files.copy(inputStream!!, Path.of(targetFolder.absolutePath, filename))
+    }
+
+    private fun createBoxtimeWorkflowFolder() {
+        val boxtimeWorkflowFolder = getBoxtimeWorkflowFolder().toPath()
+        Files.createDirectories(boxtimeWorkflowFolder)
+    }
+
+    private fun isAlfredInstalled(): Boolean {
+        return getAlfredWorkflowsFolder().exists() && getAlfredWorkflowsFolder().isDirectory
     }
 
     private fun getTaskStartingWith(taskId: String): Task? {

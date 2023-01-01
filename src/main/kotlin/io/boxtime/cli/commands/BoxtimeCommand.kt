@@ -1,5 +1,6 @@
 package io.boxtime.cli.commands
 
+import io.boxtime.cli.commands.alfred.AlfredCommand
 import io.boxtime.cli.commands.log.LogCommand
 import io.boxtime.cli.commands.status.StatusCommand
 import io.boxtime.cli.commands.tag.TagCommand
@@ -17,7 +18,8 @@ import picocli.CommandLine.Command
         TrackCommand::class,
         LogCommand::class,
         StatusCommand::class,
-        TagCommand::class
+        TagCommand::class,
+        AlfredCommand::class,
     ]
 )
 class BoxtimeCommand(

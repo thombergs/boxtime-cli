@@ -28,6 +28,10 @@ class RuntimeHints : RuntimeHintsRegistrar {
 
         hints.resources()
             .registerResource(ClassPathResource("/version.txt"))
+        hints.resources()
+            .registerResource(ClassPathResource("/alfred/icon.png"))
+        hints.resources()
+            .registerResource(ClassPathResource("/alfred/info.plist"))
 
         registerKotlinSerializables(hints)
     }

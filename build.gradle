@@ -71,7 +71,7 @@ tasks.register('alfred', Zip){
 tasks.register('alfredPrepare') {
     doLast {
         copy {
-            from('src/main/alfred')
+            from('src/main/resources/alfred')
             into('build/alfred/resources')
             include('*')
             filter { line -> line.replaceAll('@@PROJECT.VERSION@@', project.version) }

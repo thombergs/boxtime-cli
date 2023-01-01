@@ -1,6 +1,6 @@
 #!/bin/sh
 
-grep src/main/alfred/info.plist -e @@PROJECT.VERSION@@
+grep src/main/resources/alfred/info.plist -e @@PROJECT.VERSION@@
 RESULT=$?
 if [ $RESULT -ne 0 ]; then
   echo "Alfred workflow must contain version placeholder @@PROJECT.VERSION@@! You have probably overwritten it with a hard-coded version." > /dev/stderr

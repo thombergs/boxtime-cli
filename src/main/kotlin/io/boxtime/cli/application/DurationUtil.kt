@@ -6,11 +6,17 @@ import java.util.regex.Pattern
 
 val DURATION_PATTERN: Pattern =
     Pattern.compile("^((?<hours>[0-9]+) ?h)? ?((?<minutes>[0-9]+) ?m)? ?((?<seconds>[0-9]+) ?s)?$")
+val NUMBER_PATTERN: Pattern =
+    Pattern.compile("^[0-9]+$")
 
 
 fun parseDuration(string: String): Duration {
     val matcher = DURATION_PATTERN.matcher(string)
     if (!matcher.matches()) {
+        val numberMatcher = NUMBER_PATTERN.matcher(string)
+        if (numberMatcher.matches()) {
+            return Duration.ofSeconds(string.toLong())
+        }
         throw InvalidDurationStringException(string)
     }
     try {

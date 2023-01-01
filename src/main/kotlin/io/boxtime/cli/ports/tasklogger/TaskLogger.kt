@@ -14,7 +14,7 @@ interface TaskLogger {
     /**
      * Records a task with a duration but without a start and end time.
      */
-    fun logDuration(taskId: String, duration: Duration)
+    fun logCount(taskId: String, count: Count)
 
     fun getLogEntries(): List<LogEntry>
 

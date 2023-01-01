@@ -2,6 +2,8 @@ package io.boxtime.cli.ports.taskdatabase
 
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils.DEFAULT_ALPHABET
+import io.boxtime.cli.application.parseDuration
+import io.boxtime.cli.ports.tasklogger.Count
 import java.time.LocalDateTime
 import java.util.*
 import java.util.regex.Pattern
@@ -10,6 +12,7 @@ data class Task(
     val id: String,
     val title: String,
     val created: LocalDateTime,
+    val unit: Unit,
     val tags: Set<Tag>
 ) {
 
@@ -22,7 +25,7 @@ data class Task(
             val matcher = TAG_PATTERN.matcher(string)
 
             var stripped = string
-            while(matcher.find()){
+            while (matcher.find()) {
                 stripped = stripped.replace(matcher.group(), "")
             }
             return stripped
@@ -42,30 +45,40 @@ data class Task(
         }
     }
 
-    constructor(title: String, tags: Set<Tag>) : this(
+    constructor(
+        title: String,
+        unit: Unit = Unit.SECONDS,
+        extractTags: Boolean = false) : this(
         NanoIdUtils.randomNanoId(RANDOM, DEFAULT_ALPHABET, 8),
-        title,
+        if (extractTags) stripTags(title) else title,
         LocalDateTime.now(),
-        tags
-    )
-
-    constructor(title: String, extractTags: Boolean = false) : this(
-        if(extractTags) stripTags(title) else title,
+        unit,
         if (extractTags) extractTags(title) else setOf<Tag>()
     )
 
-
     fun withTags(tags: Set<Tag>): Task {
-        return Task(this.id, this.title, this.created, tags)
+        return Task(this.id, this.title, this.created, this.unit, tags)
     }
 
     fun tagsString(): String {
         val builder = StringBuilder()
-        for(tag in tags){
+        for (tag in tags) {
             builder.append(tag.nameWithHashtag())
             builder.append(" ")
         }
         return builder.toString().trim()
+    }
+
+    fun toCount(completion: String): Count {
+        return if (this.unit == Unit.SECONDS) {
+            Count(this.unit, parseDuration(completion).toSeconds().toFloat())
+        } else {
+            Count(this.unit, completion.toFloat())
+        }
+    }
+
+    fun toCount(count: Float): Count {
+        return Count(this.unit, count)
     }
 
 }

@@ -1,8 +1,10 @@
 package io.boxtime.cli.ports.taskdatabase
 
+import io.boxtime.cli.application.TaskFilter
+
 interface TaskDatabase {
 
-    fun listTasks(count: Int = 10, filter: String? = null): List<Task>
+    fun listTasks(filter: TaskFilter = TaskFilter()): List<Task>
 
     fun findTaskById(id: String): Task?
 

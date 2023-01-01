@@ -20,7 +20,7 @@ class ListTasksCommand(
         description = [
             "Filter string applied to the task title and tags."]
     )
-    var filter: String? = null
+    var filter: String = ""
 
     @CommandLine.Option(
         names = ["-c", "--count"],
@@ -29,8 +29,28 @@ class ListTasksCommand(
     )
     var count: Int = 10
 
+    @CommandLine.Option(
+        names = ["-u", "--unit"],
+        description = [
+            "List only tasks with this unit.",
+            "Can be used multiple times to combine multiple units with a logical OR.",
+            "Examples: 'seconds', 'km', 'seconds'."
+        ]
+    )
+    var units: List<String> = listOf()
+
+    @CommandLine.Option(
+        names = ["-nu", "--nunit"],
+        description = [
+            "List only tasks that DO NOT have this unit.",
+            "Can be used multiple times to combine multiple units with a logical AND.",
+            "Examples: 'seconds', 'km', 'seconds'."
+        ]
+    )
+    var notUnits: List<String> = listOf()
+
     override fun call(): Int {
-        getApplication().listTasks(count, filter)
+        getApplication().listTasks(count, filter, units, notUnits)
         return 0
     }
 

@@ -1,5 +1,6 @@
 package io.boxtime.cli.adapters.h2taskdatabase
 
+import io.boxtime.cli.application.TaskFilter
 import io.boxtime.cli.ports.taskdatabase.Tag
 import io.boxtime.cli.ports.taskdatabase.Task
 import io.boxtime.cli.ports.taskdatabase.TaskDatabase
@@ -11,8 +12,10 @@ class H2TaskDatabase(
     private val tagRepository: TagRepository
 ) : TaskDatabase {
 
-    override fun listTasks(count: Int, filter: String?): List<Task> {
-        return taskRepository.findTasks(count, filter?: "")
+    override fun listTasks(filter: TaskFilter): List<Task> {
+        val requiredUnits = filter.requiredUnits.ifEmpty { null }
+        val rejectedUnits = filter.rejectedUnits.ifEmpty { null }
+        return taskRepository.findTasks(filter.count, filter.name, requiredUnits, rejectedUnits)
             .map { it.toDomainObject(tagRepository) }
     }
 

@@ -23,7 +23,7 @@ class ListTasksCommandTest {
 	lateinit var addTaskCommand: AddTaskCommand
 
 	@Test
-	fun listsTasks() {
+	fun filtersByTitle() {
 		CommandLine(addTaskCommand, factory)
 			.execute("#tag1 Load the #tag2 dishwasher #tag3", "--tags")
 
@@ -35,6 +35,32 @@ class ListTasksCommandTest {
 
 		CommandLine(listTaskCommand, factory)
 			.execute("--filter", "Dust")
+
+		// TODO: assert log output is correct
+	}
+
+	@Test
+	fun filtersByUnits() {
+		CommandLine(addTaskCommand, factory)
+			.execute("Foo") // default unit "seconds"
+
+		CommandLine(addTaskCommand, factory)
+			.execute("Running", "--unit=km")
+
+		CommandLine(addTaskCommand, factory)
+			.execute("Water", "--unit=l")
+
+		CommandLine(listTaskCommand, factory)
+			.execute("--unit=seconds")
+
+		CommandLine(listTaskCommand, factory)
+			.execute("--unit=l")
+
+		CommandLine(listTaskCommand, factory)
+			.execute("--unit=seconds", "--unit=l", "--unit=km")
+
+		CommandLine(listTaskCommand, factory)
+			.execute("--nunit=seconds", "--nunit=km")
 
 		// TODO: assert log output is correct
 	}

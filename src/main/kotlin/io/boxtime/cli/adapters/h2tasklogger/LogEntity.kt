@@ -5,7 +5,6 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.domain.Persistable
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
-import java.time.Duration
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 
@@ -20,8 +19,8 @@ data class LogEntity(
     var start: LocalDateTime,
     @Column("END_TIME")
     var end: LocalDateTime?,
-    @Column("DURATION_IN_SECONDS")
-    var durationInSeconds: Int?
+    @Column("COUNT")
+    var count: Float?
 ) : Persistable<Int> {
 
     constructor(taskId: String, start: LocalDateTime, end: LocalDateTime) : this(
@@ -29,7 +28,7 @@ data class LogEntity(
         taskId,
         start,
         end,
-        ChronoUnit.SECONDS.between(start, end).toInt()
+        ChronoUnit.SECONDS.between(start, end).toFloat()
     )
 
     constructor(taskId: String) : this(
@@ -40,17 +39,17 @@ data class LogEntity(
         null
     )
 
-    constructor(taskId: String, durationInSeconds: Int) : this(
+    constructor(taskId: String, count: Int) : this(
         null,
         taskId,
         LocalDateTime.now(),
         null,
-        durationInSeconds
+        count.toFloat()
     )
 
     fun stop() {
         this.end = LocalDateTime.now()
-        this.durationInSeconds = ChronoUnit.SECONDS.between(start, end).toInt()
+        this.count = ChronoUnit.SECONDS.between(start, end).toFloat()
     }
 
     override fun getId(): Int? {
@@ -65,7 +64,8 @@ data class LogEntity(
         return LogEntry(
             this.taskId,
             this.start,
-            this.durationInSeconds?.let { Duration.ofSeconds(it.toLong()) })
+            this.count.let { it }
+        )
     }
 
 }

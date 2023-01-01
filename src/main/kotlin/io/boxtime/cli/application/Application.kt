@@ -3,8 +3,9 @@ package io.boxtime.cli.application
 import io.boxtime.cli.ports.output.Output
 import io.boxtime.cli.ports.taskdatabase.Task
 import io.boxtime.cli.ports.taskdatabase.TaskDatabase
+import io.boxtime.cli.ports.taskdatabase.Unit
+import io.boxtime.cli.ports.tasklogger.Count
 import io.boxtime.cli.ports.tasklogger.TaskLogger
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
@@ -20,9 +21,9 @@ class Application(
     private val output: Output,
 ) {
 
-    fun addTask(title: String, extractTags: Boolean) {
+    fun addTask(title: String, unit: String, extractTags: Boolean) {
         try {
-            val task = Task(title, extractTags);
+            val task = Task(title, Unit(unit), extractTags);
             taskDatabase.addTask(task)
             output.taskAdded(task)
         } catch (e: Exception) {
@@ -32,8 +33,14 @@ class Application(
 
     fun startTask(taskId: String) {
         try {
-            stopTask(silent = true)
             val task = getTaskStartingWith(taskId) ?: return
+
+            if (task.unit != Unit.SECONDS) {
+                output.canOnlyTrackTasksWithTimeUnit(task)
+                return
+            }
+
+            stopTask(silent = true)
             taskLogger.start(task.id)
             output.taskStarted(task)
         } catch (e: Exception) {
@@ -50,7 +57,7 @@ class Application(
             }
             val task = taskDatabase.findTaskById(logEntry.taskId)
             if (task == null) {
-                if(!silent) output.taskNotFound(logEntry.taskId)
+                if (!silent) output.taskNotFound(logEntry.taskId)
                 return
             }
             output.taskStopped(task, logEntry)
@@ -59,9 +66,20 @@ class Application(
         }
     }
 
-    fun listTasks(count: Int = 10, filter: String?) {
+    fun listTasks(
+        count: Int = 10,
+        nameFilter: String = "",
+        requiredUnits: List<String>,
+        rejectedUnits: List<String>
+    ) {
         try {
-            output.listTasks(taskDatabase.listTasks(count, filter))
+            val filter = TaskFilter(
+                nameFilter,
+                requiredUnits,
+                rejectedUnits,
+                count
+            )
+            output.listTasks(taskDatabase.listTasks(filter))
         } catch (e: Exception) {
             output.error(e)
         }
@@ -84,12 +102,12 @@ class Application(
         }
     }
 
-    fun logTask(taskId: String, durationString: String) {
+    fun logTask(taskId: String, completion: String) {
         try {
             val task = getTaskStartingWith(taskId) ?: return
-            val duration = parseDuration(durationString)
-            taskLogger.logDuration(taskId, duration)
-            output.taskLogged(task, durationString)
+            val count = task.toCount(completion)
+            taskLogger.logCount(task.id, count)
+            output.taskLogged(task, count)
         } catch (e: Exception) {
             output.error(e)
         }
@@ -144,24 +162,44 @@ class Application(
     fun status() {
         try {
 
+            val todaysLogEntries = taskLogger.getLogEntriesFromToday()
+
+            // the task currently being tracked is always a time-based task, so we can assume time as the unit
             val currentLogEntry = taskLogger.getCurrentLogEntry()
             val currentTask = currentLogEntry
                 ?.let { taskDatabase.findTaskById(it.taskId) }
-            val currentTaskDuration = currentLogEntry
-                ?.let { it.duration ?: Duration.between(it.startTime, LocalDateTime.now()) }
+            val count = currentLogEntry?.let {
+                Count(currentTask!!.unit, Duration.between(it.startTime, LocalDateTime.now()).toSeconds().toFloat())
+            }
+            val currentTaskDuration = count?.asDuration()
             val currentTaskDurationToday = currentLogEntry
-                ?.let { taskLogger.getLogEntriesFromToday(it.taskId) }
-                ?.map { it.duration ?: Duration.between(it.startTime, LocalDateTime.now()) }
+                ?.let { logEntry -> todaysLogEntries.filter { it.taskId == logEntry.taskId } }
+                ?.map { count?.asDuration() ?: Duration.between(it.startTime, LocalDateTime.now()) }
                 ?.fold(Duration.ZERO) { e1, e2 -> if (e2 == null) e1 else e1.plus(e2) }
+
             val totalDurationToday = taskLogger.getLogEntriesFromToday()
-                .map { it.duration ?: Duration.between(it.startTime, LocalDateTime.now()) }
+                .map { count?.asDuration() ?: Duration.between(it.startTime, LocalDateTime.now()) }
                 .fold(Duration.ZERO) { e1, e2 -> if (e2 == null) e1 else e1.plus(e2) }
+
+            val nonTimeBasedTasksToday = todaysLogEntries
+                .map {
+                    val task = taskDatabase.findTaskById(it.taskId)!!
+                    TaskWithCount(task, Count(task.unit, it.count ?: 0f))
+                }
+                .filter { it.task.unit != Unit.SECONDS }
+                .groupBy { it.task.id }
+                .map {
+                    it.value.reduce { left, right ->
+                        TaskWithCount(left.task, Count(left.task.unit, left.count.count + right.count.count))
+                    }
+                }
 
             val status = Status(
                 currentTask,
                 currentTaskDuration,
                 currentTaskDurationToday,
-                totalDurationToday
+                totalDurationToday,
+                nonTimeBasedTasksToday
             )
 
             output.status(status)

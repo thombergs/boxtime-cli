@@ -3,6 +3,7 @@ package io.boxtime.cli.ports.output
 import io.boxtime.cli.ports.taskdatabase.Task
 import io.boxtime.cli.application.Status
 import io.boxtime.cli.ports.taskdatabase.Tag
+import io.boxtime.cli.ports.tasklogger.Count
 import io.boxtime.cli.ports.tasklogger.LogEntry
 
 interface Output {
@@ -17,6 +18,8 @@ interface Output {
 
     fun taskStarted(task: Task)
 
+    fun canOnlyTrackTasksWithTimeUnit(task: Task)
+
     fun taskStopped(task: Task, logEntry: LogEntry)
 
     fun notCurrentlyTracking()
@@ -29,7 +32,7 @@ interface Output {
 
     fun logsReset()
 
-    fun taskLogged(task: Task, durationString: String)
+    fun taskLogged(task: Task, count: Count)
 
     fun status(status: Status)
 

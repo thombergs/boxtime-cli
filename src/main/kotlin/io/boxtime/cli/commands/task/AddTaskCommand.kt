@@ -26,8 +26,15 @@ class AddTaskCommand(
     )
     var extractTags: Boolean = false
 
+    @CommandLine.Option(
+        names = ["-u", "--unit"],
+        description = [
+            "The unit in which to measure this task (default: 'seconds')."]
+    )
+    var unit: String = "seconds"
+
     override fun call(): Int {
-        getApplication().addTask(title, extractTags)
+        getApplication().addTask(title, unit, extractTags)
         return 0
     }
 

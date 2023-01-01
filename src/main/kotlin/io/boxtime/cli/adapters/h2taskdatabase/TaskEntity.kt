@@ -1,6 +1,7 @@
 package io.boxtime.cli.adapters.h2taskdatabase
 
 import io.boxtime.cli.ports.taskdatabase.Task
+import io.boxtime.cli.ports.taskdatabase.Unit
 import org.springframework.data.annotation.Id
 import org.springframework.data.annotation.PersistenceCreator
 import org.springframework.data.annotation.Transient
@@ -19,6 +20,8 @@ data class TaskEntity(
     val title: String,
     @Column("CREATED_DATE")
     val created: LocalDateTime,
+    @Column("UNIT")
+    val unit: String,
     @MappedCollection(idColumn = "TASK_ID")
     val tags: Set<TagRef> = HashSet(),
     @Transient
@@ -26,14 +29,14 @@ data class TaskEntity(
 ) : Persistable<String> {
 
     @PersistenceCreator
-    constructor(id: String, title: String, created: LocalDateTime, tags: Set<TagRef>) : this(id, title, created, tags, false)
+    constructor(id: String, title: String, created: LocalDateTime, unit: String, tags: Set<TagRef>) : this(id, title, created, unit, tags,false)
 
     companion object {
         fun fromDomainObject(task: Task, new: Boolean): TaskEntity {
             val tagRefs = task.tags
                 .map { TagRef(it.id) }
                 .toSet()
-            return TaskEntity(task.id, task.title, task.created, tagRefs, new)
+            return TaskEntity(task.id, task.title, task.created, task.unit.name, tagRefs, new)
         }
     }
 
@@ -41,7 +44,7 @@ data class TaskEntity(
         val tags = tagRepository.findByIdIn(this.tags.map { it.tagId })
             .map { it.toDomainObject() }
             .toSet()
-        return Task(this.id, this.title, this.created, tags)
+        return Task(this.id, this.title, this.created, Unit(this.unit), tags)
     }
 
     override fun getId(): String {

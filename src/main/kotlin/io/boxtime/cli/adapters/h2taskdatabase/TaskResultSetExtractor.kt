@@ -8,12 +8,13 @@ class TaskResultSetExtractor : ResultSetExtractor<List<TaskEntity>> {
         // collect the rows
         val flatTasks = mutableListOf<TaskEntity>()
         while (resultSet.next()) {
-            val tagId: String? = resultSet.getString(4)
+            val tagId: String? = resultSet.getString(5)
             flatTasks.add(
                 TaskEntity(
                     resultSet.getString(1),
                     resultSet.getString(2),
                     resultSet.getTimestamp(3).toLocalDateTime(),
+                    resultSet.getString(4),
                     if (tagId == null) setOf() else setOf(TagRef(tagId))
                 )
             )
@@ -27,6 +28,7 @@ class TaskResultSetExtractor : ResultSetExtractor<List<TaskEntity>> {
                         left.id,
                         left.title,
                         left.created,
+                        left.unit,
                         left.tags + right.tags
                     )
                 }

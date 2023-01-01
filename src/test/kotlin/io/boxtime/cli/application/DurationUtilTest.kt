@@ -51,6 +51,7 @@ class DurationUtilTest {
             return Stream.of(
                 // valid patterns
                 Arguments.of("1h", Duration.of(1, ChronoUnit.HOURS), noException),
+                Arguments.of("60", Duration.of(60, ChronoUnit.SECONDS), noException),
                 Arguments.of("2m", Duration.of(2, ChronoUnit.MINUTES), noException),
                 Arguments.of("3s", Duration.of(3, ChronoUnit.SECONDS), noException),
                 Arguments.of("4h5m", Duration.of(245, ChronoUnit.MINUTES), noException),

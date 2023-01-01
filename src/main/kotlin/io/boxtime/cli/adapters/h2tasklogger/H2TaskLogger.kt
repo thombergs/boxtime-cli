@@ -1,9 +1,9 @@
 package io.boxtime.cli.adapters.h2tasklogger
 
+import io.boxtime.cli.ports.tasklogger.Count
 import io.boxtime.cli.ports.tasklogger.LogEntry
 import io.boxtime.cli.ports.tasklogger.TaskLogger
 import org.springframework.stereotype.Component
-import java.time.Duration
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 
@@ -26,13 +26,13 @@ class H2TaskLogger(
         return openLog.toDomainObject()
     }
 
-    override fun logDuration(taskId: String, duration: Duration) {
+    override fun logCount(taskId: String, count: Count) {
         val log = LogEntity(
             null,
             taskId,
             LocalDateTime.now(),
             LocalDateTime.now(),
-            duration.toSeconds().toInt()
+            count.count.toFloat()
         )
         logRepository.save(log)
     }

@@ -5,6 +5,7 @@ import io.boxtime.cli.application.toReadableString
 import io.boxtime.cli.ports.output.Output
 import io.boxtime.cli.ports.taskdatabase.Tag
 import io.boxtime.cli.ports.taskdatabase.Task
+import io.boxtime.cli.ports.tasklogger.Count
 import io.boxtime.cli.ports.tasklogger.LogEntry
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -38,8 +39,13 @@ class PlainTextOutput : Output {
         LOGGER.info("Started tracking task '${task.title}'.")
     }
 
+    override fun canOnlyTrackTasksWithTimeUnit(task: Task) {
+        LOGGER.info("Cannot track task '${task.title}'. Only tasks with time unit can be tracked. This task has unit '${task.unit.name}'.")
+    }
+
     override fun taskStopped(task: Task, logEntry: LogEntry) {
-        LOGGER.info("Stopped tracking task '${task.title}' after ${logEntry.duration?.toReadableString()}.")
+        val count = task.toCount(logEntry.count!!)
+        LOGGER.info("Stopped tracking task '${task.title}' after ${count?.asDuration()?.toReadableString()}.")
     }
 
     override fun notCurrentlyTracking() {
@@ -53,11 +59,12 @@ class PlainTextOutput : Output {
             listOf(
                 Column("Task ID"),
                 Column("Task"),
+                Column("Unit"),
             )
         )
 
         for (task in tasks) {
-            table.addRow(task.id, task.title)
+            table.addRow(task.id, task.title, task.unit.name)
         }
 
         table.print(out)
@@ -92,8 +99,8 @@ class PlainTextOutput : Output {
         LOGGER.info("Deleted all time logs.")
     }
 
-    override fun taskLogged(task: Task, durationString: String) {
-        LOGGER.info("Logged '${durationString}' for task '${task.title}'")
+    override fun taskLogged(task: Task, count: Count) {
+        LOGGER.info("Logged $count for task '${task.title}'")
     }
 
     override fun status(status: Status) {
@@ -109,6 +116,10 @@ class PlainTextOutput : Output {
             LOGGER.info("Total duration tracked today: ${status.totalDurationToday.toReadableString()}.")
         } else {
             LOGGER.info("No time tracked today, yet.")
+        }
+
+        for (task in status.nonTimeBasedTasksToday) {
+            LOGGER.info("Logged ${task.count} for task '${task.task.title}'.")
         }
     }
 }

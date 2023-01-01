@@ -13,6 +13,7 @@ interface TaskRepository : CrudRepository<TaskEntity, String> {
         select task.ID,
                task.TITLE,
                task.CREATED_DATE,
+               task.UNIT,
                tt.TAG_ID as TAG_ID
         from TASK task
                  join
@@ -21,13 +22,25 @@ interface TaskRepository : CrudRepository<TaskEntity, String> {
              TASK_TAG tt on task.ID = tt.TASK_ID
                  left outer join
              TAG tag on tt.TAG_ID = tag.ID
-        where task.ID in (select TASK_ID from TASK_TOUCHED order by LAST_TOUCHED desc limit :count)
-            and LOWER(task.TITLE) like concat('%', concat(LOWER(:filter), '%'))
-           or LOWER(tag.NAME) like concat('%', concat(LOWER(:filter), '%'))
+        where 
+          task.ID in (select TASK_ID from TASK_TOUCHED order by LAST_TOUCHED desc limit :count)
+          and (
+            LOWER(task.TITLE) like concat('%', concat(LOWER(:filter), '%'))
+            or LOWER(tag.NAME) like concat('%', concat(LOWER(:filter), '%'))
+          )
+          and (
+            ((:requiredUnits) is null OR task.unit in (:requiredUnits))
+            and ((:rejectedUnits) is null OR task.unit not in (:rejectedUnits))
+          )
         order by touched.LAST_TOUCHED desc
     """, resultSetExtractorClass = TaskResultSetExtractor::class
     )
-    fun findTasks(@Param("count") count: Int, @Param("filter") filter: String): List<TaskEntity>
+    fun findTasks(
+        @Param("count") count: Int,
+        @Param("filter") filter: String,
+        @Param("requiredUnits") requiredUnits: List<String>? = null,
+        @Param("rejectedUnits") rejectedUnits: List<String>? = null
+    ): List<TaskEntity>
 
 }
 

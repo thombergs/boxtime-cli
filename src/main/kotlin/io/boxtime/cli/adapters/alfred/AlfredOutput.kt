@@ -5,6 +5,7 @@ import io.boxtime.cli.application.toReadableString
 import io.boxtime.cli.ports.output.Output
 import io.boxtime.cli.ports.taskdatabase.Tag
 import io.boxtime.cli.ports.taskdatabase.Task
+import io.boxtime.cli.ports.tasklogger.Count
 import io.boxtime.cli.ports.tasklogger.LogEntry
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -68,11 +69,22 @@ class AlfredOutput : Output {
         )
     }
 
-    override fun taskStopped(task: Task, logEntry: LogEntry) {
+    override fun canOnlyTrackTasksWithTimeUnit(task: Task) {
         printItems(
             ScriptFilterItem(
                 task.id,
-                "Task stopped after ${logEntry.duration?.toReadableString()}.",
+                "Cannot track task.",
+                "Can only track tasks with time unit. This task has unit '${task.unit.name}'."
+            )
+        )
+    }
+
+    override fun taskStopped(task: Task, logEntry: LogEntry) {
+        val count = task.toCount(logEntry.count!!)
+        printItems(
+            ScriptFilterItem(
+                task.id,
+                "Task stopped after ${count?.asDuration()?.toReadableString()}.",
                 "Stopped tracking '${task.title}'."
             )
         )
@@ -94,7 +106,7 @@ class AlfredOutput : Output {
                 ScriptFilterItem(
                     it.id,
                     it.title,
-                    it.tagsString()
+                    "Unit: ${it.unit.name}. Tags: ${it.tagsString()}"
                 )
             }
             .toTypedArray()
@@ -134,12 +146,12 @@ class AlfredOutput : Output {
         )
     }
 
-    override fun taskLogged(task: Task, durationString: String) {
+    override fun taskLogged(task: Task, count: Count) {
         printItems(
             ScriptFilterItem(
                 task.id,
-                "Logged ${durationString}.",
-                "Logged time for task '${task.title}'."
+                "Logged $count.",
+                "Logged work for task '${task.title}'."
             )
         )
     }
@@ -192,6 +204,16 @@ class AlfredOutput : Output {
                     "void",
                     "No time tracked today, yet.",
                     ""
+                )
+            )
+        }
+
+        for (task in status.nonTimeBasedTasksToday) {
+            items.add(
+                ScriptFilterItem(
+                    "void",
+                    task.task.title,
+                    "Logged ${task.count} today."
                 )
             )
         }

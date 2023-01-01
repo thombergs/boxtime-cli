@@ -17,9 +17,19 @@ brew install boxtime
 
 Repeat these steps after a time to get the newest version.
 
-If you want to use the Alfred workflow, download it from the [latest release](https://github.com/thombergs/boxtime-cli/releases/latest) and run it. Alfred should automatically open it and ask you to install it (or update it if you had installed it before).
+If you want to use the Alfred workflow, additionally run:
 
-## Usage
+```
+boxtime alfred install
+```
+
+If that doesn't work for some reason, you can download the Alfred workflow in the [latest release](https://github.com/thombergs/boxtime-cli/releases/latest) and execute it. Alfred should pick it up.
+
+## Alfred workflow usage
+
+Open your Alfred console (CMD+SPACE by default) and start by typing "t<SPACE>". Boxtime commands will come up and you just need to follow the prompts.
+
+## CLI Usage
 
 Add the `-h` flag to a command to show all available options and arguments.
 

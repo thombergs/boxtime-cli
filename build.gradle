@@ -11,7 +11,7 @@ plugins {
 }
 
 group = 'io.boxtime'
-version = '0.0.7'
+version = '0.0.8-SNAPSHOT'
 sourceCompatibility = '17'
 
 repositories {
@@ -84,7 +84,7 @@ tasks.register('printVersion') {
 }
 
 processResources {
-    filesMatching(['**/application.yml', '**/version.txt']) {
+    filesMatching(['**/application.yml', '**/version.txt', '**/info.plist']) {
         filter {
             it.replace('@@PROJECT.VERSION@@', project.version)
         }

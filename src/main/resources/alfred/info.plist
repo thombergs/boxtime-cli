@@ -34,6 +34,19 @@
 				<false/>
 			</dict>
 		</array>
+		<key>05056D8F-0BA0-40F9-B36A-55DEEB0E30D5</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>E4429010-42E4-4217-93FA-0D0D7E21647F</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>1761E89D-9AD4-4BE1-AAC5-A525700B4245</key>
 		<array>
 			<dict>
@@ -125,6 +138,19 @@
 				<false/>
 			</dict>
 		</array>
+		<key>7DFDB316-41BA-4BCB-9781-37F9F931B08A</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>092062A5-E026-47E8-ACE4-A02FF693865B</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>8CCCF091-7702-4562-978B-CA2AE7B48074</key>
 		<array>
 			<dict>
@@ -164,6 +190,32 @@
 				<false/>
 			</dict>
 		</array>
+		<key>9F8293EF-8D61-4C12-B7E6-B3FDB92748A7</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>C0AA5AD7-E544-4ABA-B627-A277466BBFC0</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>AE80D13D-9189-4AD6-BB56-F6E45E52135C</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>9F8293EF-8D61-4C12-B7E6-B3FDB92748A7</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>B271D8C4-EADD-4D90-855A-3C55ABE8601B</key>
 		<array>
 			<dict>
@@ -192,11 +244,50 @@
 		</array>
 		<key>BDA6C600-FCAE-41E9-9240-CD7DC5520F72</key>
 		<array/>
+		<key>C0AA5AD7-E544-4ABA-B627-A277466BBFC0</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>05056D8F-0BA0-40F9-B36A-55DEEB0E30D5</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>E4429010-42E4-4217-93FA-0D0D7E21647F</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>7DFDB316-41BA-4BCB-9781-37F9F931B08A</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>E979C85B-6870-4FE8-B040-14C33456E59A</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
 				<string>3657C2A0-AC0D-4908-91FE-6246E9DDFC64</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>F26480CA-FDA6-463E-A2F9-A3BCD6CD313A</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>AE80D13D-9189-4AD6-BB56-F6E45E52135C</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -300,12 +391,54 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Log task</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>72021E82-F550-42FF-B788-D19BF9D0F889</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>t log</string>
+				<key>subtext</key>
+				<string>Log progress of a task</string>
+				<key>text</key>
+				<string>Log task</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>7876FAB3-BB75-4B40-AA5E-4C682C4BB996</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>subtext</key>
-				<string>Use a string like "1h10m50s"</string>
+				<string>Example: "1h5m" if task is tracked in time units, otherwise just a number like "5" or "1.33".</string>
 				<key>text</key>
-				<string>Enter duration</string>
+				<string>Enter progress</string>
 				<key>withspace</key>
 				<true/>
 			</dict>
@@ -389,48 +522,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<false/>
-				<key>removeextension</key>
-				<false/>
-				<key>text</key>
-				<string>{query}</string>
-				<key>title</key>
-				<string>Log task</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
-			<key>uid</key>
-			<string>72021E82-F550-42FF-B788-D19BF9D0F889</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>2</integer>
-				<key>keyword</key>
-				<string>t log</string>
-				<key>subtext</key>
-				<string></string>
-				<key>text</key>
-				<string>Log task</string>
-				<key>withspace</key>
-				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
-			<key>uid</key>
-			<string>7876FAB3-BB75-4B40-AA5E-4C682C4BB996</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>delimiter</key>
 				<string>%%</string>
 				<key>discardemptyarguments</key>
@@ -497,7 +588,7 @@
 				<key>keyword</key>
 				<string>t start</string>
 				<key>subtext</key>
-				<string></string>
+				<string>Start the timer for a time-based task.</string>
 				<key>text</key>
 				<string>Start tracking</string>
 				<key>withspace</key>
@@ -507,6 +598,27 @@
 			<string>alfred.workflow.input.keyword</string>
 			<key>uid</key>
 			<string>B9B95BE3-6D53-4506-8FAE-C5D30A8A47F3</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Start task</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>4B432231-0C56-4FD9-B6E9-677E9FB4DB9C</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -536,7 +648,7 @@
 				<key>runningsubtext</key>
 				<string>Loading tasks ...</string>
 				<key>script</key>
-				<string>boxtime task list --alfred --filter "$1" --count 100</string>
+				<string>boxtime task list --alfred --filter="$1" --unit=seconds --count=100</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -579,27 +691,6 @@
 			<string>92557434-1154-416A-9168-231909D6985B</string>
 			<key>version</key>
 			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<false/>
-				<key>removeextension</key>
-				<false/>
-				<key>text</key>
-				<string>{query}</string>
-				<key>title</key>
-				<string>Start task</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
-			<key>uid</key>
-			<string>4B432231-0C56-4FD9-B6E9-677E9FB4DB9C</string>
-			<key>version</key>
-			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -688,50 +779,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>argumenttype</key>
-				<integer>2</integer>
-				<key>keyword</key>
-				<string>t add</string>
-				<key>subtext</key>
-				<string></string>
-				<key>text</key>
-				<string>Add a new task</string>
-				<key>withspace</key>
-				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
-			<key>uid</key>
-			<string>F9066EE0-148B-42B3-BC66-3AB9B5226172</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>concurrently</key>
-				<false/>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>script</key>
-				<string>boxtime task add "$1" --tags</string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>type</key>
-				<integer>5</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>E979C85B-6870-4FE8-B040-14C33456E59A</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>lastpathcomponent</key>
 				<false/>
 				<key>onlyshowifquerypopulated</key>
@@ -750,6 +797,214 @@
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>t add task</string>
+				<key>subtext</key>
+				<string>Adds a new task that is tracked in time units.</string>
+				<key>text</key>
+				<string>Add a new time-based task</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>F9066EE0-148B-42B3-BC66-3AB9B5226172</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>boxtime task add "$1" --tags --unit=seconds</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>5</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>E979C85B-6870-4FE8-B040-14C33456E59A</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>boxtime task add "$1" --tags --unit="$2"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>5</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>7DFDB316-41BA-4BCB-9781-37F9F931B08A</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>subtext</key>
+				<string>May contain #hashtags.</string>
+				<key>text</key>
+				<string>Enter the name of the task</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>AE80D13D-9189-4AD6-BB56-F6E45E52135C</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Add habit</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>092062A5-E026-47E8-ACE4-A02FF693865B</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>subtext</key>
+				<string>Examples: "km", "l", "times"</string>
+				<key>text</key>
+				<string>Enter the unit for this task</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>C0AA5AD7-E544-4ABA-B627-A277466BBFC0</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>t add habit</string>
+				<key>subtext</key>
+				<string>Adds a new habit that is tracked in a unit of your choice.</string>
+				<key>text</key>
+				<string>Add a new habit</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>F26480CA-FDA6-463E-A2F9-A3BCD6CD313A</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string>{var:taskTitle}%%{query}</string>
+				<key>passthroughargument</key>
+				<false/>
+				<key>variables</key>
+				<dict>
+					<key>unit</key>
+					<string>{query}</string>
+				</dict>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.argument</string>
+			<key>uid</key>
+			<string>05056D8F-0BA0-40F9-B36A-55DEEB0E30D5</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string></string>
+				<key>passthroughargument</key>
+				<false/>
+				<key>variables</key>
+				<dict>
+					<key>taskTitle</key>
+					<string>{query}</string>
+				</dict>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.argument</string>
+			<key>uid</key>
+			<string>9F8293EF-8D61-4C12-B7E6-B3FDB92748A7</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>delimiter</key>
+				<string>%%</string>
+				<key>discardemptyarguments</key>
+				<false/>
+				<key>outputas</key>
+				<integer>1</integer>
+				<key>trimarguments</key>
+				<true/>
+				<key>variableprefix</key>
+				<string>split</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.split</string>
+			<key>uid</key>
+			<string>E4429010-42E4-4217-93FA-0D0D7E21647F</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
@@ -764,7 +1019,7 @@
 			<key>xpos</key>
 			<real>820</real>
 			<key>ypos</key>
-			<real>190</real>
+			<real>195</real>
 		</dict>
 		<key>026869A2-F8C0-4B8C-8B25-1706EB7C3FB4</key>
 		<dict>
@@ -773,9 +1028,29 @@
 			<key>note</key>
 			<string>List tasks</string>
 			<key>xpos</key>
-			<real>290</real>
+			<real>285</real>
 			<key>ypos</key>
-			<real>310</real>
+			<real>345</real>
+		</dict>
+		<key>05056D8F-0BA0-40F9-B36A-55DEEB0E30D5</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>2</integer>
+			<key>note</key>
+			<string>Store task name in variable</string>
+			<key>xpos</key>
+			<real>830</real>
+			<key>ypos</key>
+			<real>900</real>
+		</dict>
+		<key>092062A5-E026-47E8-ACE4-A02FF693865B</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>2</integer>
+			<key>xpos</key>
+			<real>1290</real>
+			<key>ypos</key>
+			<real>870</real>
 		</dict>
 		<key>1761E89D-9AD4-4BE1-AAC5-A525700B4245</key>
 		<dict>
@@ -784,7 +1059,7 @@
 			<key>xpos</key>
 			<real>915</real>
 			<key>ypos</key>
-			<real>190</real>
+			<real>195</real>
 		</dict>
 		<key>1BD5E715-D284-4FD7-8269-E628D9B60187</key>
 		<dict>
@@ -795,14 +1070,14 @@
 			<key>xpos</key>
 			<real>280</real>
 			<key>ypos</key>
-			<real>160</real>
+			<real>165</real>
 		</dict>
 		<key>22F1CEE3-9341-48C8-B99B-04A683C5AE51</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>8</integer>
 			<key>note</key>
-			<string>Log task</string>
+			<string>List status</string>
 			<key>xpos</key>
 			<real>95</real>
 			<key>ypos</key>
@@ -817,16 +1092,16 @@
 			<key>xpos</key>
 			<real>495</real>
 			<key>ypos</key>
-			<real>190</real>
+			<real>195</real>
 		</dict>
 		<key>3657C2A0-AC0D-4908-91FE-6246E9DDFC64</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>2</integer>
 			<key>xpos</key>
-			<real>695</real>
+			<real>715</real>
 			<key>ypos</key>
-			<real>700</real>
+			<real>710</real>
 		</dict>
 		<key>3807C2B2-6CEC-45C2-9C97-D59048BA0042</key>
 		<dict>
@@ -835,27 +1110,27 @@
 			<key>note</key>
 			<string>Stop task</string>
 			<key>xpos</key>
-			<real>85</real>
+			<real>90</real>
 			<key>ypos</key>
-			<real>510</real>
+			<real>530</real>
 		</dict>
 		<key>4B432231-0C56-4FD9-B6E9-677E9FB4DB9C</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>4</integer>
 			<key>xpos</key>
-			<real>790</real>
+			<real>785</real>
 			<key>ypos</key>
-			<real>315</real>
+			<real>345</real>
 		</dict>
 		<key>5C3912A7-B94A-4862-B68F-9C9B0DB342E9</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>1</integer>
 			<key>xpos</key>
-			<real>525</real>
+			<real>530</real>
 			<key>ypos</key>
-			<real>515</real>
+			<real>530</real>
 		</dict>
 		<key>72021E82-F550-42FF-B788-D19BF9D0F889</key>
 		<dict>
@@ -875,7 +1150,7 @@
 			<key>xpos</key>
 			<real>995</real>
 			<key>ypos</key>
-			<real>160</real>
+			<real>165</real>
 		</dict>
 		<key>7876FAB3-BB75-4B40-AA5E-4C682C4BB996</key>
 		<dict>
@@ -888,6 +1163,15 @@
 			<key>ypos</key>
 			<real>165</real>
 		</dict>
+		<key>7DFDB316-41BA-4BCB-9781-37F9F931B08A</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>2</integer>
+			<key>xpos</key>
+			<real>1085</real>
+			<key>ypos</key>
+			<real>870</real>
+		</dict>
 		<key>8CCCF091-7702-4562-978B-CA2AE7B48074</key>
 		<dict>
 			<key>colorindex</key>
@@ -895,9 +1179,9 @@
 			<key>note</key>
 			<string>Stop task</string>
 			<key>xpos</key>
-			<real>295</real>
+			<real>300</real>
 			<key>ypos</key>
-			<real>515</real>
+			<real>530</real>
 		</dict>
 		<key>92557434-1154-416A-9168-231909D6985B</key>
 		<dict>
@@ -906,9 +1190,9 @@
 			<key>note</key>
 			<string>Start task</string>
 			<key>xpos</key>
-			<real>555</real>
+			<real>550</real>
 			<key>ypos</key>
-			<real>310</real>
+			<real>345</real>
 		</dict>
 		<key>966B702A-AA40-4883-90E1-CF31FBCBD411</key>
 		<dict>
@@ -917,20 +1201,42 @@
 			<key>note</key>
 			<string>Enter task name</string>
 			<key>xpos</key>
-			<real>290</real>
+			<real>310</real>
 			<key>ypos</key>
-			<real>690</real>
+			<real>710</real>
+		</dict>
+		<key>9F8293EF-8D61-4C12-B7E6-B3FDB92748A7</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>2</integer>
+			<key>note</key>
+			<string>Store task name in variable</string>
+			<key>xpos</key>
+			<real>500</real>
+			<key>ypos</key>
+			<real>900</real>
+		</dict>
+		<key>AE80D13D-9189-4AD6-BB56-F6E45E52135C</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>2</integer>
+			<key>note</key>
+			<string>Enter task name</string>
+			<key>xpos</key>
+			<real>315</real>
+			<key>ypos</key>
+			<real>870</real>
 		</dict>
 		<key>B271D8C4-EADD-4D90-855A-3C55ABE8601B</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>7</integer>
 			<key>note</key>
-			<string>Enter duration</string>
+			<string>Enter completion</string>
 			<key>xpos</key>
 			<real>620</real>
 			<key>ypos</key>
-			<real>160</real>
+			<real>165</real>
 		</dict>
 		<key>B9B95BE3-6D53-4506-8FAE-C5D30A8A47F3</key>
 		<dict>
@@ -939,9 +1245,9 @@
 			<key>note</key>
 			<string>Start task</string>
 			<key>xpos</key>
-			<real>100</real>
+			<real>95</real>
 			<key>ypos</key>
-			<real>310</real>
+			<real>345</real>
 		</dict>
 		<key>BDA6C600-FCAE-41E9-9240-CD7DC5520F72</key>
 		<dict>
@@ -954,25 +1260,56 @@
 			<key>ypos</key>
 			<real>15</real>
 		</dict>
+		<key>C0AA5AD7-E544-4ABA-B627-A277466BBFC0</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>2</integer>
+			<key>note</key>
+			<string>Enter task name</string>
+			<key>xpos</key>
+			<real>605</real>
+			<key>ypos</key>
+			<real>870</real>
+		</dict>
+		<key>E4429010-42E4-4217-93FA-0D0D7E21647F</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>7</integer>
+			<key>xpos</key>
+			<real>965</real>
+			<key>ypos</key>
+			<real>905</real>
+		</dict>
 		<key>E979C85B-6870-4FE8-B040-14C33456E59A</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>2</integer>
 			<key>xpos</key>
-			<real>490</real>
+			<real>510</real>
 			<key>ypos</key>
-			<real>695</real>
+			<real>710</real>
+		</dict>
+		<key>F26480CA-FDA6-463E-A2F9-A3BCD6CD313A</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>2</integer>
+			<key>note</key>
+			<string>Add habit</string>
+			<key>xpos</key>
+			<real>100</real>
+			<key>ypos</key>
+			<real>870</real>
 		</dict>
 		<key>F9066EE0-148B-42B3-BC66-3AB9B5226172</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>2</integer>
 			<key>note</key>
-			<string>Add task</string>
+			<string>Add time-based task</string>
 			<key>xpos</key>
-			<real>75</real>
+			<real>95</real>
 			<key>ypos</key>
-			<real>690</real>
+			<real>710</real>
 		</dict>
 	</dict>
 	<key>userconfigurationconfig</key>

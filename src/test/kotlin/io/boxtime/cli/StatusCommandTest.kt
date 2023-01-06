@@ -46,6 +46,8 @@ class StatusCommandTest {
 		CommandLine(startTaskCommand, factory)
 			.execute(dishwasherTask!!.id)
 
+		Thread.sleep(3000)
+
 		CommandLine(addTaskCommand, factory)
 			.execute("--unit=l", "Drink water")
 

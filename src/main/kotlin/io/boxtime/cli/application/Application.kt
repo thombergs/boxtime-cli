@@ -178,8 +178,9 @@ class Application(
                     if (it.taskId == currentTask?.task?.id && it.isOpen()) {
                         // add the current session length to the current task's tally
                         TaskWithCount(task, currentTask.count)
+                    } else {
+                        TaskWithCount(task, Count(task.unit, it.count ?: 0f))
                     }
-                    TaskWithCount(task, Count(task.unit, it.count ?: 0f))
                 }
                 .groupBy { it.task.id }
                 .map {

@@ -105,20 +105,15 @@ class PlainTextOutput : Output {
 
     override fun status(status: Status) {
         if (status.currentTask != null) {
-            LOGGER.info("Currently tracking '${status.currentTask.title}'.")
-            LOGGER.info("Current session duration: ${status.currentTaskDuration?.toReadableString()}.")
-            LOGGER.info("Total time tracked for this task today: ${status.currentTaskDurationToday?.toReadableString()}.")
+            LOGGER.info("Currently tracking '${status.currentTask.task.title}'.")
+            LOGGER.info("Current session duration: ${status.currentTask.count}.")
         } else {
             LOGGER.info("Currently not tracking a task.")
         }
 
-        if (status.totalDurationToday != null) {
-            LOGGER.info("Total duration tracked today: ${status.totalDurationToday.toReadableString()}.")
-        } else {
-            LOGGER.info("No time tracked today, yet.")
-        }
+        LOGGER.info("Total duration tracked today: ${status.totalTimeTrackedToday.toReadableString()}.")
 
-        for (task in status.nonTimeBasedTasksToday) {
+        for (task in status.todaysTasks) {
             LOGGER.info("Logged ${task.count} for task '${task.task.title}'.")
         }
     }

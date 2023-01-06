@@ -346,7 +346,7 @@
 				<key>runningsubtext</key>
 				<string>Loading status</string>
 				<key>script</key>
-				<string>boxtime status -a</string>
+				<string>boxtime status --alfred</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -375,7 +375,7 @@
 				<key>keyword</key>
 				<string>t status</string>
 				<key>subtext</key>
-				<string>List some infos about your time tracking</string>
+				<string>List the tasks you worked on today.</string>
 				<key>text</key>
 				<string>Status</string>
 				<key>withspace</key>
@@ -417,7 +417,7 @@
 				<key>keyword</key>
 				<string>t log</string>
 				<key>subtext</key>
-				<string>Log progress of a task</string>
+				<string>Log progress of a task.</string>
 				<key>text</key>
 				<string>Log task</string>
 				<key>withspace</key>
@@ -700,7 +700,7 @@
 				<key>keyword</key>
 				<string>t stop</string>
 				<key>subtext</key>
-				<string>Stop tracking your current task</string>
+				<string>Stop tracking your current task.</string>
 				<key>text</key>
 				<string>Stop tracking</string>
 				<key>withspace</key>
@@ -910,9 +910,9 @@
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>subtext</key>
-				<string>Examples: "km", "l", "times"</string>
+				<string>Examples: "km", "l", "times", "reps".</string>
 				<key>text</key>
-				<string>Enter the unit for this task</string>
+				<string>Enter the measurement unit for this task</string>
 				<key>withspace</key>
 				<true/>
 			</dict>
@@ -1232,7 +1232,7 @@
 			<key>colorindex</key>
 			<integer>7</integer>
 			<key>note</key>
-			<string>Enter completion</string>
+			<string>Enter progress</string>
 			<key>xpos</key>
 			<real>620</real>
 			<key>ypos</key>
@@ -1265,7 +1265,7 @@
 			<key>colorindex</key>
 			<integer>2</integer>
 			<key>note</key>
-			<string>Enter task name</string>
+			<string>Enter unit</string>
 			<key>xpos</key>
 			<real>605</real>
 			<key>ypos</key>
@@ -1274,7 +1274,7 @@
 		<key>E4429010-42E4-4217-93FA-0D0D7E21647F</key>
 		<dict>
 			<key>colorindex</key>
-			<integer>7</integer>
+			<integer>2</integer>
 			<key>xpos</key>
 			<real>965</real>
 			<key>ypos</key>
@@ -1358,7 +1358,7 @@
 		</dict>
 	</array>
 	<key>version</key>
-	<string>@@PROJECT.VERSION@@</string>
+	<string>0@@PROJECT.VERSION@@</string>
 	<key>webaddress</key>
 	<string>https://boxtime.io</string>
 </dict>

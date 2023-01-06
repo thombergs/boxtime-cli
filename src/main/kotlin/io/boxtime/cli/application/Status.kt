@@ -5,11 +5,9 @@ import io.boxtime.cli.ports.tasklogger.Count
 import java.time.Duration
 
 data class Status(
-    val currentTask: Task?,
-    val currentTaskDuration: Duration?,
-    val currentTaskDurationToday: Duration?,
-    val totalDurationToday: Duration?,
-    val nonTimeBasedTasksToday: List<TaskWithCount>
+    val currentTask: TaskWithCount?,
+    val todaysTasks: List<TaskWithCount>,
+    val totalTimeTrackedToday: Duration,
 )
 
 data class TaskWithCount(

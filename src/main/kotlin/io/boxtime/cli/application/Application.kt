@@ -162,31 +162,25 @@ class Application(
     fun status() {
         try {
 
+            val currentTask = taskLogger.getCurrentLogEntry()
+                ?.let {
+                    val task = taskDatabase.findTaskById(it.taskId)!!
+                    val currentSessionDuration =
+                        Duration.between(it.startTime, LocalDateTime.now()).toSeconds().toFloat()
+                    val currentSessionCount = Count(task.unit, currentSessionDuration)
+                    TaskWithCount(task, currentSessionCount)
+                }
+
             val todaysLogEntries = taskLogger.getLogEntriesFromToday()
-
-            // the task currently being tracked is always a time-based task, so we can assume time as the unit
-            val currentLogEntry = taskLogger.getCurrentLogEntry()
-            val currentTask = currentLogEntry
-                ?.let { taskDatabase.findTaskById(it.taskId) }
-            val count = currentLogEntry?.let {
-                Count(currentTask!!.unit, Duration.between(it.startTime, LocalDateTime.now()).toSeconds().toFloat())
-            }
-            val currentTaskDuration = count?.asDuration()
-            val currentTaskDurationToday = currentLogEntry
-                ?.let { logEntry -> todaysLogEntries.filter { it.taskId == logEntry.taskId } }
-                ?.map { count?.asDuration() ?: Duration.between(it.startTime, LocalDateTime.now()) }
-                ?.fold(Duration.ZERO) { e1, e2 -> if (e2 == null) e1 else e1.plus(e2) }
-
-            val totalDurationToday = taskLogger.getLogEntriesFromToday()
-                .map { count?.asDuration() ?: Duration.between(it.startTime, LocalDateTime.now()) }
-                .fold(Duration.ZERO) { e1, e2 -> if (e2 == null) e1 else e1.plus(e2) }
-
-            val nonTimeBasedTasksToday = todaysLogEntries
+            val todaysTasks = todaysLogEntries
                 .map {
                     val task = taskDatabase.findTaskById(it.taskId)!!
+                    if (it.taskId == currentTask?.task?.id && it.isOpen()) {
+                        // add the current session length to the current task's tally
+                        TaskWithCount(task, currentTask.count)
+                    }
                     TaskWithCount(task, Count(task.unit, it.count ?: 0f))
                 }
-                .filter { it.task.unit != Unit.SECONDS }
                 .groupBy { it.task.id }
                 .map {
                     it.value.reduce { left, right ->
@@ -194,12 +188,14 @@ class Application(
                     }
                 }
 
+            val totalSecondsTrackedToday = todaysTasks
+                .filter { it.count.unit == Unit.SECONDS }
+                .sumOf { it.count.count.toLong() }
+
             val status = Status(
                 currentTask,
-                currentTaskDuration,
-                currentTaskDurationToday,
-                totalDurationToday,
-                nonTimeBasedTasksToday
+                todaysTasks,
+                Duration.ofSeconds(totalSecondsTrackedToday),
             )
 
             output.status(status)

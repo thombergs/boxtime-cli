@@ -162,22 +162,8 @@ class AlfredOutput : Output {
             items.add(
                 ScriptFilterItem(
                     "void",
-                    "Currently tracking task:",
-                    status.currentTask.title
-                )
-            )
-            items.add(
-                ScriptFilterItem(
-                    "void",
-                    "Time tracked for current session:",
-                    "${status.currentTaskDuration?.toReadableString()}"
-                )
-            )
-            items.add(
-                ScriptFilterItem(
-                    "void",
-                    "Time tracked for this task today:",
-                    "${status.currentTaskDurationToday?.toReadableString()}"
+                    status.currentTask.task.title,
+                    "Currently tracking. Session time: ${status.currentTask.count}."
                 )
             )
         } else {
@@ -190,25 +176,15 @@ class AlfredOutput : Output {
             )
         }
 
-        if (status.totalDurationToday != null) {
-            items.add(
-                ScriptFilterItem(
-                    "void",
-                    "Total time tracked today:",
-                    "${status.totalDurationToday.toReadableString()}"
-                )
+        items.add(
+            ScriptFilterItem(
+                "void",
+                "Total time tracked today:",
+                status.totalTimeTrackedToday.toReadableString()
             )
-        } else {
-            items.add(
-                ScriptFilterItem(
-                    "void",
-                    "No time tracked today, yet.",
-                    ""
-                )
-            )
-        }
+        )
 
-        for (task in status.nonTimeBasedTasksToday) {
+        for (task in status.todaysTasks) {
             items.add(
                 ScriptFilterItem(
                     "void",

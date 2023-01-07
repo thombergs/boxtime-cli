@@ -1,6 +1,6 @@
 package io.boxtime.cli
 
-import io.boxtime.cli.commands.status.StatusCommand
+import io.boxtime.cli.commands.report.ReportCommand
 import io.boxtime.cli.ports.taskdatabase.TaskDatabase
 import io.boxtime.cli.commands.task.AddTaskCommand
 import io.boxtime.cli.commands.track.LogTaskCommand
@@ -14,7 +14,7 @@ import picocli.CommandLine.IFactory
 
 @SpringBootTest
 @ActiveProfiles("test")
-class StatusCommandTest {
+class ReportCommandTest {
 
 	@Autowired
 	lateinit var factory: IFactory
@@ -23,7 +23,7 @@ class StatusCommandTest {
 	lateinit var addTaskCommand: AddTaskCommand
 
 	@Autowired
-	lateinit var statusCommand: StatusCommand
+	lateinit var reportCommand: ReportCommand
 
 	@Autowired
 	lateinit var logCommand: LogTaskCommand
@@ -35,7 +35,7 @@ class StatusCommandTest {
 	lateinit var taskDatabase: TaskDatabase
 
 	@Test
-	fun listsStatus() {
+	fun listsReport() {
 
 		CommandLine(addTaskCommand, factory)
 			.execute("Load the dishwasher")
@@ -57,7 +57,7 @@ class StatusCommandTest {
 		CommandLine(logCommand, factory)
 			.execute(waterTask!!.id, "5")
 
-		CommandLine(statusCommand, factory)
+		CommandLine(reportCommand, factory)
 			.execute()
 
 	}

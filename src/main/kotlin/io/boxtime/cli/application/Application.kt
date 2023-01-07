@@ -159,7 +159,7 @@ class Application(
         return tasks[0]
     }
 
-    fun status() {
+    fun report() {
         try {
 
             val currentTask = taskLogger.getCurrentLogEntry()
@@ -189,17 +189,17 @@ class Application(
                     }
                 }
 
-            val totalSecondsTrackedToday = todaysTasks
+            val totalSecondsLoggedToday = todaysTasks
                 .filter { it.count.unit == Unit.SECONDS }
                 .sumOf { it.count.count.toLong() }
 
-            val status = Status(
+            val reportData = ReportData(
                 currentTask,
                 todaysTasks,
-                Duration.ofSeconds(totalSecondsTrackedToday),
+                Duration.ofSeconds(totalSecondsLoggedToday),
             )
 
-            output.status(status)
+            output.report(reportData)
         } catch (e: Exception) {
             output.error(e)
         }

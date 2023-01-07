@@ -2,7 +2,7 @@ package io.boxtime.cli.commands
 
 import io.boxtime.cli.commands.alfred.AlfredCommand
 import io.boxtime.cli.commands.log.LogCommand
-import io.boxtime.cli.commands.status.StatusCommand
+import io.boxtime.cli.commands.report.ReportCommand
 import io.boxtime.cli.commands.tag.TagCommand
 import io.boxtime.cli.commands.task.TaskCommand
 import io.boxtime.cli.commands.track.TrackCommand
@@ -17,7 +17,7 @@ import picocli.CommandLine.Command
         TaskCommand::class,
         TrackCommand::class,
         LogCommand::class,
-        StatusCommand::class,
+        ReportCommand::class,
         TagCommand::class,
         AlfredCommand::class,
     ]

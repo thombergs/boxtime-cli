@@ -1,4 +1,4 @@
-package io.boxtime.cli.commands.status
+package io.boxtime.cli.commands.report
 
 import io.boxtime.cli.commands.mixins.BaseCommand
 import io.boxtime.cli.config.ApplicationFactory
@@ -7,15 +7,15 @@ import picocli.CommandLine.Command
 
 @Component
 @Command(
-    name = "status",
-    description = ["Output current status."]
+    name = "report",
+    description = ["Output a report of the tasks you have tracked."]
 )
-class StatusCommand(
+class ReportCommand(
     applicationFactory: ApplicationFactory
 ) : BaseCommand(applicationFactory) {
 
     override fun call(): Int {
-        getApplication().status()
+        getApplication().report()
         return 0
     }
 

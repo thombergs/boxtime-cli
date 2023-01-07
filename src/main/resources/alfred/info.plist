@@ -344,9 +344,9 @@
 				<key>queuemode</key>
 				<integer>1</integer>
 				<key>runningsubtext</key>
-				<string>Loading status</string>
+				<string>Loading report</string>
 				<key>script</key>
-				<string>boxtime status --alfred</string>
+				<string>boxtime report --alfred</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -373,11 +373,11 @@
 				<key>argumenttype</key>
 				<integer>2</integer>
 				<key>keyword</key>
-				<string>t status</string>
+				<string>t report</string>
 				<key>subtext</key>
-				<string>List the tasks you worked on today.</string>
+				<string>Show a report of the tasks you logged.</string>
 				<key>text</key>
-				<string>Status</string>
+				<string>Report</string>
 				<key>withspace</key>
 				<false/>
 			</dict>
@@ -1077,7 +1077,7 @@
 			<key>colorindex</key>
 			<integer>8</integer>
 			<key>note</key>
-			<string>List status</string>
+			<string>Report</string>
 			<key>xpos</key>
 			<real>95</real>
 			<key>ypos</key>
@@ -1254,7 +1254,7 @@
 			<key>colorindex</key>
 			<integer>8</integer>
 			<key>note</key>
-			<string>List status</string>
+			<string>Report</string>
 			<key>xpos</key>
 			<real>275</real>
 			<key>ypos</key>

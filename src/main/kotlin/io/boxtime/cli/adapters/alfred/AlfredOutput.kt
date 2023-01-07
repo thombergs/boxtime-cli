@@ -1,6 +1,6 @@
 package io.boxtime.cli.adapters.alfred
 
-import io.boxtime.cli.application.Status
+import io.boxtime.cli.application.ReportData
 import io.boxtime.cli.application.toReadableString
 import io.boxtime.cli.ports.output.Output
 import io.boxtime.cli.ports.taskdatabase.Tag
@@ -156,14 +156,14 @@ class AlfredOutput : Output {
         )
     }
 
-    override fun status(status: Status) {
+    override fun report(reportData: ReportData) {
         val items = mutableListOf<ScriptFilterItem>()
-        if (status.currentTask != null) {
+        if (reportData.currentTask != null) {
             items.add(
                 ScriptFilterItem(
                     "void",
-                    status.currentTask.task.title,
-                    "Currently tracking. Session time: ${status.currentTask.count}."
+                    reportData.currentTask.task.title,
+                    "Currently tracking. Session time: ${reportData.currentTask.count}."
                 )
             )
         } else {
@@ -179,12 +179,12 @@ class AlfredOutput : Output {
         items.add(
             ScriptFilterItem(
                 "void",
-                "Total time tracked today",
-                status.totalTimeTrackedToday.toReadableString()
+                "Total time logged today",
+                reportData.totalTimeLogged.toReadableString()
             )
         )
 
-        for (task in status.todaysTasks) {
+        for (task in reportData.loggedTasks) {
             items.add(
                 ScriptFilterItem(
                     "void",

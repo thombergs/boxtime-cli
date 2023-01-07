@@ -1,7 +1,7 @@
 package io.boxtime.cli.ports.output
 
 import io.boxtime.cli.ports.taskdatabase.Task
-import io.boxtime.cli.application.Status
+import io.boxtime.cli.application.ReportData
 import io.boxtime.cli.ports.taskdatabase.Tag
 import io.boxtime.cli.ports.tasklogger.Count
 import io.boxtime.cli.ports.tasklogger.LogEntry
@@ -34,6 +34,6 @@ interface Output {
 
     fun taskLogged(task: Task, count: Count)
 
-    fun status(status: Status)
+    fun report(reportData: ReportData)
 
 }

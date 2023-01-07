@@ -9,6 +9,7 @@ import io.boxtime.cli.ports.tasklogger.TaskLogger
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
+import java.nio.file.StandardCopyOption
 import java.time.Duration
 import java.time.LocalDateTime
 
@@ -134,7 +135,7 @@ class Application(
     private fun copyResource(resourcePath: String, targetFolder: File){
         val inputStream = this::class.java.getResourceAsStream(resourcePath)
         val filename = resourcePath.substring(resourcePath.lastIndexOf('/') + 1)
-        Files.copy(inputStream!!, Path.of(targetFolder.absolutePath, filename))
+        Files.copy(inputStream!!, Path.of(targetFolder.absolutePath, filename), StandardCopyOption.REPLACE_EXISTING)
     }
 
     private fun createBoxtimeWorkflowFolder() {

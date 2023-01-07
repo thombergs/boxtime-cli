@@ -60,7 +60,11 @@ data class Task(
         return Task(this.id, this.title, this.created, this.unit, tags)
     }
 
-    fun tagsString(): String {
+    fun tagsString(): String? {
+        if (tags.isEmpty()) {
+            return null
+        }
+
         val builder = StringBuilder()
         for (tag in tags) {
             builder.append(tag.nameWithHashtag())

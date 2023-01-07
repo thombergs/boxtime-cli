@@ -106,7 +106,7 @@ class AlfredOutput : Output {
                 ScriptFilterItem(
                     it.id,
                     it.title,
-                    "Unit: ${it.unit.name}. Tags: ${it.tagsString()}"
+                    "Unit: ${it.unit.name}." + it.tagsString()?.let { " Tags: $it" }
                 )
             }
             .toTypedArray()

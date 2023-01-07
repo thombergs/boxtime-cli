@@ -179,7 +179,7 @@ class AlfredOutput : Output {
         items.add(
             ScriptFilterItem(
                 "void",
-                "Total time tracked today:",
+                "Total time tracked today",
                 status.totalTimeTrackedToday.toReadableString()
             )
         )

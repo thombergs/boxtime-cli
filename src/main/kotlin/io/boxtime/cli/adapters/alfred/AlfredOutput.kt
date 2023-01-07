@@ -164,6 +164,7 @@ class AlfredOutput : Output {
                     "void",
                     reportData.currentTask.task.title,
                     "Currently tracking. Session time: ${reportData.currentTask.count}."
+                            + reportData.currentTask.task.tagsString()?.let { " Tags: $it" }
                 )
             )
         } else {
@@ -189,7 +190,7 @@ class AlfredOutput : Output {
                 ScriptFilterItem(
                     "void",
                     task.task.title,
-                    "Logged ${task.count} today."
+                    "Logged ${task.count} today." + task.task.tagsString()?.let { " Tags: $it" }
                 )
             )
         }

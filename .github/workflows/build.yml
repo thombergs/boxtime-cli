@@ -15,10 +15,7 @@ permissions:
 jobs:
 
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ ubuntu-latest, macos-latest ]
+    runs-on: macos-latest
     steps:
 
       - name: ⚙️ Checkout
@@ -41,7 +38,7 @@ jobs:
         run: |
           ./gradlew nativeCompile
           mkdir -p build/artifacts
-          cd build/native/nativeCompile && tar -czf ../../../build/artifacts/boxtime-${{ matrix.os }}.tar.gz boxtime
+          cd build/native/nativeCompile && tar -czf ../../../build/artifacts/boxtime-${{ env.RUNNER_OS }}.tar.gz boxtime
 
       - name: ⬆️ Upload artifacts
         uses: actions/upload-artifact@v2
@@ -50,10 +47,7 @@ jobs:
           path: build/artifacts
 
   test:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ ubuntu-latest, macos-latest ]
+    runs-on: macos-latest
     steps:
 
       - name: ⚙️ Checkout
@@ -122,7 +116,7 @@ jobs:
         if: failure()
 
   alfred:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
 
       - name: ⚙️ Checkout
@@ -161,7 +155,7 @@ jobs:
       - version
       - build
       - test
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     permissions: write-all
     steps:
 

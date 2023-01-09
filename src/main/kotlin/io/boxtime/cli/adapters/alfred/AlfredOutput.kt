@@ -84,7 +84,7 @@ class AlfredOutput : Output {
         printItems(
             ScriptFilterItem(
                 task.id,
-                "Task stopped after ${count?.asDuration()?.toReadableString()}.",
+                "Task stopped after ${count.asDuration()?.toReadableString()}.",
                 "Stopped tracking '${task.title}'."
             )
         )
@@ -106,7 +106,7 @@ class AlfredOutput : Output {
                 ScriptFilterItem(
                     it.id,
                     it.title,
-                    "Unit: ${it.unit.name}." + it.tagsString()?.let { " Tags: $it" }
+                    "Unit: ${it.unit.name}. ${it.tagsString()}"
                 )
             }
             .toTypedArray()
@@ -163,8 +163,7 @@ class AlfredOutput : Output {
                 ScriptFilterItem(
                     "void",
                     reportData.currentTask.task.title,
-                    "Currently tracking. Session time: ${reportData.currentTask.count}."
-                            + reportData.currentTask.task.tagsString()?.let { " Tags: $it" }
+                    "Currently tracking. Session time: ${reportData.currentTask.count}. ${reportData.currentTask.task.tagsString()}"
                 )
             )
         } else {
@@ -190,7 +189,7 @@ class AlfredOutput : Output {
                 ScriptFilterItem(
                     "void",
                     task.task.title,
-                    "Logged ${task.count} today." + task.task.tagsString()?.let { " Tags: $it" }
+                    "Logged ${task.count} today. ${task.task.tagsString()}"
                 )
             )
         }

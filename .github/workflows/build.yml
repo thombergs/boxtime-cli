@@ -15,6 +15,7 @@ permissions:
 jobs:
 
   build:
+    name: 🔨 Build binary
     runs-on: macos-latest
     steps:
 
@@ -47,6 +48,7 @@ jobs:
           path: build/artifacts
 
   test:
+    name: 🔎 Run tests
     runs-on: macos-latest
     steps:
 
@@ -70,6 +72,7 @@ jobs:
         run: ./gradlew nativeTest
 
   version:
+    name: 🏷️️ Extract version
     if: github.ref == 'refs/heads/release'
     runs-on: ubuntu-latest
     outputs:
@@ -97,6 +100,7 @@ jobs:
         run: echo "projectVersion=$(./gradlew -q printVersion)" >> $GITHUB_OUTPUT
 
   check-release:
+    name: ✅ Validate release version
     if: github.ref == 'refs/heads/release'
     runs-on: ubuntu-latest
     permissions: write-all
@@ -116,6 +120,7 @@ jobs:
         if: failure()
 
   alfred:
+    name: 🔨 Build Alfred workflow
     runs-on: macos-latest
     steps:
 
@@ -148,6 +153,7 @@ jobs:
           path: build/artifacts
 
   release:
+    name: 📦 Release binaries
     if: github.ref == 'refs/heads/release'
     needs:
       - check-release
@@ -183,6 +189,7 @@ jobs:
             build/artifacts/**
 
   homebrew:
+    name: 🧪 Update Homebrew formula
     if: github.ref == 'refs/heads/release'
     needs:
       - release

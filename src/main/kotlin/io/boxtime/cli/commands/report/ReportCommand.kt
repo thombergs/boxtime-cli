@@ -18,10 +18,10 @@ class ReportCommand(
     @CommandLine.Option(
         names = ["-d", "--days"],
         description = [
-            "The number of previous days to include in the report (default 1)."
+            "The number of previous days to include in the report (default 0, meaning just today)."
         ]
     )
-    var days: Int = 1
+    var days: Int = 0
 
     override fun call(): Int {
         getApplication().report(days)

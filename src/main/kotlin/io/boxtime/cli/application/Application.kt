@@ -198,6 +198,8 @@ class Application(
                 .sumOf { it.count.count.toLong() }
 
             val reportData = ReportData(
+                from,
+                to,
                 currentTask,
                 allTasks,
                 Duration.ofSeconds(totalSecondsLoggedToday),

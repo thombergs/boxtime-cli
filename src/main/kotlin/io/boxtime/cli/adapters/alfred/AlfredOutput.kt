@@ -1,6 +1,7 @@
 package io.boxtime.cli.adapters.alfred
 
 import io.boxtime.cli.application.ReportData
+import io.boxtime.cli.application.format
 import io.boxtime.cli.application.toReadableString
 import io.boxtime.cli.ports.output.Output
 import io.boxtime.cli.ports.taskdatabase.Tag
@@ -158,6 +159,15 @@ class AlfredOutput : Output {
 
     override fun report(reportData: ReportData) {
         val items = mutableListOf<ScriptFilterItem>()
+
+        items.add(
+            ScriptFilterItem(
+                "void",
+                "Report from ${reportData.from.format()} to ${reportData.to.format()}",
+                "All data is from this time time period."
+            )
+        )
+
         if (reportData.currentTask != null) {
             items.add(
                 ScriptFilterItem(

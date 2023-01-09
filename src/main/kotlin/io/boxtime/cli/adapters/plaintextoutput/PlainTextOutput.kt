@@ -1,6 +1,7 @@
 package io.boxtime.cli.adapters.plaintextoutput
 
 import io.boxtime.cli.application.ReportData
+import io.boxtime.cli.application.format
 import io.boxtime.cli.application.toReadableString
 import io.boxtime.cli.ports.output.Output
 import io.boxtime.cli.ports.taskdatabase.Tag
@@ -104,6 +105,7 @@ class PlainTextOutput : Output {
     }
 
     override fun report(reportData: ReportData) {
+        LOGGER.info("Report from ${reportData.from.format()} to ${reportData.to.format()}")
         if (reportData.currentTask != null) {
             LOGGER.info("Currently tracking '${reportData.currentTask.task.title}'.")
             LOGGER.info("Current session duration: ${reportData.currentTask.count}.")

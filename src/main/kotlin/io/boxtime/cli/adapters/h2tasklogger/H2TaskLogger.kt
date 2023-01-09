@@ -43,22 +43,23 @@ class H2TaskLogger(
 
     }
 
-    override fun getLogEntriesFromToday(taskId: String?): List<LogEntry> {
-
-        val start = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS)
-        val end = LocalDateTime.MAX
+    override fun getLogEntries(
+        from: LocalDateTime,
+        to: LocalDateTime,
+        taskId: String?
+    ): List<LogEntry> {
 
         if (taskId == null) {
             return logRepository.findLogEntriesStartedInInverval(
-                start,
-                end
+                from,
+                to
             ).map { it.toDomainObject() }
         }
 
         return logRepository.findLogEntriesByTaskStartedInInverval(
             taskId,
-            start,
-            end
+            from,
+            to
         ).map { it.toDomainObject() }
     }
 

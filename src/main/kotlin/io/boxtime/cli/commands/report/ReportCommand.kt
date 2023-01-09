@@ -3,6 +3,7 @@ package io.boxtime.cli.commands.report
 import io.boxtime.cli.commands.mixins.BaseCommand
 import io.boxtime.cli.config.ApplicationFactory
 import org.springframework.stereotype.Component
+import picocli.CommandLine
 import picocli.CommandLine.Command
 
 @Component
@@ -14,8 +15,16 @@ class ReportCommand(
     applicationFactory: ApplicationFactory
 ) : BaseCommand(applicationFactory) {
 
+    @CommandLine.Option(
+        names = ["-d", "--days"],
+        description = [
+            "The number of previous days to include in the report (default 1)."
+        ]
+    )
+    var days: Int = 1
+
     override fun call(): Int {
-        getApplication().report()
+        getApplication().report(days)
         return 0
     }
 

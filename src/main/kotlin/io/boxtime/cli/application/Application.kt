@@ -160,8 +160,11 @@ class Application(
         return tasks[0]
     }
 
-    fun report() {
+    fun report(days: Int) {
         try {
+
+            val from = LocalDateTime.now().minusDays(days.toLong()).atStartOfDay()
+            val to = LocalDateTime.now()
 
             val currentTask = taskLogger.getCurrentLogEntry()
                 ?.let {
@@ -172,8 +175,8 @@ class Application(
                     TaskWithCount(task, currentSessionCount)
                 }
 
-            val todaysLogEntries = taskLogger.getLogEntriesFromToday()
-            val todaysTasks = todaysLogEntries
+            val allLogEntries = taskLogger.getLogEntries(from, to)
+            val allTasks = allLogEntries
                 .map {
                     val task = taskDatabase.findTaskById(it.taskId)!!
                     if (it.taskId == currentTask?.task?.id && it.isOpen()) {
@@ -190,13 +193,13 @@ class Application(
                     }
                 }
 
-            val totalSecondsLoggedToday = todaysTasks
+            val totalSecondsLoggedToday = allTasks
                 .filter { it.count.unit == Unit.SECONDS }
                 .sumOf { it.count.count.toLong() }
 
             val reportData = ReportData(
                 currentTask,
-                todaysTasks,
+                allTasks,
                 Duration.ofSeconds(totalSecondsLoggedToday),
             )
 

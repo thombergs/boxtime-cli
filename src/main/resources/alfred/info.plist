@@ -77,7 +77,7 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>BDA6C600-FCAE-41E9-9240-CD7DC5520F72</string>
+				<string>A3A0C850-A4AE-484D-AFAD-261A8C23A8F6</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -91,6 +91,19 @@
 			<dict>
 				<key>destinationuid</key>
 				<string>B271D8C4-EADD-4D90-855A-3C55ABE8601B</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>2CF61775-E748-4376-BEA3-BC5A7678F2DF</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>BFBB5F81-C8ED-4F24-A082-9924DF209718</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -203,6 +216,19 @@
 				<false/>
 			</dict>
 		</array>
+		<key>A3A0C850-A4AE-484D-AFAD-261A8C23A8F6</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>BDA6C600-FCAE-41E9-9240-CD7DC5520F72</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>AE80D13D-9189-4AD6-BB56-F6E45E52135C</key>
 		<array>
 			<dict>
@@ -244,6 +270,19 @@
 		</array>
 		<key>BDA6C600-FCAE-41E9-9240-CD7DC5520F72</key>
 		<array/>
+		<key>BFBB5F81-C8ED-4F24-A082-9924DF209718</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>DAB70435-927D-4E1B-A20F-AF66B1045F81</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>C0AA5AD7-E544-4ABA-B627-A277466BBFC0</key>
 		<array>
 			<dict>
@@ -257,6 +296,8 @@
 				<false/>
 			</dict>
 		</array>
+		<key>DAB70435-927D-4E1B-A20F-AF66B1045F81</key>
+		<array/>
 		<key>E4429010-42E4-4217-93FA-0D0D7E21647F</key>
 		<array>
 			<dict>
@@ -323,6 +364,46 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>t report</string>
+				<key>subtext</key>
+				<string>A report of the tasks you logged.</string>
+				<key>text</key>
+				<string>Report</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>22F1CEE3-9341-48C8-B99B-04A683C5AE51</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>subtext</key>
+				<string>The report will contain all task logs from the previous number days.</string>
+				<key>text</key>
+				<string>Enter the number of days</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>A3A0C850-A4AE-484D-AFAD-261A8C23A8F6</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>alfredfiltersresults</key>
 				<true/>
 				<key>alfredfiltersresultsmatchmode</key>
@@ -332,7 +413,7 @@
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
-				<integer>1</integer>
+				<integer>0</integer>
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>queuedelaycustom</key>
@@ -346,7 +427,7 @@
 				<key>runningsubtext</key>
 				<string>Loading report</string>
 				<key>script</key>
-				<string>boxtime report --alfred</string>
+				<string>boxtime report --alfred --days="$1"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -373,18 +454,18 @@
 				<key>argumenttype</key>
 				<integer>2</integer>
 				<key>keyword</key>
-				<string>t report</string>
+				<string>t log</string>
 				<key>subtext</key>
-				<string>Show a report of the tasks you logged.</string>
+				<string>Log progress of a task.</string>
 				<key>text</key>
-				<string>Report</string>
+				<string>Log task</string>
 				<key>withspace</key>
 				<false/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.input.keyword</string>
 			<key>uid</key>
-			<string>22F1CEE3-9341-48C8-B99B-04A683C5AE51</string>
+			<string>7876FAB3-BB75-4B40-AA5E-4C682C4BB996</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -413,27 +494,6 @@
 			<key>config</key>
 			<dict>
 				<key>argumenttype</key>
-				<integer>2</integer>
-				<key>keyword</key>
-				<string>t log</string>
-				<key>subtext</key>
-				<string>Log progress of a task.</string>
-				<key>text</key>
-				<string>Log task</string>
-				<key>withspace</key>
-				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
-			<key>uid</key>
-			<string>7876FAB3-BB75-4B40-AA5E-4C682C4BB996</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>subtext</key>
 				<string>Example: "1h5m" if task is tracked in time units, otherwise just a number like "5" or "1.33".</string>
@@ -448,6 +508,29 @@
 			<string>B271D8C4-EADD-4D90-855A-3C55ABE8601B</string>
 			<key>version</key>
 			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>script</key>
+				<string>boxtime track log $1 $2</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>5</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>7540FA63-5A25-4B4A-96D1-C7F208CD7D68</string>
+			<key>version</key>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -499,25 +582,22 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>concurrently</key>
+				<key>argument</key>
+				<string>{var:taskId}%%{query}</string>
+				<key>passthroughargument</key>
 				<false/>
-				<key>escaping</key>
-				<integer>0</integer>
-				<key>script</key>
-				<string>boxtime track log $1 $2</string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>type</key>
-				<integer>5</integer>
+				<key>variables</key>
+				<dict>
+					<key>duration</key>
+					<string>{query}</string>
+				</dict>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.action.script</string>
+			<string>alfred.workflow.utility.argument</string>
 			<key>uid</key>
-			<string>7540FA63-5A25-4B4A-96D1-C7F208CD7D68</string>
+			<string>009E0689-E35E-417E-88BB-513CD28337AC</string>
 			<key>version</key>
-			<integer>2</integer>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -563,20 +643,21 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>argument</key>
-				<string>{var:taskId}%%{query}</string>
-				<key>passthroughargument</key>
+				<key>lastpathcomponent</key>
 				<false/>
-				<key>variables</key>
-				<dict>
-					<key>duration</key>
-					<string>{query}</string>
-				</dict>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Start task</string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.utility.argument</string>
+			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
-			<string>009E0689-E35E-417E-88BB-513CD28337AC</string>
+			<string>4B432231-0C56-4FD9-B6E9-677E9FB4DB9C</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -604,23 +685,25 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>lastpathcomponent</key>
+				<key>concurrently</key>
 				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<false/>
-				<key>removeextension</key>
-				<false/>
-				<key>text</key>
-				<string>{query}</string>
-				<key>title</key>
-				<string>Start task</string>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>boxtime track start "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>5</integer>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
+			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>4B432231-0C56-4FD9-B6E9-677E9FB4DB9C</string>
+			<string>92557434-1154-416A-9168-231909D6985B</string>
 			<key>version</key>
-			<integer>1</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -677,7 +760,7 @@
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>script</key>
-				<string>boxtime track start "$1"</string>
+				<string>boxtime track stop</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -688,7 +771,7 @@
 			<key>type</key>
 			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>92557434-1154-416A-9168-231909D6985B</string>
+			<string>8CCCF091-7702-4562-978B-CA2AE7B48074</string>
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
@@ -742,7 +825,7 @@
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>script</key>
-				<string>boxtime track stop</string>
+				<string>boxtime task add "$1" --tags --unit=seconds</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -753,7 +836,7 @@
 			<key>type</key>
 			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>8CCCF091-7702-4562-978B-CA2AE7B48074</string>
+			<string>E979C85B-6870-4FE8-B040-14C33456E59A</string>
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
@@ -773,27 +856,6 @@
 			<string>alfred.workflow.input.keyword</string>
 			<key>uid</key>
 			<string>966B702A-AA40-4883-90E1-CF31FBCBD411</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<false/>
-				<key>removeextension</key>
-				<false/>
-				<key>text</key>
-				<string>{query}</string>
-				<key>title</key>
-				<string>Add task</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
-			<key>uid</key>
-			<string>3657C2A0-AC0D-4908-91FE-6246E9DDFC64</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -821,65 +883,21 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>concurrently</key>
+				<key>lastpathcomponent</key>
 				<false/>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>script</key>
-				<string>boxtime task add "$1" --tags --unit=seconds</string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>type</key>
-				<integer>5</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>E979C85B-6870-4FE8-B040-14C33456E59A</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>concurrently</key>
+				<key>onlyshowifquerypopulated</key>
 				<false/>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>script</key>
-				<string>boxtime task add "$1" --tags --unit="$2"</string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>type</key>
-				<integer>5</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>7DFDB316-41BA-4BCB-9781-37F9F931B08A</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>1</integer>
-				<key>subtext</key>
-				<string>May contain #hashtags.</string>
+				<key>removeextension</key>
+				<false/>
 				<key>text</key>
-				<string>Enter the name of the task</string>
-				<key>withspace</key>
-				<true/>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Add task</string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
+			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
-			<string>AE80D13D-9189-4AD6-BB56-F6E45E52135C</string>
+			<string>3657C2A0-AC0D-4908-91FE-6246E9DDFC64</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -920,6 +938,48 @@
 			<string>alfred.workflow.input.keyword</string>
 			<key>uid</key>
 			<string>C0AA5AD7-E544-4ABA-B627-A277466BBFC0</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>boxtime task add "$1" --tags --unit="$2"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>5</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>7DFDB316-41BA-4BCB-9781-37F9F931B08A</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>subtext</key>
+				<string>May contain #hashtags.</string>
+				<key>text</key>
+				<string>Enter the name of the task</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>AE80D13D-9189-4AD6-BB56-F6E45E52135C</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -1004,6 +1064,74 @@
 			<string>E4429010-42E4-4217-93FA-0D0D7E21647F</string>
 			<key>version</key>
 			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>script</key>
+				<string>brew tap thombergs/boxtime
+brew install boxtime</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>5</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>BFBB5F81-C8ED-4F24-A082-9924DF209718</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>t update</string>
+				<key>subtext</key>
+				<string>Installs the latest version of boxtime. This will overwrite any changes you made to the workflow!</string>
+				<key>text</key>
+				<string>Update boxtime</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>2CF61775-E748-4376-BEA3-BC5A7678F2DF</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>script</key>
+				<string>boxtime alfred install</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>5</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>DAB70435-927D-4E1B-A20F-AF66B1045F81</string>
+			<key>version</key>
+			<integer>2</integer>
 		</dict>
 	</array>
 	<key>readme</key>
@@ -1093,6 +1221,17 @@
 			<real>495</real>
 			<key>ypos</key>
 			<real>195</real>
+		</dict>
+		<key>2CF61775-E748-4376-BEA3-BC5A7678F2DF</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>2</integer>
+			<key>note</key>
+			<string>Add habit</string>
+			<key>xpos</key>
+			<real>95</real>
+			<key>ypos</key>
+			<real>1060</real>
 		</dict>
 		<key>3657C2A0-AC0D-4908-91FE-6246E9DDFC64</key>
 		<dict>
@@ -1216,6 +1355,17 @@
 			<key>ypos</key>
 			<real>900</real>
 		</dict>
+		<key>A3A0C850-A4AE-484D-AFAD-261A8C23A8F6</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>8</integer>
+			<key>note</key>
+			<string>Enter task name</string>
+			<key>xpos</key>
+			<real>345</real>
+			<key>ypos</key>
+			<real>15</real>
+		</dict>
 		<key>AE80D13D-9189-4AD6-BB56-F6E45E52135C</key>
 		<dict>
 			<key>colorindex</key>
@@ -1256,9 +1406,20 @@
 			<key>note</key>
 			<string>Report</string>
 			<key>xpos</key>
-			<real>275</real>
+			<real>610</real>
 			<key>ypos</key>
 			<real>15</real>
+		</dict>
+		<key>BFBB5F81-C8ED-4F24-A082-9924DF209718</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>2</integer>
+			<key>note</key>
+			<string>Log task</string>
+			<key>xpos</key>
+			<real>300</real>
+			<key>ypos</key>
+			<real>1060</real>
 		</dict>
 		<key>C0AA5AD7-E544-4ABA-B627-A277466BBFC0</key>
 		<dict>
@@ -1270,6 +1431,17 @@
 			<real>605</real>
 			<key>ypos</key>
 			<real>870</real>
+		</dict>
+		<key>DAB70435-927D-4E1B-A20F-AF66B1045F81</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>2</integer>
+			<key>note</key>
+			<string>Log task</string>
+			<key>xpos</key>
+			<real>485</real>
+			<key>ypos</key>
+			<real>1065</real>
 		</dict>
 		<key>E4429010-42E4-4217-93FA-0D0D7E21647F</key>
 		<dict>
@@ -1358,7 +1530,7 @@
 		</dict>
 	</array>
 	<key>version</key>
-	<string>0@@PROJECT.VERSION@@</string>
+	<string>@@PROJECT.VERSION@@</string>
 	<key>webaddress</key>
 	<string>https://boxtime.io</string>
 </dict>

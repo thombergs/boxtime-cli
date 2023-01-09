@@ -113,9 +113,9 @@ class PlainTextOutput : Output {
             LOGGER.info("Currently not tracking a task.")
         }
 
-        LOGGER.info("Total duration tracked today: ${reportData.totalTimeLogged.toReadableString()}.")
+        LOGGER.info("Total duration tracked: ${reportData.totalTimeLogged.toReadableString()}.")
 
-        for (task in reportData.loggedTasks) {
+        for (task in reportData.loggedTasks.sortedBy { it.count }) {
             LOGGER.info("Logged ${task.count} for task '${task.task.title}'.")
         }
     }

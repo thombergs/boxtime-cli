@@ -189,17 +189,17 @@ class AlfredOutput : Output {
         items.add(
             ScriptFilterItem(
                 "void",
-                "Total time logged today",
+                "Total time logged",
                 reportData.totalTimeLogged.toReadableString()
             )
         )
 
-        for (task in reportData.loggedTasks) {
+        for (task in reportData.loggedTasks.sortedBy { it.count }) {
             items.add(
                 ScriptFilterItem(
                     "void",
                     task.task.title,
-                    "Logged ${task.count} today. ${task.task.tagsString()}"
+                    "Logged ${task.count}. ${task.task.tagsString()}"
                 )
             )
         }

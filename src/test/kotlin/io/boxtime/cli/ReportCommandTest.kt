@@ -38,7 +38,16 @@ class ReportCommandTest {
 	fun listsReport() {
 
 		CommandLine(addTaskCommand, factory)
-			.execute("Load the dishwasher")
+			.execute("--unit=km", "Running")
+
+		val runningTask = taskDatabase.listTasks()
+			.firstOrNull { it.title == "Running" }
+
+		CommandLine(logCommand, factory)
+			.execute(runningTask!!.id, "10")
+
+		CommandLine(addTaskCommand, factory)
+			.execute("--unit=seconds", "Load the dishwasher")
 
 		val dishwasherTask = taskDatabase.listTasks()
 			.firstOrNull { it.title == "Load the dishwasher" }
@@ -56,6 +65,15 @@ class ReportCommandTest {
 
 		CommandLine(logCommand, factory)
 			.execute(waterTask!!.id, "5")
+
+		CommandLine(addTaskCommand, factory)
+			.execute("--unit=reps", "Stretches")
+
+		val stretchingTask = taskDatabase.listTasks()
+			.firstOrNull { it.title == "Stretches" }
+
+		CommandLine(logCommand, factory)
+			.execute(stretchingTask!!.id, "30")
 
 		CommandLine(reportCommand, factory)
 			.execute()

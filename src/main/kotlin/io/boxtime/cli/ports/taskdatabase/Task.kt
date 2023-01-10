@@ -62,7 +62,7 @@ data class Task(
 
     fun tagsString(): String {
         if (tags.isEmpty()) {
-            return "null"
+            return ""
         }
 
         val builder = StringBuilder("Tags: ")

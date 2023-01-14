@@ -216,4 +216,24 @@ class Application(
         output.listTags(tags)
     }
 
+    fun planTask(taskId: String, relativeDateString: String) {
+        val task = getTaskStartingWith(taskId) ?: return
+
+        val date = relativeDate(relativeDateString);
+        if (date == null) {
+            output.error(IllegalArgumentException("'$relativeDateString' is not a valid relative date."))
+            return
+        }
+
+        val plannedTask = task.plan(date)
+
+        taskDatabase.updateTask(plannedTask)
+    }
+
+    fun unplanTask(taskId: String) {
+        val task = getTaskStartingWith(taskId) ?: return
+        val unplannedTask = task.unplan()
+        taskDatabase.updateTask(unplannedTask)
+    }
+
 }

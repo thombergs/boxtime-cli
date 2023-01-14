@@ -1,6 +1,6 @@
 package io.boxtime.cli
 
-import io.boxtime.cli.commands.task.StartTaskCommand
+import io.boxtime.cli.commands.task.PlanTaskCommand
 import io.boxtime.cli.ports.taskdatabase.Task
 import io.boxtime.cli.ports.taskdatabase.TaskDatabase
 import io.boxtime.cli.ports.tasklogger.TaskLogger
@@ -14,19 +14,16 @@ import picocli.CommandLine.IFactory
 
 @SpringBootTest
 @ActiveProfiles("test")
-class StartTaskCommandTest {
+class PlanTaskCommandTest {
 
     @Autowired
     lateinit var factory: IFactory
 
     @Autowired
-    lateinit var command: StartTaskCommand
+    lateinit var command: PlanTaskCommand
 
     @Autowired
     lateinit var taskDatabase: TaskDatabase
-
-    @Autowired
-    lateinit var taskLogger: TaskLogger
 
     @Test
     fun taskStarted() {
@@ -35,11 +32,11 @@ class StartTaskCommandTest {
         taskDatabase.addTask(task)
 
         CommandLine(command, factory)
-            .execute(task.id)
+            .execute(task.id, "tomorrow")
 
-        assertThat(taskLogger.getLogEntries())
-            .filteredOn { it.taskId == task.id }
-            .hasSize(1)
+        val plannedTask = taskDatabase.findTaskById(task.id)
+        assertThat(plannedTask!!.planned).isNotNull
+
     }
 
 }

@@ -9,6 +9,7 @@ import org.springframework.data.domain.Persistable
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.MappedCollection
 import org.springframework.data.relational.core.mapping.Table
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 @Table("TASK")
@@ -22,6 +23,8 @@ data class TaskEntity(
     val created: LocalDateTime,
     @Column("UNIT")
     val unit: String,
+    @Column("PLANNED_DATE")
+    val planned: LocalDate?,
     @MappedCollection(idColumn = "TASK_ID")
     val tags: Set<TagRef> = HashSet(),
     @Transient
@@ -29,14 +32,14 @@ data class TaskEntity(
 ) : Persistable<String> {
 
     @PersistenceCreator
-    constructor(id: String, title: String, created: LocalDateTime, unit: String, tags: Set<TagRef>) : this(id, title, created, unit, tags,false)
+    constructor(id: String, title: String, created: LocalDateTime, unit: String, planned: LocalDate?, tags: Set<TagRef>) : this(id, title, created, unit, planned, tags,false)
 
     companion object {
         fun fromDomainObject(task: Task, new: Boolean): TaskEntity {
             val tagRefs = task.tags
                 .map { TagRef(it.id) }
                 .toSet()
-            return TaskEntity(task.id, task.title, task.created, task.unit.name, tagRefs, new)
+            return TaskEntity(task.id, task.title, task.created, task.unit.name, task.planned, tagRefs, new)
         }
     }
 
@@ -44,7 +47,7 @@ data class TaskEntity(
         val tags = tagRepository.findByIdIn(this.tags.map { it.tagId })
             .map { it.toDomainObject() }
             .toSet()
-        return Task(this.id, this.title, this.created, Unit(this.unit), tags)
+        return Task(this.id, this.title, this.created, Unit(this.unit), this.planned, tags)
     }
 
     override fun getId(): String {

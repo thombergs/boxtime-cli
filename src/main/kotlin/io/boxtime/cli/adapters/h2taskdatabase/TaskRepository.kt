@@ -14,6 +14,7 @@ interface TaskRepository : CrudRepository<TaskEntity, String> {
                task.TITLE,
                task.CREATED_DATE,
                task.UNIT,
+               task.PLANNED_DATE,
                tt.TAG_ID as TAG_ID
         from TASK task
                  join

@@ -1,4 +1,4 @@
-package io.boxtime.cli.commands.track
+package io.boxtime.cli.commands.task
 
 import io.boxtime.cli.commands.mixins.BaseCommand
 import io.boxtime.cli.config.ApplicationFactory

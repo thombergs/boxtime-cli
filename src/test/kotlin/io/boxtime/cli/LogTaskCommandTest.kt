@@ -1,6 +1,6 @@
 package io.boxtime.cli
 
-import io.boxtime.cli.commands.track.LogTaskCommand
+import io.boxtime.cli.commands.task.LogTaskCommand
 import io.boxtime.cli.ports.taskdatabase.Task
 import io.boxtime.cli.ports.taskdatabase.TaskDatabase
 import io.boxtime.cli.ports.tasklogger.TaskLogger

@@ -10,6 +10,11 @@ import picocli.CommandLine.Command
         AddTaskCommand::class,
         ListTasksCommand::class,
         ResetTasksCommand::class,
+        LogTaskCommand::class,
+        StartTaskCommand::class,
+        StopTaskCommand::class,
+        PlanTaskCommand::class,
+        UnplanTaskCommand::class
     ],
     mixinStandardHelpOptions = true,
     description = ["Commands to manage your tasks."]

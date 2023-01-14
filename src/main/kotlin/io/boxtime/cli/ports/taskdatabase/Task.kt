@@ -4,6 +4,7 @@ import com.aventrix.jnanoid.jnanoid.NanoIdUtils
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils.DEFAULT_ALPHABET
 import io.boxtime.cli.application.parseDuration
 import io.boxtime.cli.ports.tasklogger.Count
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
 import java.util.regex.Pattern
@@ -13,6 +14,7 @@ data class Task(
     val title: String,
     val created: LocalDateTime,
     val unit: Unit,
+    val planned: LocalDate?,
     val tags: Set<Tag>
 ) {
 
@@ -53,11 +55,20 @@ data class Task(
         if (extractTags) stripTags(title) else title,
         LocalDateTime.now(),
         unit,
+        null,
         if (extractTags) extractTags(title) else setOf<Tag>()
     )
 
     fun withTags(tags: Set<Tag>): Task {
-        return Task(this.id, this.title, this.created, this.unit, tags)
+        return Task(this.id, this.title, this.created, this.unit, this.planned, tags)
+    }
+
+    fun plan(date: LocalDate): Task {
+        return Task(this.id, this.title, this.created, this.unit, date, this.tags)
+    }
+
+    fun unplan(): Task {
+        return Task(this.id, this.title, this.created, this.unit, null, this.tags)
     }
 
     fun tagsString(): String {

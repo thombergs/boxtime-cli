@@ -41,6 +41,17 @@ class H2TaskDatabase(
         taskRepository.save(TaskEntity.fromDomainObject(sanitizedTask, new = true))
     }
 
+    override fun updateTask(task: Task) {
+
+        val sanitizedTags = task.tags
+            .map { addTag(it.name) }
+            .toSet()
+
+        val sanitizedTask = task.withTags(sanitizedTags)
+
+        taskRepository.save(TaskEntity.fromDomainObject(sanitizedTask, new = false))
+    }
+
     override fun reset() {
         taskRepository.deleteAll()
     }

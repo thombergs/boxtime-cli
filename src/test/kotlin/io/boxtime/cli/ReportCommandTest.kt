@@ -3,8 +3,8 @@ package io.boxtime.cli
 import io.boxtime.cli.commands.report.ReportCommand
 import io.boxtime.cli.ports.taskdatabase.TaskDatabase
 import io.boxtime.cli.commands.task.AddTaskCommand
-import io.boxtime.cli.commands.track.LogTaskCommand
-import io.boxtime.cli.commands.track.StartTaskCommand
+import io.boxtime.cli.commands.task.LogTaskCommand
+import io.boxtime.cli.commands.task.StartTaskCommand
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest

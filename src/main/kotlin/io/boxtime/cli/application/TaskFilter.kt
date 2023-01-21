@@ -19,5 +19,10 @@ data class TaskFilter(
     /**
      * The number of tasks to return.
      */
-    val count: Int = 10
+    val count: Int = 10,
+
+    /**
+     * Whether to show only tasks with a planned date.
+     */
+    val planned: Boolean = false,
 )

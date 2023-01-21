@@ -30,17 +30,19 @@ interface TaskRepository : CrudRepository<TaskEntity, String> {
             or LOWER(tag.NAME) like concat('%', concat(LOWER(:filter), '%'))
           )
           and (
-            ((:requiredUnits) is null OR task.unit in (:requiredUnits))
-            and ((:rejectedUnits) is null OR task.unit not in (:rejectedUnits))
+            ((:requiredUnits) is null OR task.UNIT in (:requiredUnits))
+            and ((:rejectedUnits) is null OR task.UNIT not in (:rejectedUnits))
+            and ((:planned) = false OR task.PLANNED_DATE is not null)
           )
-        order by touched.LAST_TOUCHED desc
+        order by task.PLANNED_DATE asc nulls last, touched.LAST_TOUCHED desc
     """, resultSetExtractorClass = TaskResultSetExtractor::class
     )
     fun findTasks(
         @Param("count") count: Int,
         @Param("filter") filter: String,
         @Param("requiredUnits") requiredUnits: List<String>? = null,
-        @Param("rejectedUnits") rejectedUnits: List<String>? = null
+        @Param("rejectedUnits") rejectedUnits: List<String>? = null,
+        @Param("planned") planned: Boolean = false
     ): List<TaskEntity>
 
 }

@@ -1,7 +1,6 @@
 package io.boxtime.cli.ports.taskdatabase
 
 import io.boxtime.cli.application.TaskFilter
-import java.time.LocalDate
 
 interface TaskDatabase {
 

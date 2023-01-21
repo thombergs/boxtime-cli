@@ -46,7 +46,7 @@ class PlainTextOutput : Output {
 
     override fun taskStopped(task: Task, logEntry: LogEntry) {
         val count = task.toCount(logEntry.count!!)
-        LOGGER.info("Stopped tracking task '${task.title}' after ${count?.asDuration()?.toReadableString()}.")
+        LOGGER.info("Stopped tracking task '${task.title}' after ${count.asDuration().toReadableString()}.")
     }
 
     override fun notCurrentlyTracking() {
@@ -61,11 +61,12 @@ class PlainTextOutput : Output {
                 Column("Task ID"),
                 Column("Task"),
                 Column("Unit"),
+                Column("Planned")
             )
         )
 
         for (task in tasks) {
-            table.addRow(task.id, task.title, task.unit.name)
+            table.addRow(task.id, task.title, task.unit.name, task.plannedString())
         }
 
         table.print(out)

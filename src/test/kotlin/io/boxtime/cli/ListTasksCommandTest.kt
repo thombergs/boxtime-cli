@@ -40,6 +40,23 @@ class ListTasksCommandTest {
 	}
 
 	@Test
+	fun sortsByPlannedDate() {
+		CommandLine(addTaskCommand, factory)
+			.execute("#tag1 Load the #tag2 dishwasher #tag3", "--tags")
+
+		CommandLine(addTaskCommand, factory)
+			.execute("#work Dust the warp core", "--tags")
+
+		CommandLine(addTaskCommand, factory)
+			.execute("#fitness Go running", "--tags")
+
+		CommandLine(listTaskCommand, factory)
+			.execute("--filter", "Dust")
+
+		// TODO: assert log output is correct
+	}
+
+	@Test
 	fun filtersByUnits() {
 		CommandLine(addTaskCommand, factory)
 			.execute("Foo") // default unit "seconds"

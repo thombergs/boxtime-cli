@@ -71,14 +71,16 @@ class Application(
         count: Int = 10,
         nameFilter: String = "",
         requiredUnits: List<String>,
-        rejectedUnits: List<String>
+        rejectedUnits: List<String>,
+        planned: Boolean
     ) {
         try {
             val filter = TaskFilter(
                 nameFilter,
                 requiredUnits,
                 rejectedUnits,
-                count
+                count,
+                planned
             )
             output.listTasks(taskDatabase.listTasks(filter))
         } catch (e: Exception) {

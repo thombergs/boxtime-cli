@@ -34,7 +34,7 @@ class ListTasksCommand(
         description = [
             "List only tasks with this unit.",
             "Can be used multiple times to combine multiple units with a logical OR.",
-            "Examples: 'seconds', 'km', 'seconds'."
+            "Examples: 'seconds', 'km', 'reps'."
         ]
     )
     var units: List<String> = listOf()
@@ -44,13 +44,21 @@ class ListTasksCommand(
         description = [
             "List only tasks that DO NOT have this unit.",
             "Can be used multiple times to combine multiple units with a logical AND.",
-            "Examples: 'seconds', 'km', 'seconds'."
+            "Examples: 'seconds', 'km', 'reps'."
         ]
     )
     var notUnits: List<String> = listOf()
 
+    @CommandLine.Option(
+        names = ["-p", "--planned"],
+        description = [
+            "List only tasks that have a planned date today or in the future.",
+        ]
+    )
+    var planned: Boolean = false
+
     override fun call(): Int {
-        getApplication().listTasks(count, filter, units, notUnits)
+        getApplication().listTasks(count, filter, units, notUnits, planned)
         return 0
     }
 

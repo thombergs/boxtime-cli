@@ -3,9 +3,11 @@ package io.boxtime.cli.ports.taskdatabase
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils.DEFAULT_ALPHABET
 import io.boxtime.cli.application.parseDuration
+import io.boxtime.cli.application.relativeDate
 import io.boxtime.cli.ports.tasklogger.Count
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.regex.Pattern
 
@@ -20,10 +22,16 @@ data class Task(
 
     companion object {
         val RANDOM = Random()
-        private const val TAG_REGEX = "(#[^# ]+)"
-        private val TAG_PATTERN = Pattern.compile(TAG_REGEX)
+        private val TAG_PATTERN = Pattern.compile("(#[^# ]+)")
+        private val DATE_PATTERN = Pattern.compile("(@[^@ ]+)")
 
         private fun stripTags(string: String): String {
+            return stripStandardTags(stripDateTags(string))
+                .trim()
+                .replace(Regex(" +"), " ")
+        }
+
+        private fun stripStandardTags(string: String): String {
             val matcher = TAG_PATTERN.matcher(string)
 
             var stripped = string
@@ -31,8 +39,16 @@ data class Task(
                 stripped = stripped.replace(matcher.group(), "")
             }
             return stripped
-                .trim()
-                .replace(Regex(" +"), " ")
+        }
+
+        private fun stripDateTags(string: String): String {
+            val matcher = DATE_PATTERN.matcher(string)
+
+            var stripped = string
+            while (matcher.find()) {
+                stripped = stripped.replace(matcher.group(), "")
+            }
+            return stripped
         }
 
         private fun extractTags(string: String): Set<Tag> {
@@ -45,6 +61,21 @@ data class Task(
 
             return tags;
         }
+
+        private fun extractPlannedDate(string: String): LocalDate? {
+            val matcher = DATE_PATTERN.matcher(string)
+
+            val tags = mutableSetOf<String>()
+            while (matcher.find()) {
+                tags.add(matcher.group().replace("@", ""))
+            }
+
+            if (tags.size == 1) {
+                return relativeDate(tags.iterator().next())
+            }
+
+            return null
+        }
     }
 
     constructor(
@@ -55,7 +86,7 @@ data class Task(
         if (extractTags) stripTags(title) else title,
         LocalDateTime.now(),
         unit,
-        null,
+        if (extractTags) extractPlannedDate(title) else null,
         if (extractTags) extractTags(title) else setOf<Tag>()
     )
 
@@ -69,6 +100,14 @@ data class Task(
 
     fun unplan(): Task {
         return Task(this.id, this.title, this.created, this.unit, null, this.tags)
+    }
+
+    fun plannedString(): String {
+        return if (this.planned == null) {
+            "unplanned"
+        } else {
+            this.planned.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        }
     }
 
     fun tagsString(): String {

@@ -22,7 +22,10 @@ class AddTaskCommand(
     @CommandLine.Option(
         names = ["-t", "--tags"],
         description = [
-            "Interpret #hashtags in the task title as tags."]
+            "Interpret #hashtags and @dates in the task title as tags.",
+            "Example: use '#work' to add the tag 'work' to the task.",
+            "Example: use '@tomorrow' to plan the task for tomorrow.",
+            "See the command 'boxtime task plan' for all date options."]
     )
     var extractTags: Boolean = false
 

@@ -15,7 +15,7 @@ class H2TaskDatabase(
     override fun listTasks(filter: TaskFilter): List<Task> {
         val requiredUnits = filter.requiredUnits.ifEmpty { null }
         val rejectedUnits = filter.rejectedUnits.ifEmpty { null }
-        return taskRepository.findTasks(filter.count, filter.name, requiredUnits, rejectedUnits)
+        return taskRepository.findTasks(filter.count, filter.name, requiredUnits, rejectedUnits, filter.planned)
             .map { it.toDomainObject(tagRepository) }
     }
 

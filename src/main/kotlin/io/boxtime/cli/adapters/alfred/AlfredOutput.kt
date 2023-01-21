@@ -85,7 +85,7 @@ class AlfredOutput : Output {
         printItems(
             ScriptFilterItem(
                 task.id,
-                "Task stopped after ${count.asDuration()?.toReadableString()}.",
+                "Task stopped after ${count.asDuration().toReadableString()}.",
                 "Stopped tracking '${task.title}'."
             )
         )
@@ -107,7 +107,7 @@ class AlfredOutput : Output {
                 ScriptFilterItem(
                     it.id,
                     it.title,
-                    "Unit: ${it.unit.name}. ${it.tagsString()}"
+                    "Planned: ${it.plannedString()}. Unit: ${it.unit.name}. ${it.tagsString()}"
                 )
             }
             .toTypedArray()

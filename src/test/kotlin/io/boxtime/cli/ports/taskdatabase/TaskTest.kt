@@ -22,4 +22,11 @@ class TaskTest {
         assertThat(task.title).isEqualTo("Foo with a and another")
     }
 
+    @Test
+    fun evaluatesDateTags() {
+        val task = Task("Foo with a #tag1 and another #tag2 @tomorrow", extractTags = true)
+        assertThat(task.title).isEqualTo("Foo with a and another")
+        assertThat(task.planned).isNotNull
+    }
+
 }

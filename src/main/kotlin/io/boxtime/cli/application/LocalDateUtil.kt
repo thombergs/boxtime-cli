@@ -6,14 +6,15 @@ import java.time.LocalDate
 import java.time.temporal.TemporalAdjusters
 import java.util.regex.Pattern
 
-private val DAY_PATTERN = Pattern.compile("^([0-9]+) ?[dD]")
-private val WEEK_PATTERN = Pattern.compile("^([0-9]+) ?[wW]")
+private val dayPattern = Pattern.compile("^([0-9]+) ?[dD]")
+private val weekPattern = Pattern.compile("^([0-9]+) ?[wW]")
 
 /**
  * Transforms a relative future time string like "tomorrow" into the corresponding LocalDate.
  */
 fun relativeDate(dateString: String, clock: Clock = Clock.systemDefaultZone()): LocalDate? {
     when (dateString.lowercase()) {
+        "today" -> return LocalDate.now(clock)
         "tomorrow" -> return LocalDate.now(clock).plusDays(1)
         "mon" -> return LocalDate.now(clock).with(TemporalAdjusters.next(DayOfWeek.MONDAY))
         "tue" -> return LocalDate.now(clock).with(TemporalAdjusters.next(DayOfWeek.TUESDAY))
@@ -26,13 +27,13 @@ fun relativeDate(dateString: String, clock: Clock = Clock.systemDefaultZone()): 
         "nextmonth" -> return firstWorkdayOfMonth(LocalDate.now(clock).plusMonths(1))
     }
 
-    val dayMatcher = DAY_PATTERN.matcher(dateString)
+    val dayMatcher = dayPattern.matcher(dateString)
     if (dayMatcher.matches()) {
         val days = dayMatcher.group(1).toLong()
         return LocalDate.now(clock).plusDays(days)
     }
 
-    val weekMatcher = WEEK_PATTERN.matcher(dateString)
+    val weekMatcher = weekPattern.matcher(dateString)
     if (weekMatcher.matches()) {
         val days = weekMatcher.group(1).toLong() * 7
         return LocalDate.now(clock).plusDays(days)
